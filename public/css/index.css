@@ -1,0 +1,266 @@
+/*------- CAROUSEL -------*/
+/* wrapper card */
+.hero-area {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    overflow: visible;
+}
+
+.hero-wrapper {
+    height: 85vh;
+}
+
+.hero-area .bg-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Overlay gelap cinematic */
+.bg-overlay-2by5::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.637);
+    z-index: 1;
+}
+
+/* pastikan gambar mengikuti sudut */
+.hero-wrapper .carousel,
+.hero-wrapper .carousel-inner,
+.hero-wrapper .carousel-item,
+.hero-wrapper .bg-img {
+    height: 100%;
+}
+
+/* konten kiri seperti desain */
+.hero-area .container {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    max-width: 100%;
+    margin-left: 60px;
+    margin-top: 100px;
+}
+
+/* mobile tetap rapi */
+@media (max-width: 768px) {
+    .hero-wrapper {
+        height: 85vh;
+    }
+
+    .hero-area .container {
+        text-align: left;
+        margin-left: 5px;
+        padding-left: 16px;
+        max-width: 100%;
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 60%;
+}
+
+/*------ Statistik Section ------*/
+.statistik {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
+    margin-top: -80px;
+}
+
+.horizontal-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card,
+.data-card {
+    border-radius: 14px;
+}
+
+.stats-card .title {
+    color: var(--color-primary-700);
+    font-weight: 700;
+}
+
+.stats-card .desc {
+    line-height: 1.6;
+}
+
+.link-sambutan {
+    color: var(--color-primary-700);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-sambutan:hover {
+    text-decoration: underline;
+}
+
+.foto-kepsek {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* About Section */
+.about-section {
+    margin-bottom: 40px;
+}
+
+/* Image style */
+.about-image-wrapper {
+    position: relative;
+    margin-right: 20px;
+}
+.about-image-wrapper img {
+    border-radius: 1rem;
+}
+
+.about-image-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #6b11cb0a, #2574fc38);
+    border-radius: 1rem;
+    z-index: -1;
+}
+
+/* Title */
+.about-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-black);
+    font-family: var(--font-heading);
+}
+
+.about-answer {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+}
+
+/* Text */
+.about-text {
+    color: var(--color-black);
+    line-height: 1.8;
+    font-size: 1rem;
+    font-family: var(--font-body);
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/* Gallery Section */
+.gallery {
+    background: linear-gradient(135deg, #0b5974, #0b6e6e);
+    color: #fff;
+}
+
+/* scroll container */
+.gallery-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    scroll-behavior: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-scroll.dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+/* setiap kartu */
+.gallery-item {
+    min-width: 220px;
+    max-width: 240px;
+    height: 320px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.gallery-item .card-gallery {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.card-gallery:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* gambar */
+.gallery-item img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+}
+
+/* teks bagian kanan */
+.gallery-title {
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.gallery-desc {
+    opacity: 0.9;
+    margin-bottom: 14px;
+}
+
+.gallery-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.gallery-link:hover {
+    text-decoration: none;
+    color: var(--color-primary-700);
+}
