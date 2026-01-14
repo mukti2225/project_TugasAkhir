@@ -138,19 +138,7 @@
     margin-right: 20px;
 }
 .about-image-wrapper img {
-    border-radius: 1rem;
-}
-
-.about-image-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #6b11cb0a, #2574fc38);
-    border-radius: 1rem;
-    z-index: -1;
+    border-radius: 0.4rem;
 }
 
 /* Title */
@@ -179,6 +167,34 @@
 .btn-outline-secondary:hover {
     color: #fff;
     border-color: #0d6efd;
+}
+
+/*------ Artikel ------*/
+.artikel {
+    background: #3e3a86;
+    color: #fff;
+}
+
+.artikel-section {
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #3e3a86;
+    background-color: #ffc300;
+    border-radius: 5px;
+    display: inline-flex;
+    padding: 4px 8px;
+}
+
+.artikel-judul {
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.artikel-card {
+    background-color: #fff;
+    color: black;
+    border-radius: 5px;
 }
 
 /* Gallery Section */

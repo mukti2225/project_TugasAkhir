@@ -5,11 +5,19 @@
 @section('content')
 <section class="blog-area section-padding-100-0 mb-50">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
+        <div class="row mt-4 mb-4">
+            <div class="col-6">
                 <div class="section-heading">
                     <h3>List Artikel</h3>
                 </div>
+            </div>
+            <div class="col-6">
+                <form class="d-flex me-3" action="{{ route('artikel.search') }}" method="GET">
+                <input class="form-control form-control-sm me-2" type="search"
+                       name="keyword" placeholder="Search">
+                <button class="btn btn-outline-primary btn-sm" type="submit">Search
+                </button>
+                </form> 
             </div>
         </div>
 

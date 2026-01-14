@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +22,9 @@ class ArtikelResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Artikel';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -29,11 +33,9 @@ class ArtikelResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (string $state, Forms\Set $set) => $set('slug', Str::slug($state))),
-                Forms\Components\Hidden::make('slug')
+                Forms\Components\TextInput::make('slug')
                     ->disabled()
                     ->dehydrated(),
-                Forms\Components\Textarea::make('deskripsi')
-                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->image()
                     ->disk('public')
@@ -46,6 +48,12 @@ class ArtikelResource extends Resource
                     ->required()
                     ->searchable()
                     ->preload(),
+                Forms\Components\RichEditor::make('deskripsi')
+                    ->label('Isi Artikel')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 

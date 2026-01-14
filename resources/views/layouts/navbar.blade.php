@@ -1,8 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm py-3">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="{{ asset('templates/frontend') }}/img/main/ARH.png" alt="" height="30" class="me-2">
-            Arif Rahman Hakim
+            <img src="/img/logo/ARH.png" alt="" height="40" class="me-2">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent">

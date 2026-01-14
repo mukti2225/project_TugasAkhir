@@ -2,8 +2,17 @@
   <div class="container-fluid gallery py-5">
     <div class="container">
         <div class="row">
+
+      <!-- TEKS -->
+      <div class="col-lg-12 p-3 text-center">
+        <h3 class="gallery-title">Gallery Sekolah</h3>
+        <p class="gallery-desc">
+          Temukan aktivitas dan kesenangan di sekolahmu.
+        </p>
+      </div>
+
       <!-- GALERI -->
-      <div class="col-lg-9 mb-4 mb-lg-0">
+      <div class="col-lg-12 mb-6 mb-lg-0">
         <div class="gallery-scroll">
           @foreach($gallery as $gallery)
           <div class="gallery-item">
@@ -15,15 +24,6 @@
         </div>
       </div>
 
-      <!-- TEKS -->
-      <div class="col-lg-3 p-3">
-        <h2 class="gallery-title">Gallery Sekolah</h2>
-        <p class="gallery-desc">
-          Temukan aktivitas dan kesenangan di sekolahmu.
-        </p>
-        <a href="#" class="gallery-link">Aktivitas Siswa →</a><br>
-        <a href="#" class="gallery-link">Fasilitas →</a>
-      </div>
     </div>
     </div>
   </div>
