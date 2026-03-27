@@ -14,6 +14,11 @@ class EditGallery extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
+            Actions\Action::make('back')
+                ->label('Kembali')
+                ->color('gray') 
+                ->url(fn() => $this->getResource()::getUrl('index')),
+        
         ];
     }
 }

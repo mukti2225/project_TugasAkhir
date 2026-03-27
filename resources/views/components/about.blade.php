@@ -1,5 +1,5 @@
-    <div class="container py-3">
-        <div class="row align-items-center g-5">
+    <div class="container py-4">
+        <div class="row align-items-center g-4">
 
             <!-- IMAGE -->
             <div class="col-lg-6">

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Ptn;
 use App\Models\Artikel;
-use App\Models\HeroSlider;
 use App\Models\Gallery;
 use App\Models\Statistik;
+use App\Models\HeroSlider;
 
 class HomeController extends Controller
 {
@@ -14,8 +14,9 @@ class HomeController extends Controller
     {
         return view('page.index', [
             'statistik' => Statistik::query()->first(),
-            'artikel' => Artikel::with(['user','kategoriArtikel'])->latest()->take(3)->get(),
+            'artikel' => Artikel::with(['user','kategoriArtikel'])->latest()->take(4)->get(),
             'gallery' => Gallery::latest()->take(6)->get(),
+            'ptn' => Ptn::all(),
             'sliders' => HeroSlider::where('is_active', true)
                 ->orderBy('order')
                 ->get(),

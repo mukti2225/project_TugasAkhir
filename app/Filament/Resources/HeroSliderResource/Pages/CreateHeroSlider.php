@@ -9,4 +9,12 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateHeroSlider extends CreateRecord
 {
     protected static string $resource = HeroSliderResource::class;
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction(),
+            $this->getCancelFormAction(),
+        ];
+    }
 }

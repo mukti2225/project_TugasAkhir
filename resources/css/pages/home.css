@@ -1,0 +1,494 @@
+/*------- CAROUSEL -------*/
+.hero-area {
+    z-index: 0;
+    overflow: visible;
+}
+
+.hero-wrapper {
+    height: 100vh;
+}
+
+.hero-area .bg-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-hero {
+    position: relative;
+    color: #fff;
+    z-index: 1;
+    text-align: left;
+    justify-content: center;
+    max-width: 95%;
+    margin: 0;
+    padding: 0 35px;
+}
+
+.bg-overlay-2by5::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.637);
+    z-index: 1;
+}
+
+.hero-wrapper .carousel,
+.hero-wrapper .carousel-inner,
+.hero-wrapper .carousel-item,
+.hero-wrapper .bg-img {
+    height: 100%;
+}
+
+.hero-area .container-text {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    justify-content: center;
+    max-width: 95%;
+    margin: 0;
+    padding: 0 35px;
+}
+
+@media (max-width: 768px) {
+    .hero-wrapper {
+        height: 85vh;
+    }
+
+    .hero-area .container-text {
+        text-align: left;
+        margin-left: 5px;
+        padding-left: 16px;
+        max-width: 100%;
+    }
+}
+
+.carousel-fade .carousel-item {
+    transition: opacity 0.5s ease-in-out !important;
+}
+
+.carousel-indicators button {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50%;
+    margin-top: -60px;
+}
+
+/*------ Statistik Section ------*/
+.statistik {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
+    border-radius: 10px;
+    margin-top: -50px;
+}
+
+.horizontal-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13);
+}
+
+.stats-card,
+.data-card {
+    border-radius: 10px;
+}
+
+.stats-card .title {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.stats-card .desc {
+    line-height: 1.5;
+}
+
+.link-sambutan {
+    color: var(--color-primary-700);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-sambutan:hover {
+    text-decoration: underline;
+    color: #00a98f;
+}
+
+.foto-kepsek {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #777;
+}
+
+.btn-stat {
+    background-color: #00a98f;
+    color: #fff;
+    font-weight: 400;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-stat-outline {
+    background-color: transparent;
+    border: 1px solid #00a98f;
+    color: #00a98f;
+    font-weight: 400;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-stat-outline:hover {
+    background-color: #00a98f;
+    color: #fff;
+    font-weight: 400;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* About Section */
+.about-section {
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+/* Image style */
+.about-image-wrapper {
+    position: relative;
+    margin-right: 20px;
+}
+.about-image-wrapper img {
+    border-radius: 0.4rem;
+}
+
+/* Title */
+.about-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-black);
+    font-family: var(--font-heading);
+}
+
+.about-answer {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+}
+
+/* Text */
+.about-text {
+    color: var(--color-black);
+    line-height: 1.8;
+    font-size: 1rem;
+    font-family: var(--font-body);
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/*------ Artikel ------*/
+.artikel {
+    background: #e1f1ff;
+}
+
+.artikel-section {
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    background-color: #ffc300;
+    border-radius: 5px;
+    display: inline-flex;
+    padding: 4px 8px;
+}
+
+.artikel-judul {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 3px;
+}
+
+.artikel-desc {
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.artikel-card {
+    background-color: #fff;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.artikel-card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+.artikel-card:hover .card-img-top {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.artikel-card .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.artikel-card .card-text {
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #3f3f3f;
+}
+
+.card-body {
+    display: flex;
+    padding: 4px 8px;
+    margin: 4px 8px;
+}
+
+.card-body .kategori {
+    background-color: #00a99042;
+    color: #00a98f;
+    font-weight: 400;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin: 2px 2px;
+    border-radius: 3px;
+}
+
+.card-body .text-muted {
+    color: #ffffff77;
+    font-weight: 400;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin: 2px 2px;
+    border-radius: 2px;
+}
+
+.btn-lihat {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #00a98f;
+    border-radius: 30px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+.btn-lihat:hover {
+    background-color: transparent;
+    border: 1px solid #00a98f;
+    color: #00a98f;
+}
+
+/* Gallery Section */
+.gallery {
+    background: #f0f8ff;
+}
+
+.gallery-section {
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    background-color: #ffc300;
+    border-radius: 5px;
+    display: inline-flex;
+    padding: 4px 8px;
+}
+
+.gallery-judul {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 3px;
+}
+
+.gallery-desc {
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.gallery-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    scroll-behavior: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-scroll.dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+.gallery-item {
+    min-width: 220px;
+    max-width: 240px;
+    height: 320px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.gallery-item .card-gallery {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.card-gallery:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: auto;
+}
+
+/* PTN SECTION */
+.ptn {
+    background-color: #f8f9fa;
+}
+
+.ptn-section {
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    background-color: #ffc300;
+    border-radius: 5px;
+    display: inline-flex;
+    padding: 4px 8px;
+}
+
+.ptn-judul {
+    margin-bottom: 3px;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.ptn-desc {
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+/* SCROLL AREA */
+.ptn-scroll {
+    display: flex;
+    gap: 1.2rem;
+    overflow-x: hidden;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ptn-scroll.active {
+    cursor: grabbing;
+}
+
+/* ITEM */
+.ptn-item {
+    flex: 0 0 auto;
+}
+
+/* CARD */
+.card-ptn {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    border-radius: 16px;
+    overflow: auto;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.card-ptn:hover {
+    transform: translateY(-6px);
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card-ptn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* OVERLAY */
+.ptn-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.699), rgba(0, 0, 0, 0));
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ptn-overlay img {
+    margin-bottom: 3px;
+    height: 35px;
+    width: 35px;
+    object-fit: fill;
+    position: relative;
+}
+
+.ptn-overlay h2 {
+    margin-bottom: 2px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.ptn-overlay h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.ptn-overlay span {
+    font-size: 0.8rem;
+    font-weight: 200;
+    opacity: 0.8;
+}

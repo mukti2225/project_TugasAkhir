@@ -8,12 +8,10 @@
           <h4 class="title mb-3">{{ $statistik->title }}</h4>
 
           <p class="desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla
-            tempus venenatis. Suspendisse vel pharetra libero. Phasellus dignissim
-            libero a nisi congue maximus. In at varius lectus.
+            {!! Str::limit(strip_tags($statistik->sambutan), 250) ?? 'Sambutan belum tersedia.' !!}
           </p>
 
-          <a href="#" class="link-sambutan">Sambutan Kepala Sekolah..</a>
+          <a href="{{ route('profil.sambutan') }}" class="link-sambutan">Sambutan Kepala Sekolah..</a>
 
           <div class="d-flex align-items-center mt-4">
             <img src="{{ asset('storage/' . $statistik->photo) }}" class="foto-kepsek" alt="Foto Kepala Sekolah">
@@ -44,8 +42,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-center gap-4">
-            <a href="#" class="btn btn-outline-primary">Tentang Kami</a>
-            <a href="#" class="btn btn-primary">Visi dan Misi</a>
+            <a href="#about" class="btn-stat-outline">Tentang Kami</a>
+            <a href="{{ route('profil.visi-misi') }}" class="btn-stat">Visi dan Misi</a>
           </div>
         </div>
       </div>

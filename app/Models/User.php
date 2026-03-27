@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Formulir;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
+
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -45,5 +51,33 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function formulir()
+    {
+        return $this->hasOne(Formulir::class);
+    }
+
+    public function berkas()
+    {
+        return $this->hasOne(Berkas::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+
+            // Cegah admin kena role user
+            if (!$user->hasRole('admin')) {
+                $user->assignRole('user');
+            }
+
+        });
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar 
+            ? Storage::disk('public')->url($this->avatar) 
+            : null;
     }
 }

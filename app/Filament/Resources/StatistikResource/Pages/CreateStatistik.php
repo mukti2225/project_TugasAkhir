@@ -9,4 +9,12 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateStatistik extends CreateRecord
 {
     protected static string $resource = StatistikResource::class;
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction(),
+            $this->getCancelFormAction(),
+        ];
+    }
 }

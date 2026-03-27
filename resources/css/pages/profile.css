@@ -1,0 +1,50 @@
+/* IMG FLUID */
+.img-sambutan {
+    max-width: 320px;
+    margin: auto;
+}
+
+.img-sambutan img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card */
+.card-fasilitas {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    height: 280px;
+}
+
+.card-fasilitas img {
+    width: 100%;
+    display: block;
+    height: 280px;
+    object-fit: cover;
+    transition: 0.3s ease;
+}
+
+/* Overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.overlay h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Hover Effect */
+.card-fasilitas:hover img {
+    transform: scale(1.05);
+}

@@ -17,36 +17,53 @@ class StatistikResource extends Resource
 {
     protected static ?string $model = Statistik::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+
+    protected static ?string $navigationLabel = 'Data Sekolah';
+    protected static ?string $pluralModelLabel = 'Data Sekolah';
 
     protected static ?string $navigationGroup = 'Profil';
+    
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label('Heading')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->default('Selamat Datang di SMA Arif Rahman Hakim'),
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama Kepala Sekolah')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('photo')
+                    ->label('Foto Kepala Sekolah')
+                    ->image()
+                    ->required(),
                 Forms\Components\TextInput::make('position')
+                    ->label('Jabatan')
                     ->required()
                     ->maxLength(255)
                     ->default('Kepala Sekolah'),
-                Forms\Components\FileUpload::make('photo')
-                    ->image()
+                Forms\Components\Textarea::make('sambutan')
+                    ->label('Kalimat Sambutan')
+                    ->rows(5)
+                    ->columnSpanFull()
                     ->required(),
                 Forms\Components\TextInput::make('total_teachers')
+                    ->label('Total Pengajar')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('total_students')
+                    ->label('Total Murid')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('total_classes')
+                    ->label('Total Rombongan belajar')
                     ->required()
                     ->numeric()
                     ->default(0),
@@ -58,41 +75,37 @@ class StatistikResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Kepala Sekolah')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('position')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('photo'),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Foto'),
                 Tables\Columns\TextColumn::make('total_teachers')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Total Guru')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('total_students')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Total Murid')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('total_classes')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Total Kelas')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->paginated(false)
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
@@ -101,6 +114,7 @@ class StatistikResource extends Resource
             //
         ];
     }
+
 
     public static function getPages(): array
     {

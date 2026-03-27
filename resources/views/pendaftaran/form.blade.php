@@ -7,7 +7,7 @@
   <div class="row">
     
     <!-- Sidebar -->
-    <div class="col-md-3">
+    <div class="sidebar col-md-3">
       <div class="list-group shadow-sm">
         <div class="list-group-item bg-primary text-white fw-bold">Pengguna</div>
         <a href="#" class="list-group-item list-group-item-action">Pendaftaran</a>

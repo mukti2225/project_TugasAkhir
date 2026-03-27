@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\HeroSliderResource\Pages;
-use App\Filament\Resources\HeroSliderResource\RelationManagers;
 use App\Models\HeroSlider;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -17,7 +16,11 @@ class HeroSliderResource extends Resource
 {
     protected static ?string $model = HeroSlider::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-film';
+    
+    protected static ?string $navigationLabel = 'Banner';
+
+    protected static ?string $pluralModelLabel = 'Daftar Banner';
 
     protected static ?string $navigationGroup = 'Profil';
 
@@ -92,13 +95,6 @@ class HeroSliderResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('position')->default('Kepala Sekolah');
             $table->string('photo')->nullable();
+            $table->text('sambutan')->nullable();
 
             // Data Sekolah
             $table->unsignedInteger('total_teachers')->default(0);

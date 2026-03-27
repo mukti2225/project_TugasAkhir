@@ -2,31 +2,24 @@
     'title' => 'Home',
 ])
 
-@push('css')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">    
-@endpush
-
-
 @section('content')
+    @include('components.carousel')
 
-    <section id="carousel">
-        @include('components.carousel')
-    </section>
+    @include('components.statistik')
 
-    <section id="statistik">
-        @include('components.statistik')
-    </section>
+    @include('components.artikel')
 
-    <section id="about">
+    @include('components.gallery')
+
+    <div id="about">
         @include('components.about')
-    </section>
+    </div>
 
-    <section id="artikel">
-        @include('components.artikel')
-    </section>
+    {{-- @include('components.vidio-profil') --}}
 
-    <section id="gallery">
-        @include('components.gallery')
-    </section>
-
+    @include('components.ptn')
 @endsection
+
+@push('js')
+    <script src="{{ asset('js/index.js') }}"></script>
+@endpush

@@ -8,24 +8,39 @@ use Illuminate\Http\Request;
 
 class ArtikelsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-    	$artikel = Artikel::with(['user','kategoriArtikel'])->latest()->paginate(4);
-    	return view('artikel.index',compact('artikel'));
+    	$artikel = Artikel::with(['user','kategoriArtikel'])
+            ->when($request->kategori, function ($query) use ($request) {
+                $query->where('kategori_artikel_id', $request->kategori);
+            })
+            ->latest()
+            ->paginate(30)
+            ->withQueryString();
+        
+        $kategori = KategoriArtikel::all();
+        
+    	return view('berita.artikel.index',compact('artikel', 'kategori'));
     }
 
     public function show(Artikel $artikel)
     {
-        return view('artikel.show', compact('artikel'));
+        return view('berita.artikel.show', compact('artikel'));
     }
 
     public function search(Request $request)
     {	
-    	$artikel = Artikel::with(['user','kategoriArtikel'])->where(function($query) use ($request){
-    		$query->where('judul','like','%'.$request->keyword.'%')
-            ->orWhere('deskripsi','like','%'.$request->keyword.'%');
-    	})->paginate(4);
+    	$artikel = Artikel::with(['user','kategoriArtikel'])
+            ->where(function($query) use ($request){
+                $query->where('judul','like','%'.$request->keyword.'%')
+                    ->orWhere('deskripsi','like','%'.$request->keyword.'%');
+    	})
+        ->latest()
+        ->paginate(30)
+        ->withQueryString();
 
-    	return view('artikel.index',compact('artikel'));
+        $kategori = KategoriArtikel::all();
+
+    	return view('berita.artikel.index',compact('artikel', 'kategori'));
     }   
 }

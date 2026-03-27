@@ -20,7 +20,9 @@ class ArtikelResource extends Resource
 {
     protected static ?string $model = Artikel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationLabel = 'Artikel';
+    protected static ?string $pluralModelLabel = 'Daftar Artikel';
 
     protected static ?string $navigationGroup = 'Artikel';
 
