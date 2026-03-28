@@ -61,7 +61,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="beritaDropdown">
                         <li><a class="dropdown-item" href="{{ route('berita.artikel') }}">Artikel</a></li>
-                        <li><a class="dropdown-item" href="#">Pengumuman</a></li>
+                        <li><a class="dropdown-item" href="{{ route('berita.pengumuman') }}">Pengumuman</a></li>
                     </ul>
                 </li>
 

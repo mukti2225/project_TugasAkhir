@@ -9,8 +9,9 @@
             'title' => 'Berita & Artikel'
         ])
 
-<div class="container">
-        <div class="row mt-4 mb-4">
+<div class="container-fluid artikel-container">
+<div class="container ">
+        <div class="row py-3">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="kategori-filter d-flex flex-wrap gap-2 justify-content-center">
@@ -76,5 +77,7 @@
         @endforeach
         </div>
     </div>
+</div>
+
 </section>
 @endsection

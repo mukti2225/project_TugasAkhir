@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FormulirResource\Pages;
-use App\Models\Formulir;
+use App\Models\Pendaftaran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Tables\Actions\Action;
 use Filament\Forms;
@@ -23,7 +23,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class FormulirResource extends Resource
 {
-    protected static ?string $model = Formulir::class;
+    // Mengubah Model ke Pendaftaran agar datanya sinkron dengan frontend
+    protected static ?string $model = Pendaftaran::class;
 
     protected static ?string $navigationLabel = 'Formulir Pendaftaran';
 
@@ -35,17 +36,22 @@ class FormulirResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('KETERANGAN DATA PRIBADI')
+                Section::make('KETERANGAN DATA DIRI SISWA')
                 ->schema([
                     Hidden::make('user_id')->default(auth()->id()),
-                    TextInput::make('nama')->label('Nama Lengkap Siswa')->required()->maxLength(255),
+                    TextInput::make('nomor_pendaftaran')->label('Nomor Pendaftaran')
+                        ->disabled()
+                        ->dehydrated(false)
+                        ->helperText('Otomatis dibuat dari Tanggal Lahir pendaftar.'),
+                    TextInput::make('nama')->label('Nama Lengkap')->required()->maxLength(255),
+                    TextInput::make('email')->label('Email Aktif')->email()->required()->maxLength(255),
                     TextInput::make('nik')->label('NIK')
                         ->rules(['digits:16'])
                         ->tel()
                         ->required()->unique(ignoreRecord: true),
                     TextInput::make('tempat_lahir')->label('Tempat Lahir')->required(),
                     DatePicker::make('tanggal_lahir')->label('Tanggal Lahir')->required(),
-                    Radio::make('jenis_kelamin')->label('Jenis Kelamin')
+                    Select::make('jenis_kelamin')->label('Jenis Kelamin')
                         ->options([
                             'Laki-laki' => 'Laki-laki',
                             'Perempuan' => 'Perempuan',
@@ -56,65 +62,58 @@ class FormulirResource extends Resource
                             'Kristen' => 'Kristen',
                             'Katolik' => 'Katolik',
                             'Hindu' => 'Hindu',
-                            'Budha' => 'Budha',
+                            'Buddha' => 'Buddha',
                             'Konghucu' => 'Konghucu',
                         ])->required(),
                     TextInput::make('anak')->label('Anak Ke-')->numeric()->required(),
-                    Select::make('status')->label('Status Anak')
+                    Select::make('status')->label('Status anak')
                         ->options([
-                            'Kandung' => 'Anak Kandung',
-                            'Tiri' => 'Anak Tiri',
-                            'Angkat' => 'Anak Angkat (Adopsi)',
-                            'Asuh' => 'Anak Asuh',
+                            'Kandung' => 'Kandung',
+                            'Angkat' => 'Angkat',
                         ])->required(),
                 ])->columns(2),
 
-                Section::make('KETERANGAN TEMPAT TINGGAL')
+                Section::make('KETERANGAN TEMPAT TINGGAL SISWA')
                 ->schema([
-                    TextInput::make('alamat')->label('Alamat')->required(),
-                    TextInput::make('jalan')->label('Jalan')->required(),
-                    TextInput::make('rt_rw')->label('RT/RW')->required(),
-                    TextInput::make('kelurahan')->label('Kelurahan')->required(),
-                    TextInput::make('kecamatan')->label('Kecamatan')->required(),
-                    TextInput::make('kota')->label('Kota')->required(),
-                    TextInput::make('nomor_telepon')->label('Nomor Telepon Rumah')->tel()->placeholder('08xxxxxxxxxx')->nullable(),
-                    TextInput::make('nomor_telepon_siswa')->label('Nomor Telepon Siswa')->tel()->placeholder('08xxxxxxxxxx')->nullable(),
+                    TextInput::make('nomor_telepon_siswa')->label('Nomor Telpon Siswa')->tel()->required(),
+                    TextInput::make('nomor_telepon')->label('Nomor Telpon Rumah')->tel()->nullable(),
                     Select::make('tinggal')
                         ->options([
-                            'Bersama Orang Tua' => 'Bersama Orang Tua',
-                            'Bersama Wali' => 'Bersama Wali',
+                            'Orang Tua' => 'Orang Tua',
                             'Saudara' => 'Saudara',
+                            'Wali' => 'Wali',
                             'Kost' => 'Kost',
                         ])->label('Tinggal Dengan')->required(),
-                    TextInput::make('jarak_sekolah')->label('Jarak Tempat Tinggal ke Sekolah (Km)')->required(),
+                    TextInput::make('jarak_sekolah')->label('Jarak ke Sekolah')->required(),
+                    Textarea::make('alamat')->label('Alamat Lengkap')->required()->columnSpanFull(),
                 ])->columns(2),
 
                 Section::make('KETERANGAN PENDIDIKAN SEBELUMNYA')
                 ->schema([
-                    Select::make('pendidikan')->label('Pendidikan Terakhir')
+                    Select::make('pendidikan')->label('Pendidikan terakhir')
                         ->options([
                             'SD' => 'SD',
                             'MI' => 'MI',
                             'SMP' => 'SMP',
-                            'MTs' => 'MTs',
+                            'MTS' => 'MTS',
                             'Paket A/B' => 'Paket A/B',
                         ])->required(),
                     TextInput::make('nisn')->unique(ignoreRecord: true)->label('NISN')->tel()->rules(['digits:10'])->required(),
-                    TextInput::make('ijazah')->label('Nomor Ijazah')->tel()->required(),
+                    TextInput::make('ijazah')->label('No Ijazah')->required(),
                     TextInput::make('asal_sekolah')->label('Asal Sekolah')->required(),
-                    TextInput::make('pindahan')->label('Alasan Pindah (Pindahan)')->nullable(),
+                    TextInput::make('pindahan')->label('Alasan Pindahan (Pindahan)')->nullable(),
                     Select::make('program_studi')->label('Program Studi Pilihan')
                         ->options([
                             'IPA' => 'IPA',
                             'IPS' => 'IPS',
-                            'Bahasa' => 'Bahasa',
+                            'BAHASA' => 'BAHASA',
                         ])->required(),
                 ])->columns(2),
 
                 Section::make('KETERANGAN AYAH KANDUNG')
                 ->schema([
-                    TextInput::make('nama_ayah')->label('Nama')->required(),
-                    TextInput::make('tempat_lahir_ayah')->label('Tempat Lahir')->required(),
+                    TextInput::make('nama_ayah')->label('Nama Ayah')->required(),
+                    TextInput::make('tempat_lahir_ayah')->label('Tempat lahir')->required(),
                     DatePicker::make('tanggal_lahir_ayah')->label('Tanggal Lahir')->required(),
                     Select::make('agama_ayah')->label('Agama')
                         ->options([
@@ -122,33 +121,29 @@ class FormulirResource extends Resource
                             'Kristen' => 'Kristen',
                             'Katolik' => 'Katolik',
                             'Hindu' => 'Hindu',
-                            'Budha' => 'Budha',
+                            'Buddha' => 'Buddha',
                             'Konghucu' => 'Konghucu',
                         ])->required(),
-                    Select::make('pendidikan_ayah')->label('Pendidikan')
+                    Select::make('pendidikan_ayah')->label('Pendidikan Terakhir')
                         ->options([
-                            'SD/MI' => 'SD / MI',
-                            'SMP/MTs' => 'SMP / MTs',
-                            'SMA/SMK/MA' => 'SMA / SMK / MA',
-                            'Diploma(D1,D2,D3,D4)' => 'Diploma (D1, D2, D3, D4)',
-                            'Sarjana(S1)' => 'Sarjana (S1)',
-                            'Magister(S2)' => 'Magister (S2)',
-                            'Doktor(S3)' => 'Doktor (S3)',
+                            'SD/Sederajat' => 'SD/Sederajat',
+                            'SMP/Sederajat' => 'SMP/Sederajat',
+                            'SMA/Sederajat' => 'SMA/Sederajat',
+                            'D3' => 'D3',
+                            'S1' => 'S1',
+                            'S2' => 'S2',
+                            'S3' => 'S3',
                         ])->required(),
                     TextInput::make('pekerjaan_ayah')->label('Pekerjaan')->required(),
-                    TextInput::make('penghasilan_ayah')->label('Penghasilan')->prefix('Rp')->required()
-                        ->formatStateUsing(fn ($state) => 
-                            $state ? number_format($state, 0, ',', '.') : null)
-                        ->dehydrateStateUsing(fn ($state) => 
-                            $state ? str_replace('.', '', $state) : null),
-                    TextInput::make('nomor_telepon_ayah')->tel()->label('Nomor Telepon')->placeholder('08xxxxxxxxxx')->nullable(),
-                    Textarea::make('alamat_ayah')->label('Alamat')->required()->columnSpanFull(),
+                    TextInput::make('penghasilan_ayah')->label('Penghasilan')->numeric()->required(),
+                    TextInput::make('nomor_telepon_ayah')->tel()->label('Nomor Telepon')->required(),
+                    Textarea::make('alamat_ayah')->label('Alamat Lengkap')->required()->columnSpanFull(),
                 ])->columns(2),
 
                 Section::make('KETERANGAN IBU KANDUNG')
                 ->schema([
-                    TextInput::make('nama_ibu')->label('Nama')->required(),
-                    TextInput::make('tempat_lahir_ibu')->label('Tempat Lahir')->required(),
+                    TextInput::make('nama_ibu')->label('Nama Ibu')->required(),
+                    TextInput::make('tempat_lahir_ibu')->label('Tempat lahir')->required(),
                     DatePicker::make('tanggal_lahir_ibu')->label('Tanggal Lahir')->required(),
                     Select::make('agama_ibu')->label('Agama')
                         ->options([
@@ -156,57 +151,53 @@ class FormulirResource extends Resource
                             'Kristen' => 'Kristen',
                             'Katolik' => 'Katolik',
                             'Hindu' => 'Hindu',
-                            'Budha' => 'Budha',
+                            'Buddha' => 'Buddha',
                             'Konghucu' => 'Konghucu',
-                    ])->required(),
-                    Select::make('pendidikan_ibu')->label('Pendidikan')
+                        ])->required(),
+                    Select::make('pendidikan_ibu')->label('Pendidikan Terakhir')
                         ->options([
-                            'SD/MI' => 'SD / MI',
-                            'SMP/MTs' => 'SMP / MTs',
-                            'SMA/SMK/MA' => 'SMA / SMK / MA',
-                            'Diploma(D1,D2,D3,D4)' => 'Diploma (D1, D2, D3, D4)',
-                            'Sarjana(S1)' => 'Sarjana (S1)',
-                            'Magister(S2)' => 'Magister (S2)',
-                            'Doktor(S3)' => 'Doktor (S3)',
+                            'SD/Sederajat' => 'SD/Sederajat',
+                            'SMP/Sederajat' => 'SMP/Sederajat',
+                            'SMA/Sederajat' => 'SMA/Sederajat',
+                            'D3' => 'D3',
+                            'S1' => 'S1',
+                            'S2' => 'S2',
+                            'S3' => 'S3',
                         ])->required(),
                     TextInput::make('pekerjaan_ibu')->label('Pekerjaan')->required(),
-                    TextInput::make('penghasilan_ibu')->label('Penghasilan')->prefix('Rp')->required()
-                        ->formatStateUsing(fn ($state) => 
-                            $state ? number_format($state, 0, ',', '.') : null)
-                        ->dehydrateStateUsing(fn ($state) => 
-                            $state ? str_replace('.', '', $state) : null),
-                    TextInput::make('nomor_telepon_ibu')->label('Nomor Telepon')->placeholder('08xxxxxxxxxx')->tel()->nullable(),
-                    Textarea::make('alamat_ibu')->label('Alamat')->required()->columnSpanFull(),
+                    TextInput::make('penghasilan_ibu')->label('Penghasilan')->numeric()->required(),
+                    TextInput::make('nomor_telepon_ibu')->tel()->label('Nomor Telepon')->required(),
+                    Textarea::make('alamat_ibu')->label('Alamat Lengkap')->required()->columnSpanFull(),
                 ])->columns(2),
 
                 Section::make('KETERANGAN WALI')
                 ->schema([
-                    TextInput::make('nama_wali')->label('Nama'),
-                    TextInput::make('tempat_lahir_wali')->label('Tempat Lahir'),
-                    DatePicker::make('tanggal_lahir_wali')->label('Tanggal Lahir'),
+                    TextInput::make('nama_wali')->label('Nama Wali')->nullable(),
+                    TextInput::make('tempat_lahir_wali')->label('Tempat lahir')->nullable(),
+                    DatePicker::make('tanggal_lahir_wali')->label('Tanggal Lahir')->nullable(),
                     Select::make('agama_wali')->label('Agama')
                         ->options([
-                                'Islam' => 'Islam',
-                                'Kristen' => 'Kristen',
-                                'Katolik' => 'Katolik',
-                                'Hindu' => 'Hindu',
-                                'Budha' => 'Budha',
-                                'Konghucu' => 'Konghucu',
-                        ]),
-                    Select::make('pendidikan_wali')->label('Pendidikan')
+                            'Islam' => 'Islam',
+                            'Kristen' => 'Kristen',
+                            'Katolik' => 'Katolik',
+                            'Hindu' => 'Hindu',
+                            'Buddha' => 'Buddha',
+                            'Konghucu' => 'Konghucu',
+                        ])->nullable(),
+                    Select::make('pendidikan_wali')->label('Pendidikan Terakhir')
                         ->options([
-                            'SD/MI' => 'SD / MI',
-                            'SMP/MTs' => 'SMP / MTs',
-                            'SMA/SMK/MA' => 'SMA / SMK / MA',
-                            'Diploma(D1,D2,D3,D4)' => 'Diploma (D1, D2, D3, D4)',
-                            'Sarjana(S1)' => 'Sarjana (S1)',
-                            'Magister(S2)' => 'Magister (S2)',
-                            'Doktor(S3)' => 'Doktor (S3)',
-                        ]),
+                            'SD/Sederajat' => 'SD/Sederajat',
+                            'SMP/Sederajat' => 'SMP/Sederajat',
+                            'SMA/Sederajat' => 'SMA/Sederajat',
+                            'D3' => 'D3',
+                            'S1' => 'S1',
+                            'S2' => 'S2',
+                            'S3' => 'S3',
+                        ])->nullable(),
                     TextInput::make('pekerjaan_wali')->label('Pekerjaan')->nullable(),
-                    TextInput::make('penghasilan_wali')->label('Penghasilan')->prefix('Rp')->nullable(),
-                    TextInput::make('nomor_telepon_wali')->tel()->label('Nomor Telepon')->rule('regex:/^(\+62|08)[0-9]{8,13}$/')->nullable(),
-                    Textarea::make('alamat_wali')->columnSpanFull()->label('Alamat')->nullable(),
+                    TextInput::make('penghasilan_wali')->label('Penghasilan')->numeric()->nullable(),
+                    TextInput::make('nomor_telepon_wali')->tel()->label('Nomor Telepon')->nullable(),
+                    Textarea::make('alamat_wali')->label('Alamat Lengkap')->nullable()->columnSpanFull(),
                 ])->columns(2),
             ]);
     }
@@ -217,10 +208,20 @@ class FormulirResource extends Resource
             ->searchable(auth()->user()?->hasRole('admin') ?? false)
             ->paginated(auth()->user()?->hasRole('admin') ?? false)
             ->columns([
+                TextColumn::make('nomor_pendaftaran')
+                    ->label('No. Pendaftaran')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('nama')
                     ->label('Nama Siswa')
                     ->searchable()
                     ->sortable(auth()->user()?->hasRole('admin') ?? false),
+
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('nisn')
                     ->label('NISN')
@@ -228,9 +229,6 @@ class FormulirResource extends Resource
 
                 TextColumn::make('jenis_kelamin')
                     ->label('Jenis Kelamin'),
-
-                TextColumn::make('kota')
-                    ->searchable(),
 
                 TextColumn::make('asal_sekolah')
                     ->searchable(),

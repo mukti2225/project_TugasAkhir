@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pendaftaran;
 
-
 class PendaftaranController extends Controller
 {
     public function create()
@@ -15,27 +14,82 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_lengkap' => 'required',
-            'nisn' => 'required|unique:pendaftarans',
-            'tempat_lahir' => 'required',
+        // VALIDASI
+        $validated = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email',
+            'nik' => 'required|digits:16|unique:pendaftarans,nik',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
-            'agama' => 'required',
-            'asal_sekolah' => 'required',
+            'alamat' => 'required',
+            'nisn' => 'required|digits:10|unique:pendaftarans,nisn',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
-            'no_hp_orang_tua' => 'required',
-            'alamat' => 'required',
+        ], [
+            'nik.unique' => 'Maaf, NIK ini sudah pernah didaftarkan.',
+            'nik.digits' => 'Format NIK tidak valid. Harus berjumlah 16 digit angka.',
+            'nisn.unique' => 'Maaf, NISN ini sudah pernah didaftarkan.',
+            'nisn.digits' => 'Format NISN tidak valid. Harus berjumlah 10 digit angka.',
         ]);
 
-        Pendaftaran::create(
-            array_merge(
-                $request->all(),
-                ['user_id' => auth()->id()]
-            )
-        );
+        $data = $request->all();
+        // user_id required in database
+        $data['user_id'] = auth()->id() ?? 1;
+        
+        // Buat nomor pendaftaran dari tanggal lahir (format: ddmmyyyy)
+        $data['nomor_pendaftaran'] = date('dmY', strtotime($data['tanggal_lahir']));
 
-        return redirect()->back()->with('success', 'Pendaftaran berhasil dikirim');
+        // SIMPAN
+        $pendaftaran = Pendaftaran::create($data);
+
+        // Kirim Email ke pendaftar
+        try {
+            \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\PendaftaranSukses($pendaftaran));
+        } catch (\Exception $e) {
+            // Log error if mail fails, but continue to success page
+            \Illuminate\Support\Facades\Log::error('Gagal mengirim email pendaftaran: ' . $e->getMessage());
+        }
+
+        // Beri otorisasi untuk bisa masuk ke halaman success
+        session(['nomor_pendaftaran' => $pendaftaran->id]);
+
+        return redirect()->route('pendaftaran.success', ['id' => $pendaftaran->id]);
+    }
+
+    public function success($id)
+    {
+        // Pastikan hanya bisa akses halaman sukses jika baru saja mendaftar
+        if (session('nomor_pendaftaran') != $id) {
+            return redirect()->route('pendaftaran');
+        }
+
+        $pendaftaran = Pendaftaran::findOrFail($id);
+
+        return view('pendaftaran.success', compact('pendaftaran'));
+    }
+
+    public function cek()
+    {
+        return view('pendaftaran.cek');
+    }
+
+    public function cekHasil(Request $request)
+    {
+        $request->validate([
+            'nik' => 'required|digits:16',
+        ], [
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.digits'   => 'NIK harus 16 digit angka.',
+        ]);
+
+        $pendaftaran = Pendaftaran::where('nik', $request->nik)->first();
+
+        if (!$pendaftaran) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['nik' => 'NIK tidak ditemukan. Anda belum melakukan pendaftaran.']);
+        }
+
+        return view('pendaftaran.cek', compact('pendaftaran'));
     }
 }

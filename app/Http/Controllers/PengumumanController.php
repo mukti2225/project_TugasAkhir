@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengumuman;
 use App\Http\Requests\StorePengumumanRequest;
 use App\Http\Requests\UpdatePengumumanRequest;
+use App\Models\Pengumuman;
+use Illuminate\Http\Request;
 
 class PengumumanController extends Controller
 {
@@ -13,12 +14,27 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        return view('berita.pengumuman.index');
+        $pengumuman = Pengumuman::latest()->paginate(30);
+        return view('berita.pengumuman.index', compact('pengumuman'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $pengumuman = Pengumuman::where('judul', 'like', '%' . $keyword . '%')
+            ->orWhere('deskripsi', 'like', '%' . $keyword . '%')
+            ->latest()
+            ->paginate(30)
+            ->withQueryString();
+
+        return view('berita.pengumuman.index', compact('pengumuman'));
+    }
+
+    public function show(Pengumuman $pengumuman)
+    {
+        return view('berita.pengumuman.show', compact('pengumuman'));
+    }
+
     public function create()
     {
         //
@@ -35,10 +51,7 @@ class PengumumanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pengumuman $pengumuman)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.

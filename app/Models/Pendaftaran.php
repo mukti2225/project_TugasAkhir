@@ -7,25 +7,75 @@ use Illuminate\Database\Eloquent\Model;
 class Pendaftaran extends Model
 {
     protected $fillable = [
+        // USER ID
         'user_id',
-        'nama_lengkap',
-        'nisn',
-        'nik',
+        
+        // DATA PRIBADI
+        'email',
+        'nomor_pendaftaran',
+        'nama',
         'tempat_lahir',
         'tanggal_lahir',
+        'nik',
         'jenis_kelamin',
         'agama',
-        'asal_sekolah',
-        'alamat_sekolah',
-        'nama_ayah',
-        'nama_ibu',
-        'no_hp_orang_tua',
-        'alamat',
-        'desa',
-        'kecamatan',
-        'kabupaten',
-        'provinsi',
+        'program_studi',
+        'anak',
         'status',
+
+        // TEMPAT TINGGAL
+        'alamat',
+        'nomor_telepon',
+        'nomor_telepon_siswa',
+        'tinggal',
+        'jarak_sekolah',
+
+        // PENDIDIKAN
+        'pendidikan',
+        'nisn',
+        'ijazah',
+        'asal_sekolah',
+        'pindahan',
+
+        // AYAH
+        'nama_ayah',
+        'tempat_lahir_ayah',
+        'tanggal_lahir_ayah',
+        'agama_ayah',
+        'pendidikan_ayah',
+        'pekerjaan_ayah',
+        'penghasilan_ayah',
+        'alamat_ayah',
+        'nomor_telepon_ayah',
+
+        // IBU
+        'nama_ibu',
+        'tempat_lahir_ibu',
+        'tanggal_lahir_ibu',
+        'agama_ibu',
+        'pendidikan_ibu',
+        'pekerjaan_ibu',
+        'penghasilan_ibu',
+        'alamat_ibu',
+        'nomor_telepon_ibu',
+
+        // WALI
+        'nama_wali',
+        'tempat_lahir_wali',
+        'tanggal_lahir_wali',
+        'agama_wali',
+        'pendidikan_wali',
+        'pekerjaan_wali',
+        'penghasilan_wali',
+        'alamat_wali',
+        'nomor_telepon_wali',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+        'tanggal_lahir_ayah' => 'date',
+        'tanggal_lahir_ibu' => 'date',
+        'tanggal_lahir_wali' => 'date',
     ];
 
     public function user()

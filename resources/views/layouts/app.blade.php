@@ -9,6 +9,8 @@
     {{-- Font  --}}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <link rel="icon" type="image/png" href="{{ asset('img/logo/ARH.png') }}">
 
     {{-- VITE Bootstrap --}}
@@ -25,7 +27,10 @@
 
     <footer> @include('layouts.footer') </footer>
 
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <script src="{{ asset('js/navbar.js') }}"></script>
     @stack('js')
 </body>

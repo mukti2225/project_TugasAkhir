@@ -5,7 +5,7 @@
 }
 
 .hero-wrapper {
-    height: 100vh;
+    height: 95vh;
 }
 
 .hero-area .bg-img {
@@ -239,6 +239,7 @@
     color: black;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .artikel-card img {
@@ -247,7 +248,7 @@
 }
 
 .artikel-card:hover .card-img-top {
-    transform: scale(1.05);
+    transform: scale(1.03);
     transition: transform 0.3s ease;
 }
 
@@ -266,7 +267,7 @@
 .card-body {
     display: flex;
     padding: 4px 8px;
-    margin: 4px 8px;
+    margin: 4px 12px;
 }
 
 .card-body .kategori {
@@ -291,17 +292,17 @@
 .btn-lihat {
     text-decoration: none;
     padding: 10px 20px;
-    color: #ffffff;
-    background-color: #00a98f;
+    background-color: transparent;
+    border: 1px solid #00a98f;
+    color: #00a98f;
     border-radius: 30px;
     font-weight: 400;
     transition: all 0.3s ease;
 }
 
 .btn-lihat:hover {
-    background-color: transparent;
-    border: 1px solid #00a98f;
-    color: #00a98f;
+    color: #ffffff;
+    background-color: #00a98f;
 }
 
 /* Gallery Section */
@@ -384,6 +385,28 @@
     pointer-events: auto;
 }
 
+.gallery-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+.card-gallery.active .gallery-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#galleryContainer::-webkit-scrollbar {
+    display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+#galleryContainer {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
 /* PTN SECTION */
 .ptn {
     background-color: #f8f9fa;
@@ -435,18 +458,10 @@
 /* CARD */
 .card-ptn {
     position: relative;
-    width: 200px;
-    height: 300px;
+    width: 220px;
+    height: 340px;
     border-radius: 16px;
     overflow: auto;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.card-ptn:hover {
-    transform: translateY(-6px);
-    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.25);
 }
 
 .card-ptn img {
@@ -465,30 +480,32 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+.card-ptn:hover .ptn-overlay {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .ptn-overlay img {
-    margin-bottom: 3px;
-    height: 35px;
-    width: 35px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 30px;
     object-fit: fill;
     position: relative;
 }
 
 .ptn-overlay h2 {
     margin-bottom: 2px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
 .ptn-overlay h5 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 200;
-}
-
-.ptn-overlay span {
-    font-size: 0.8rem;
-    font-weight: 200;
-    opacity: 0.8;
 }

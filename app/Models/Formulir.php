@@ -11,7 +11,7 @@ class Formulir extends Model
     /** @use HasFactory<\Database\Factories\FormulirFactory> */
     use HasFactory;
     
-    protected $table = 'formulirs'; 
+    protected $table = 'pendaftarans'; 
 
     protected $fillable = [
         // USER ID
@@ -30,11 +30,11 @@ class Formulir extends Model
 
         // TEMPAT TINGGAL
         'alamat',
-        'jalan',
-        'rt_rw',
-        'kelurahan',
-        'kecamatan',
-        'kota',
+        // 'jalan',
+        // 'rt_rw',
+        // 'kelurahan',
+        // 'kecamatan',
+        // 'kota',
         'nomor_telepon',
         'nomor_telepon_siswa',
         'tinggal',

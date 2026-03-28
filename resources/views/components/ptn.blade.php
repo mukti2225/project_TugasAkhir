@@ -18,12 +18,11 @@
           @foreach ($ptn as $ptn)
           <div class="ptn-item">
             <div class="card-ptn">
-              <img src="{{ asset('storage/'.$ptn->foto) }}" alt="PTN">
+              <img src="{{ asset('storage/'.$ptn->foto) }}" alt="foto">
               <div class="ptn-overlay">
-                <img src="{{ asset('storage/'.$ptn->logo) }}" alt="">
+                <img src="{{ asset('storage/'.$ptn->logo) }}">
                 <h2>{{ $ptn->nama }}</h2>
                 <h5>{{ $ptn->universitas }}</h5>
-                <span>SNBP 2024</span>
               </div>
             </div>
           </div>
@@ -33,4 +32,60 @@
     </div>
   </div>
 </section>
+
+@push('js')
+<script>
+  const slider = document.querySelector(".ptn-scroll");
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+// MOUSE
+slider.addEventListener("mousedown", (e) => {
+    isDown = true;
+    slider.classList.add("active");
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+});
+
+slider.addEventListener("mouseleave", () => {
+    isDown = false;
+    slider.classList.remove("active");
+});
+
+slider.addEventListener("mouseup", () => {
+    isDown = false;
+    slider.classList.remove("active");
+});
+
+slider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    slider.scrollLeft = scrollLeft - walk;
+});
+
+// TOUCH (MOBILE)
+slider.addEventListener("touchstart", (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+});
+
+slider.addEventListener("touchend", () => {
+    isDown = false;
+});
+
+slider.addEventListener("touchmove", (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    slider.scrollLeft = scrollLeft - walk;
+});
+
+</script>
+@endpush
+
 @endif

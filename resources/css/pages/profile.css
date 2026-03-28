@@ -1,3 +1,67 @@
+/* FASILITAS MODERN */
+.fasilitas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+}
+
+.card-fasilitas {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition:
+        box-shadow 0.25s,
+        transform 0.22s cubic-bezier(0.4, 2, 0.6, 1);
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+}
+
+.card-fasilitas img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.22s cubic-bezier(0.4, 2, 0.6, 1);
+    display: block;
+}
+
+.card-fasilitas:hover {
+    box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.16);
+    transform: translateY(-6px) scale(1.01);
+}
+
+.card-fasilitas:hover img {
+    transform: scale(1.04);
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 28px 0 18px 0;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.62) 60%,
+        rgba(0, 0, 0, 0.12) 100%,
+        transparent 100%
+    );
+    text-align: center;
+    z-index: 2;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.overlay h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
 /* IMG FLUID */
 .img-sambutan {
     max-width: 320px;
@@ -44,7 +108,48 @@
     font-weight: 500;
 }
 
-/* Hover Effect */
-.card-fasilitas:hover img {
-    transform: scale(1.05);
+/* GURU */
+
+.container-guru {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card-guru {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card-guru img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    transition: 0.3s;
+}
+
+.card-body-guru {
+    padding: 12px;
+    background: #ffffff;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+}
+
+.title {
+    font-size: 13px;
+    color: #555;
+}
+
+.card-guru:hover img {
+    transform: scale(1.01);
 }
