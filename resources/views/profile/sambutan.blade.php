@@ -13,6 +13,7 @@
         <div class="container py-5">
             <div class="row align-items-center">
 
+                 @if($statistik)
                  <!-- Text -->
                 <div class="col-md-7 order-2 order-md-1">
                     <h3 class="fw-bold">{{ $statistik->name }}</h3>
@@ -29,6 +30,14 @@
                         <img src="{{ asset('storage/' . $statistik->photo) }}" alt=" Kepala Sekolah" class="img-fluid">
                     </div>
                 </div>
+
+                @else
+                <!-- Fallback kalau data kosong -->
+                <div class="col-12 text-center">
+                        <h4 class="fw-bold">Sambutan belum tersedia</h4>
+                        <p class="text-muted">Silakan tambahkan data di panel admin.</p>
+                    </div>
+                @endif
             </div>
         </div>
 

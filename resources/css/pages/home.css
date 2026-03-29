@@ -458,8 +458,8 @@
 /* CARD */
 .card-ptn {
     position: relative;
-    width: 220px;
-    height: 340px;
+    width: 240px;
+    height: 320px;
     border-radius: 16px;
     overflow: auto;
 }

@@ -29,7 +29,6 @@ class HeroSliderResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
-                    ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image()

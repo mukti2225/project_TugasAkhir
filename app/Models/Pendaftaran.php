@@ -13,6 +13,7 @@ class Pendaftaran extends Model
         // DATA PRIBADI
         'email',
         'nomor_pendaftaran',
+        'status_penerimaan',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',

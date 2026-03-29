@@ -7,34 +7,14 @@
   <div class="row g-4">
     
     <!-- Sidebar -->
-    <div class="col-lg-3">
-      <div class="list-group shadow-sm">
-        <div class="list-group-item bg-primary text-white fw-bold border-0">LAMAN SPMB ONLINE</div>
-        <a href="{{ route('pendaftaran') }}" class="list-group-item list-group-item-action border-start-0 border-end-0">
-          <i class="bi bi-file-text me-2"></i>Pendaftaran
-        </a>
-        <a href="{{ route('pendaftaran.cek') }}" class="list-group-item list-group-item-action border-start-0 border-end-0">
-          <i class="bi bi-search me-2"></i>Cek Pengumuman
-        </a>
-      </div>
-      
-      <!-- Info Card -->
-      <div class="card bg-light mt-4 shadow-sm">
-        <div class="card-body-spmb">
-          <h6 class="fw-bold text-primary mb-2">
-            <i class="bi bi-info-circle-fill me-1"></i> Informasi Penting
-          </h6>
-          <p class="small text-muted mb-0">
-            Pastikan data yang diisi benar dan lengkap. Pendaftaran akan ditutup pada tanggal 30 November 2024.
-          </p>
-        </div>
-      </div>
-    </div>
+    @include('components.sidebar-spmb', [
+      'infoText' => 'Isi custom di sini'
+    ])
 
     <!-- Content -->
     <div class="col-lg-9">
       <div class="card shadow-sm border-0">
-        <div class="card-body-spmb p-4 p-md-5">
+        <div class="card-body-spmb p-3 p-md-5">
 
           <form action="{{ route('pendaftaran.store') }}" method="POST">
             @csrf
@@ -42,7 +22,7 @@
             <!-- Header Form -->
             <div class="text-center mb-4">
               <h4 class="fw-bold text-primary mb-2">FORMULIR PENDAFTARAN</h4>
-              <p class="text-muted small">Peserta Didik Baru Tahun Ajaran 2025/2026</p>
+              <p class="text-muted small">Peserta Didik Baru SMA ARH Tahun Ajaran 2025/2026</p>
               <hr class="my-4">
             </div>
 
@@ -491,11 +471,11 @@
           
             <!-- Tombol Submit -->
             <div class="d-flex gap-2 justify-content-end mt-4">
-              <button type="reset" class="btn btn-outline-secondary px-4" onclick="resetCheckboxes()">
-                <i class="bi bi-arrow-repeat me-1"></i> Reset
+              <button type="reset" class="btn btn-light px-4" onclick="resetCheckboxes()">
+                Reset
               </button>
               <button type="submit" class="btn btn-primary px-4">
-                <i class="bi bi-save me-1"></i> Simpan Pendaftaran
+                Kirim Pendaftaran
               </button>
             </div>
 
@@ -510,133 +490,57 @@
 
 @push('js')
 <script>
-  function salinAlamat(targetId, checkbox) {
-    console.log('=== salinAlamat dipanggil ===');
-    console.log('targetId:', targetId);
-    console.log('checkbox.checked:', checkbox.checked);
-
-    const alamatSiswa = document.getElementById('alamat');
-    console.log('alamatSiswa element:', alamatSiswa);
-    console.log('alamatSiswa.value:', alamatSiswa ? alamatSiswa.value : 'ELEMENT TIDAK DITEMUKAN');
-
+function salinAlamat(targetId, checkbox) {
+    const alamatSiswa = document.getElementById("alamat");
     const targetTextarea = document.getElementById(targetId);
-    console.log('targetTextarea element:', targetTextarea);
 
-    if (!alamatSiswa) {
-      console.error('ERROR: Element dengan id="alamat" tidak ditemukan! Pastikan textarea alamat siswa memiliki id="alamat"');
-      return;
-    }
-
-    if (!targetTextarea) {
-      console.error('ERROR: Element dengan id="' + targetId + '" tidak ditemukan!');
-      return;
-    }
+    if (!alamatSiswa || !targetTextarea) return;
 
     if (checkbox.checked) {
-      if (alamatSiswa.value.trim() === '') {
-        console.warn('PERINGATAN: Alamat siswa masih kosong!');
-      }
-      targetTextarea.value = alamatSiswa.value;
-      targetTextarea.setAttribute('readonly', true);
-      targetTextarea.classList.add('bg-light');
-      console.log('Berhasil salin alamat:', targetTextarea.value);
+        targetTextarea.value = alamatSiswa.value;
+        targetTextarea.setAttribute("readonly", true);
+        targetTextarea.classList.add("bg-light");
     } else {
-      targetTextarea.value = '';
-      targetTextarea.removeAttribute('readonly');
-      targetTextarea.classList.remove('bg-light');
-      console.log('Checkbox dilepas, textarea dikosongkan');
+        targetTextarea.value = "";
+        targetTextarea.removeAttribute("readonly");
+        targetTextarea.classList.remove("bg-light");
     }
-  }
+}
 
-  document.addEventListener('DOMContentLoaded', function () {
-    console.log('=== DOM Ready ===');
-
-    const alamatSiswa = document.getElementById('alamat');
-    console.log('Cek id="alamat":', alamatSiswa ? 'DITEMUKAN' : 'TIDAK DITEMUKAN');
-
-    const ids = ['alamat_ayah', 'alamat_ibu', 'alamat_wali'];
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      const cb = document.getElementById(id + '_sama');
-      console.log('Cek id="' + id + '":', el ? 'DITEMUKAN' : 'TIDAK DITEMUKAN');
-      console.log('Cek id="' + id + '_sama":', cb ? 'DITEMUKAN' : 'TIDAK DITEMUKAN');
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    const alamatSiswa = document.getElementById("alamat");
+    const ids = ["alamat_ayah", "alamat_ibu", "alamat_wali"];
 
     if (alamatSiswa) {
-      alamatSiswa.addEventListener('input', function () {
-        console.log('Alamat siswa berubah:', this.value);
-        ids.forEach((id) => {
-          const checkbox = document.getElementById(id + '_sama');
-          if (checkbox && checkbox.checked) {
-            document.getElementById(id).value = this.value;
-            console.log('Update ' + id + ' dengan nilai baru');
-          }
+        alamatSiswa.addEventListener("input", function () {
+            ids.forEach((id) => {
+                const checkbox = document.getElementById(id + "_sama");
+                if (checkbox && checkbox.checked) {
+                    document.getElementById(id).value = this.value;
+                }
+            });
         });
-      });
     }
-  });
+});
 
-  function resetCheckboxes() {
-    console.log('=== Reset dipanggil ===');
-    const targets = ['alamat_ayah', 'alamat_ibu', 'alamat_wali'];
+function resetCheckboxes() {
+    const targets = ["alamat_ayah", "alamat_ibu", "alamat_wali"];
     targets.forEach((id) => {
-      const checkbox = document.getElementById(id + '_sama');
-      const textarea = document.getElementById(id);
-      if (checkbox) checkbox.checked = false;
-      if (textarea) {
-        textarea.removeAttribute('readonly');
-        textarea.classList.remove('bg-light');
-      }
+        const checkbox = document.getElementById(id + "_sama");
+        const textarea = document.getElementById(id);
+        if (checkbox) checkbox.checked = false;
+        if (textarea) {
+            textarea.removeAttribute("readonly");
+            textarea.classList.remove("bg-light");
+        }
     });
-  }
+}
 </script>
+@endpush
+
+@push('css')
+<style src="{{ asset('css/pages/spmb.css') }}"></style>
 @endpush
 @endsection
 
-@push('css')
-<style>
-  .form-label {
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  .form-control:focus, .form-select:focus {
-    border-color: #86b7fe;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
-  }
-  
-  .list-group-item {
-    transition: all 0.2s ease;
-  }
-  
-  .list-group-item-action:hover {
-    background-color: #f8f9fa;
-    padding-left: 1.5rem;
-  }
-  
-  .card {
-    border-radius: 0.75rem;
-  }
-  
-  @media (max-width: 768px) {
-    .card-body-spmb {
-      padding: 1.25rem !important;
-    }
-  }
 
-  textarea[readonly] {
-    cursor: not-allowed;
-    opacity: 0.75;
-  }
-
-  .form-check-input:checked {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-  }
-
-  .form-check-label {
-    cursor: pointer;
-    user-select: none;
-  }
-</style>
-@endpush

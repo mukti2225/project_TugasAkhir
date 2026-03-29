@@ -20,6 +20,8 @@ Route::get('/kontak',[HomeController::class,'kontak'])->name('kontak');
 Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran');
 Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 Route::get('/pendaftaran/sukses/{id}', [PendaftaranController::class, 'success'])->name('pendaftaran.success');
+Route::get('/pendaftaran/download/{id}', [PendaftaranController::class, 'download'])
+    ->name('pendaftaran.download');
 
 // Cek status pendaftaran
 Route::get('/cek-pendaftaran', [PendaftaranController::class, 'cek'])->name('pendaftaran.cek');

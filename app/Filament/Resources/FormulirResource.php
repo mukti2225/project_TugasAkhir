@@ -51,7 +51,7 @@ class FormulirResource extends Resource
                         ->required()->unique(ignoreRecord: true),
                     TextInput::make('tempat_lahir')->label('Tempat Lahir')->required(),
                     DatePicker::make('tanggal_lahir')->label('Tanggal Lahir')->required(),
-                    Select::make('jenis_kelamin')->label('Jenis Kelamin')
+                    Radio::make('jenis_kelamin')->label('Jenis Kelamin')
                         ->options([
                             'Laki-laki' => 'Laki-laki',
                             'Perempuan' => 'Perempuan',
@@ -198,6 +198,15 @@ class FormulirResource extends Resource
                     TextInput::make('penghasilan_wali')->label('Penghasilan')->numeric()->nullable(),
                     TextInput::make('nomor_telepon_wali')->tel()->label('Nomor Telepon')->nullable(),
                     Textarea::make('alamat_wali')->label('Alamat Lengkap')->nullable()->columnSpanFull(),
+                    Select::make('status_penerimaan')->label('Status Penerimaan')
+                            ->options([
+                                'Menunggu' => 'Menunggu',
+                                'Diterima' => 'Diterima',
+                                'Ditolak' => 'Ditolak',
+                            ])
+                            ->default('Menunggu')
+                            ->required()
+                            ->visible(fn () => auth()->user()?->hasRole('admin') ?? false),
                 ])->columns(2),
             ]);
     }
@@ -208,6 +217,17 @@ class FormulirResource extends Resource
             ->searchable(auth()->user()?->hasRole('admin') ?? false)
             ->paginated(auth()->user()?->hasRole('admin') ?? false)
             ->columns([
+                TextColumn::make('status_penerimaan')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Menunggu' => 'warning',
+                        'Diterima' => 'success',
+                        'Ditolak' => 'danger',
+                        default => 'gray',
+                    })
+                    ->visible(fn () => auth()->user()?->hasRole('admin') ?? false),
+
                 TextColumn::make('nomor_pendaftaran')
                     ->label('No. Pendaftaran')
                     ->searchable()

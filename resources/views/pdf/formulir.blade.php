@@ -214,31 +214,6 @@
             <td class="col-value">{{ $data->alamat }}</td>
         </tr>
         <tr>
-            <td class="col-label">Jalan</td>
-            <td class="col-sep">:</td>
-            <td class="col-value">{{ $data->jalan }}</td>
-        </tr>
-        <tr>
-            <td class="col-label">RT / RW</td>
-            <td class="col-sep">:</td>
-            <td class="col-value">{{ $data->rt_rw }}</td>
-        </tr>
-        <tr>
-            <td class="col-label">Kelurahan</td>
-            <td class="col-sep">:</td>
-            <td class="col-value">{{ $data->kelurahan }}</td>
-        </tr>
-        <tr>
-            <td class="col-label">Kecamatan</td>
-            <td class="col-sep">:</td>
-            <td class="col-value">{{ $data->kecamatan }}</td>
-        </tr>
-        <tr>
-            <td class="col-label">Kota</td>
-            <td class="col-sep">:</td>
-            <td class="col-value">{{ $data->kota }}</td>
-        </tr>
-        <tr>
             <td class="col-label">Nomor Telepon Rumah</td>
             <td class="col-sep">:</td>
             <td class="col-value">{{ $data->nomor_telepon ?: '-' }}</td>

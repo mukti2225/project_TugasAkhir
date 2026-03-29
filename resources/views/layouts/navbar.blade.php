@@ -81,12 +81,12 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('kontak') ? 'active fw-semibold' : '' }}"
                        href="{{ route('kontak') }}">
                         Kontak
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('pendaftaran') ? 'active fw-semibold' : '' }}"

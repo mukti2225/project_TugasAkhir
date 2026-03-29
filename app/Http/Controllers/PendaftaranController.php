@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pendaftaran;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
@@ -22,6 +23,7 @@ class PendaftaranController extends Controller
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
+          
             'nisn' => 'required|digits:10|unique:pendaftarans,nisn',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
@@ -76,20 +78,35 @@ class PendaftaranController extends Controller
     public function cekHasil(Request $request)
     {
         $request->validate([
-            'nik' => 'required|digits:16',
+            'nomor_pendaftaran' => 'required',
         ], [
-            'nik.required' => 'NIK wajib diisi.',
-            'nik.digits'   => 'NIK harus 16 digit angka.',
+            'nomor_pendaftaran.required' => 'Nomor Pendaftaran wajib diisi.',
         ]);
 
-        $pendaftaran = Pendaftaran::where('nik', $request->nik)->first();
+        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $request->nomor_pendaftaran)->first();
 
         if (!$pendaftaran) {
             return redirect()->back()
                 ->withInput()
-                ->withErrors(['nik' => 'NIK tidak ditemukan. Anda belum melakukan pendaftaran.']);
+                ->withErrors(['nomor_pendaftaran' => 'Nomor Pendaftaran tidak ditemukan. Anda belum melakukan pendaftaran atau nomor salah.']);
         }
 
         return view('pendaftaran.cek', compact('pendaftaran'));
+    }
+
+    public function download($id)
+    {
+        $pendaftaran = Pendaftaran::Where('nomor_pendaftaran', $id)->firstOrFail();
+
+        // Amankan nama file
+        $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $pendaftaran->nama ?? 'formulir');
+
+        return response()->streamDownload(function () use ($pendaftaran) {
+            $pdf = Pdf::loadView('pdf.formulir', [
+                'data' => $pendaftaran,
+            ])->setPaper('A4', 'portrait');
+
+            echo $pdf->output();
+        }, "Formulir_{$safeName}.pdf");
     }
 }
