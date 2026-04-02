@@ -12,4 +12,9 @@ class Ptn extends Model
         'foto',
         'logo',
     ];
+
+    public function alumni()
+    {
+        return $this->hasMany(Alumni::class);
+    }
 }
