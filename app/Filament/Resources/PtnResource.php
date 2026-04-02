@@ -21,10 +21,13 @@ class PtnResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $navigationLabel = 'Lulus PTN';
+
     protected static ?string $pluralModelLabel = 'Daftar Lulus PTN';
 
-    protected static ?string $navigationGroup = 'Profil';
+    protected static ?string $navigationGroup = 'Home';
     
 
     public static function form(Form $form): Form

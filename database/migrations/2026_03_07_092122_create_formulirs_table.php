@@ -27,11 +27,6 @@ return new class extends Migration
 
             //KETERANGAN TEMPAT TINGGAL
             $table->text('alamat');
-            // $table->string('jalan');
-            // $table->string('rt_rw');
-            // $table->string('kelurahan');
-            // $table->string('kecamatan');
-            // $table->string('kota');
             $table->string('nomor_telepon')->nullable();
             $table->string('nomor_telepon_siswa')->nullable();
             $table->string('tinggal');

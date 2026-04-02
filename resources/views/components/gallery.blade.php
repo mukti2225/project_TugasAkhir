@@ -1,37 +1,36 @@
 @if($gallery->count() > 0)
-<section class="gallery py-5">
+<section class="gallery">
     <div class="container">
-      <div class="row align-items-end mb-4">
-
-        <!-- TEKS -->
-        <div class="col-lg-12 text-center ">
-            <h4 class="gallery-section">
-                GALERI SEKOLAH
-            </h4>
-            <h1 class="gallery-judul">DOKUMENTASI KEGIATAN</h1>
-            <p class="gallery-desc">
+      <div class="row">
+        <div class="col-lg-12 p-2 text-center ">
+            <h4 class="section">Gallery Sekolah</h4>
+            <h1 class="judul">DOKUMENTASI KEGIATAN</h1>
+            <p class="desc">
                Jelajahi berbagai aktivitas, momen, dan prestasi yang terjadi di lingkungan sekolah kami.
             </p>
         </div>
       </div>
 
-      <div class="row">
-          <div class="col-12 px-0 px-md-3">
-            <div class="gallery-scroll" id="galleryContainer">
+          <div class="col-12 mb-6 mb-lg-0 justify-content-center d-flex">
+            <div class="scroll" id="galleryContainer">
               @foreach($gallery as $item)
-                  <div class="gallery-item">
+                  <div class="item" data-aos="zoom-in">
                     <div class="card-gallery rounded-3 shadow-sm position-relative overflow-hidden">
                       <!-- Overlay Hover -->
-                      <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4">
-                        <span class="text-white fw-medium h5 mb-0">{{ $item->title }}</span>
+                      <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4">
+                        <span class="text-overlay">{{ $item->title }}</span>
                       </div>
-                    <img src="{{ asset('storage/'.$item->image) }}" alt="Gallery Image" class="gallery-img w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+                    <img src="{{ asset('storage/'.$item->image) }}" class="img w-100 h-100 object-fit-cover position-absolute top-0 start-0">
                   </div>
                 </div>
               @endforeach
             </div>
           </div>
-      </div>
+      {{-- <div class="text-center mt-5 mb-4">
+            <a href="{{ route('berita.artikel') }}" class="btn-lihat">
+                Lihat Semua Gallery
+            </a>
+        </div> --}}
     </div>
 </section>
 

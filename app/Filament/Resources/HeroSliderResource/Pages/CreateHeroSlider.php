@@ -10,6 +10,8 @@ class CreateHeroSlider extends CreateRecord
 {
     protected static string $resource = HeroSliderResource::class;
 
+    protected static ?string $title = 'Tambah Banner';
+
     protected function getFormActions(): array
     {
         return [

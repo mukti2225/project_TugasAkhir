@@ -1,10 +1,12 @@
-/*------- CAROUSEL -------*/
+/*-------------------
+--- CAROUSEL SECTION--- 
+--------------------*/
 .hero-area {
     z-index: 0;
     overflow: visible;
 }
 
-.hero-wrapper {
+.hero-area .hero-wrapper {
     height: 95vh;
 }
 
@@ -17,18 +19,18 @@
     background-repeat: no-repeat;
 }
 
-.text-hero {
+.hero-area .text-hero {
     position: relative;
-    color: #fff;
     z-index: 1;
+    color: #fff;
     text-align: left;
     justify-content: center;
-    max-width: 95%;
+    max-width: 80%;
     margin: 0;
-    padding: 0 35px;
+    padding: 0 0px;
 }
 
-.bg-overlay-2by5::before {
+.hero-area .bg-overlay-2by5::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -43,100 +45,91 @@
     height: 100%;
 }
 
-.hero-area .container-text {
-    position: relative;
-    z-index: 1;
-    text-align: left;
-    justify-content: center;
-    max-width: 95%;
-    margin: 0;
-    padding: 0 35px;
-}
-
 @media (max-width: 768px) {
     .hero-wrapper {
         height: 85vh;
     }
 
-    .hero-area .container-text {
+    .hero-area .text-hero {
         text-align: left;
         margin-left: 5px;
-        padding-left: 16px;
-        max-width: 100%;
+        padding-left: 5px;
+        max-width: 95%;
     }
 }
 
-.carousel-fade .carousel-item {
+.hero-area .carousel-fade .carousel-item {
     transition: opacity 0.5s ease-in-out !important;
 }
 
-.carousel-indicators button {
-    width: 8px !important;
-    height: 8px !important;
+.hero-area .carousel-indicators button {
+    width: 6px !important;
+    height: 6px !important;
     border-radius: 50%;
     margin-top: -60px;
 }
 
-/*------ Statistik Section ------*/
+/*-------------------
+--- STATISTIK SECTION--- 
+--------------------*/
 .statistik {
     background-color: #ffffff;
     position: relative;
     z-index: 2;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: -50px;
 }
 
-.horizontal-card {
+.statistik .horizontal-card {
     background-color: #ffffff;
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13);
+    padding: 25px;
 }
 
-.stats-card,
-.data-card {
-    border-radius: 10px;
-}
-
-.stats-card .title {
+.statistik .stats-card .title {
     font-weight: 700;
     font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
-.stats-card .desc {
+.statistik .stats-card .desc {
+    font-weight: 400;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
-.link-sambutan {
-    color: var(--color-primary-700);
+.statistik .link-sambutan {
+    color: var(--color-primary);
     font-weight: 600;
     text-decoration: none;
 }
 
-.link-sambutan:hover {
+.statistik .link-sambutan:hover {
     text-decoration: underline;
     color: #00a98f;
 }
 
-.foto-kepsek {
+.statistik .foto-kepsek {
     width: 55px;
     height: 55px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.stat-number {
+.statistik .stat-number {
     font-size: 32px;
     font-weight: 700;
     line-height: 1;
 }
 
-.stat-label {
+.statistik .stat-label {
     margin-top: 8px;
     font-size: 14px;
     color: #777;
 }
 
-.btn-stat {
+.statistik .btn-stat {
     background-color: #00a98f;
     color: #fff;
     font-weight: 400;
@@ -145,7 +138,7 @@
     text-decoration: none;
 }
 
-.btn-stat-outline {
+.statistik .btn-stat-outline {
     background-color: transparent;
     border: 1px solid #00a98f;
     color: #00a98f;
@@ -155,7 +148,7 @@
     text-decoration: none;
 }
 
-.btn-stat-outline:hover {
+.statistik .btn-stat-outline:hover {
     background-color: #00a98f;
     color: #fff;
     font-weight: 400;
@@ -164,77 +157,96 @@
     text-decoration: none;
 }
 
-/* About Section */
-.about-section {
+/*-------------------
+--- ABOUT SECTION--- 
+--------------------*/
+
+.about {
     margin-bottom: 40px;
     margin-top: 40px;
 }
 
-/* Image style */
-.about-image-wrapper {
+.about .content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.about .image-wrapper {
     position: relative;
-    margin-right: 20px;
 }
-.about-image-wrapper img {
-    border-radius: 0.4rem;
-}
-
-/* Title */
-.about-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-black);
-    font-family: var(--font-heading);
+.about .image-wrapper img {
+    border-radius: 10px;
 }
 
-.about-answer {
+.about .answer {
     font-family: var(--font-body);
     font-size: 1rem;
+    font-weight: 400;
     color: var(--color-gray-500);
     text-transform: uppercase;
 }
 
-/* Text */
-.about-text {
+.about .title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00a98f;
+}
+
+.about .text {
     color: var(--color-black);
     line-height: 1.8;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-family: var(--font-body);
 }
 
-.btn-outline-secondary:hover {
+.about .btn-outline-secondary:hover {
     color: #fff;
     border-color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+    .about .content {
+        display: block;
+        margin: 20px 0;
+    }
+    .about .answer {
+        margin-top: 10px;
+    }
 }
 
 /*------ Artikel ------*/
 .artikel {
     background: #e1f1ff;
+    padding: 30px 0;
 }
 
-.artikel-section {
-    font-weight: 400;
+.artikel .section {
+    font-weight: 500;
     margin-bottom: 10px;
     font-size: 0.9rem;
     color: #ffffff;
     background-color: #ffc300;
     border-radius: 5px;
     display: inline-flex;
-    padding: 4px 8px;
+    padding: 6px 10px;
 }
 
-.artikel-judul {
+.artikel .judul {
     font-weight: 700;
     font-size: 1.8rem;
     margin-bottom: 3px;
 }
 
-.artikel-desc {
+.artikel .desc {
     opacity: 0.9;
+    font-weight: 400;
+    font-size: 1em;
     margin-bottom: 10px;
 }
 
-.artikel-card {
+.artikel .card {
     background-color: #fff;
     color: black;
     border-radius: 5px;
@@ -242,54 +254,52 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.artikel-card img {
+.artikel .card img {
     height: 180px;
     object-fit: cover;
 }
 
-.artikel-card:hover .card-img-top {
+.artikel .card:hover .card-img-top {
     transform: scale(1.03);
     transition: transform 0.3s ease;
 }
 
-.artikel-card .card-title {
+.artikel .card .card-title {
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
 }
 
-.artikel-card .card-text {
-    font-weight: 300;
+.artikel .card .card-text {
+    font-weight: 400;
     font-size: 0.8rem;
     color: #3f3f3f;
 }
 
-.card-body {
+.artikel .card-body {
     display: flex;
-    padding: 4px 8px;
-    margin: 4px 12px;
 }
 
-.card-body .kategori {
+.artikel .card-body .kategori {
     background-color: #00a99042;
     color: #00a98f;
     font-weight: 400;
     font-size: 11px;
     padding: 2px 6px;
-    margin: 2px 2px;
+    margin: 2px 0px;
     border-radius: 3px;
 }
 
-.card-body .text-muted {
+.artikel .card-body .text-muted {
     color: #ffffff77;
     font-weight: 400;
     font-size: 11px;
     padding: 2px 6px;
-    margin: 2px 2px;
+    margin: 2px 0px;
     border-radius: 2px;
 }
 
-.btn-lihat {
+.artikel .btn-lihat {
     text-decoration: none;
     padding: 10px 20px;
     background-color: transparent;
@@ -300,7 +310,7 @@
     transition: all 0.3s ease;
 }
 
-.btn-lihat:hover {
+.artikel .btn-lihat:hover {
     color: #ffffff;
     background-color: #00a98f;
 }
@@ -308,31 +318,34 @@
 /* Gallery Section */
 .gallery {
     background: #f0f8ff;
+    padding: 30px 0;
 }
 
-.gallery-section {
-    font-weight: 400;
+.gallery .section {
+    font-weight: 500;
     margin-bottom: 10px;
     font-size: 0.9rem;
     color: #ffffff;
     background-color: #ffc300;
     border-radius: 5px;
     display: inline-flex;
-    padding: 4px 8px;
+    padding: 6px 10px;
 }
 
-.gallery-judul {
+.gallery .judul {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 3px;
 }
 
-.gallery-desc {
+.gallery .desc {
     opacity: 0.9;
+    font-weight: 400;
+    font-size: 1em;
     margin-bottom: 10px;
 }
 
-.gallery-scroll {
+.gallery .scroll {
     display: flex;
     gap: 15px;
     overflow-x: auto;
@@ -344,16 +357,11 @@
     scrollbar-width: none;
 }
 
-.gallery-scroll::-webkit-scrollbar {
+.gallery .scroll::-webkit-scrollbar {
     display: none;
 }
 
-.gallery-scroll.dragging {
-    cursor: grabbing;
-    scroll-behavior: auto;
-}
-
-.gallery-item {
+.gallery .item {
     min-width: 220px;
     max-width: 240px;
     height: 320px;
@@ -361,7 +369,7 @@
     overflow: hidden;
 }
 
-.gallery-item .card-gallery {
+.gallery .card-gallery {
     border: none;
     border-radius: 10px;
     overflow: hidden;
@@ -373,7 +381,7 @@
     transition: transform 0.3s ease;
 }
 
-.gallery-item img {
+.gallery .item img {
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -385,57 +393,82 @@
     pointer-events: auto;
 }
 
-.gallery-overlay {
+.gallery .overlay {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 2;
     pointer-events: none;
 }
-.card-gallery.active .gallery-overlay {
+
+.gallery .text-overlay {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    z-index: 3;
+}
+
+.gallery .active .overlay {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 #galleryContainer::-webkit-scrollbar {
     display: none;
 }
-/* Hide scrollbar for IE, Edge and Firefox */
 #galleryContainer {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.gallery .btn-lihat {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #00a98f;
+    color: #00a98f;
+    border-radius: 30px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+.gallery .btn-lihat:hover {
+    color: #ffffff;
+    background-color: #00a98f;
 }
 
 /* PTN SECTION */
 .ptn {
     background-color: #f8f9fa;
+    padding: 30px 0;
 }
 
-.ptn-section {
-    font-weight: 400;
+.ptn .section {
+    font-weight: 500;
     margin-bottom: 10px;
     font-size: 0.9rem;
     color: #ffffff;
     background-color: #ffc300;
     border-radius: 5px;
     display: inline-flex;
-    padding: 4px 8px;
+    padding: 6px 10px;
 }
 
-.ptn-judul {
-    margin-bottom: 3px;
+.ptn .judul {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 3px;
 }
 
-.ptn-desc {
+.ptn .desc {
     opacity: 0.9;
+    font-weight: 400;
+    font-size: 1em;
     margin-bottom: 10px;
 }
 
-/* SCROLL AREA */
-.ptn-scroll {
+.ptn .scroll {
     display: flex;
     gap: 1.2rem;
     overflow-x: hidden;
@@ -446,65 +479,81 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.ptn-scroll.active {
+.ptn .scroll .active {
     cursor: grabbing;
 }
 
-/* ITEM */
-.ptn-item {
+.ptn .item {
     flex: 0 0 auto;
 }
 
-/* CARD */
-.card-ptn {
+.ptn .card-ptn {
     position: relative;
     width: 240px;
     height: 320px;
     border-radius: 16px;
-    overflow: auto;
+    overflow: hidden;
 }
 
-.card-ptn img {
+.ptn .card-ptn img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 /* OVERLAY */
-.ptn-overlay {
+.ptn .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.699), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.37), rgba(0, 0, 0, 0));
     color: #fff;
-    padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    opacity: 0;
+    justify-content: space-between;
+    opacity: 1;
     transition: opacity 0.5s ease;
     z-index: 2;
     pointer-events: none;
 }
-.card-ptn:hover .ptn-overlay {
-    opacity: 1;
+.ptn .card-ptn:hover .overlay {
+    opacity: 0;
     pointer-events: auto;
 }
 
-.ptn-overlay img {
-    margin-bottom: 5px;
-    height: 30px;
-    width: 30px;
-    object-fit: fill;
+.ptn .overlay img {
+    top: -10px;
+    left: -10px;
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+
     position: relative;
+    z-index: 2;
 }
 
-.ptn-overlay h2 {
+.ptn .overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 70px;
+    height: 70px;
+
+    background: #fff;
+    border-bottom-right-radius: 90%;
+    border-top-left-radius: 10%;
+
+    z-index: 1;
+}
+
+.ptn .overlay h2 {
     margin-bottom: 2px;
     font-size: 1rem;
     font-weight: 700;
 }
 
-.ptn-overlay h5 {
+.ptn .overlay h5 {
     margin: 0;
     font-size: 0.9rem;
     font-weight: 200;

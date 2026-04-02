@@ -11,6 +11,7 @@
 
 <div class="container-fluid pengumuman-container">
 <div class="container ">
+    @if($pengumuman->count())
         <div class="row py-4">
             <div class="col-12">
                 <div class="d-flex justify-content-end align-items-end">
@@ -54,7 +55,11 @@
         <div class="mt-4">
             {{ $pengumuman->links() }}
         </div>
-    </div>
+    @else
+        <div class="text-center fw-bold py-5">
+            <h4 class="text-muted">Belum ada pengumuman tersedia</h4>
+        </div>
+    @endif
 </div>
 </section>
 @endsection

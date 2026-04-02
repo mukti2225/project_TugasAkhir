@@ -26,6 +26,7 @@
 
 .card {
     border-radius: 0.75rem;
+    background-color: #f6fdff !important;
 }
 
 @media (max-width: 768px) {

@@ -14,53 +14,56 @@ return new class extends Migration
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('nomor_pendaftaran')->nullable();
+            $table->string('status_penerimaan')->default('Menunggu');
 
             // DATA SISWA
-            $table->string('nama');
-            $table->string('nik', 16);
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->string('agama');
-            $table->integer('anak');
-            $table->string('status');
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->string('nik', 16)->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('agama')->nullable();
+            $table->integer('anak')->nullable();
+            $table->string('status')->nullable();
 
             // TEMPAT TINGGAL
-            $table->string('nomor_telepon_siswa');
+            $table->string('nomor_telepon_siswa')->nullable();
             $table->string('nomor_telepon')->nullable();
-            $table->string('tinggal');
-            $table->string('jarak_sekolah');
-            $table->text('alamat');
+            $table->string('tinggal')->nullable();
+            $table->string('jarak_sekolah')->nullable();
+            $table->text('alamat')->nullable();
 
             // PENDIDIKAN
-            $table->string('pendidikan');
-            $table->string('nisn', 10);
-            $table->string('ijazah');
-            $table->string('asal_sekolah');
+            $table->string('pendidikan')->nullable();
+            $table->string('nisn', 10)->nullable();
+            $table->string('ijazah')->nullable();
+            $table->string('asal_sekolah')->nullable();
             $table->string('pindahan')->nullable();
-            $table->string('program_studi');
+            $table->string('program_studi')->nullable();
 
             // AYAH
-            $table->string('nama_ayah');
-            $table->string('tempat_lahir_ayah');
-            $table->date('tanggal_lahir_ayah');
-            $table->string('agama_ayah');
-            $table->string('pendidikan_ayah');
-            $table->string('pekerjaan_ayah');
-            $table->bigInteger('penghasilan_ayah');
-            $table->string('nomor_telepon_ayah');
-            $table->text('alamat_ayah');
+            $table->string('nama_ayah')->nullable();
+            $table->string('tempat_lahir_ayah')->nullable();
+            $table->date('tanggal_lahir_ayah')->nullable();
+            $table->string('agama_ayah')->nullable();
+            $table->string('pendidikan_ayah')->nullable();
+            $table->string('pekerjaan_ayah')->nullable();
+            $table->bigInteger('penghasilan_ayah')->nullable();
+            $table->string('nomor_telepon_ayah')->nullable();
+            $table->text('alamat_ayah')->nullable();
 
             // IBU
-            $table->string('nama_ibu');
-            $table->string('tempat_lahir_ibu');
-            $table->date('tanggal_lahir_ibu');
-            $table->string('agama_ibu');
-            $table->string('pendidikan_ibu');
-            $table->string('pekerjaan_ibu');
-            $table->bigInteger('penghasilan_ibu');
-            $table->string('nomor_telepon_ibu');
-            $table->text('alamat_ibu');
+            $table->string('nama_ibu')->nullable();
+            $table->string('tempat_lahir_ibu')->nullable();
+            $table->date('tanggal_lahir_ibu')->nullable();
+            $table->string('agama_ibu')->nullable();
+            $table->string('pendidikan_ibu')->nullable();
+            $table->string('pekerjaan_ibu')->nullable();
+            $table->bigInteger('penghasilan_ibu')->nullable();
+            $table->string('nomor_telepon_ibu')->nullable();
+            $table->text('alamat_ibu')->nullable();
 
             // WALI
             $table->string('nama_wali')->nullable();

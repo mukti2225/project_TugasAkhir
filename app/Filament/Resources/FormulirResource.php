@@ -26,9 +26,11 @@ class FormulirResource extends Resource
     // Mengubah Model ke Pendaftaran agar datanya sinkron dengan frontend
     protected static ?string $model = Pendaftaran::class;
 
-    protected static ?string $navigationLabel = 'Formulir Pendaftaran';
-
     protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'SPMB Online';
+
+    protected static ?string $pluralModelLabel = 'Pendaftaran SPMB Online';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

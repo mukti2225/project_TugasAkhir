@@ -44,8 +44,8 @@
                         <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi Misi</a></li>
                         <li><a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}">Struktur Organisasi</a></li>
                         <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}">Fasilitas</a></li>
-                        <li><a class="dropdown-item" href="{{ route('profil.guru') }}">Staff Pengajar</a></li>
-                        <li><a class="dropdown-item" href="{{ route('profil.staf') }}">Staff Tenaga Kependidikan</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profil.guru') }}">Guru</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profil.staf') }}">Tenaga Kependidikan</a></li>
                     </ul>
                 </li>
 
@@ -73,7 +73,7 @@
                        role="button"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Siswa
+                        Kesiswaan
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="siswaDropdown">
                         <li><a class="dropdown-item" href="{{ route('kesiswaan.alumni') }}">Alumni</a></li>
@@ -81,12 +81,12 @@
                     </ul>
                 </li>
 
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('kontak') ? 'active fw-semibold' : '' }}"
                        href="{{ route('kontak') }}">
                         Kontak
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('pendaftaran') ? 'active fw-semibold' : '' }}"
@@ -94,7 +94,9 @@
                         SPMB
                     </a>
                 </li>
+
             </ul>
+
 
             {{-- USER --}}
             <div class="navbar-user-section">
@@ -134,8 +136,6 @@
                         </li>
                     </ul>
                 </div>
-                @else
-                <a href="{{ route('filament.admin.auth.login') }}" class="btn btn-login">Masuk</a>
                 @endauth
             </div>
         </div>

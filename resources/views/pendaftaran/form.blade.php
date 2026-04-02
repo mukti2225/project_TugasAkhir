@@ -477,7 +477,7 @@
               <button type="submit" class="btn btn-primary px-4">
                 Kirim Pendaftaran
               </button>
-            </div>
+            </div> 
 
           </form>
 
@@ -536,10 +536,6 @@ function resetCheckboxes() {
     });
 }
 </script>
-@endpush
-
-@push('css')
-<style src="{{ asset('css/pages/spmb.css') }}"></style>
 @endpush
 @endsection
 

@@ -10,6 +10,8 @@ class CreateStatistik extends CreateRecord
 {
     protected static string $resource = StatistikResource::class;
 
+    protected static ?string $title = 'Tambah Sambutan Sekolah';
+
     protected function getFormActions(): array
     {
         return [

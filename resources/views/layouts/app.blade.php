@@ -27,11 +27,12 @@
 
     <footer> @include('layouts.footer') </footer>
 
+    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
-    <script src="{{ asset('js/navbar.js') }}"></script>
+
     @stack('js')
 </body>
 </html>

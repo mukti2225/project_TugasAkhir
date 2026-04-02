@@ -9,12 +9,13 @@
             'title' => 'Berita & Artikel'
         ])
 
-<div class="container-fluid artikel-container">
-<div class="container ">
+<div class="container-fluid artikel-index">
+    <div class="container">
+        @if($artikel->count())
         <div class="row py-3">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="kategori-filter d-flex flex-wrap gap-2 justify-content-center">
+                <div class="d-flex justify-content-md-between justify-content-end align-items-center">
+                    <div class="kategori-filter d-none d-md-flex flex-wrap gap-2 justify-content-center">
                         <a href="{{ route('berita.artikel') }}"
                         class="btn kategori-btn {{ !request('kategori') ? 'active' : '' }}">
                             Semua
@@ -38,18 +39,18 @@
             </div>
         </div>
 
-        <!--Card Artikel -->
+        <!-- Artikel -->
         <div class="row g-4 justify-content-start">
             @foreach($artikel as $art)
-            <div class="col-6 col-md-3 col-lg-3">
+            <div class="col-6 col-md-3 col-lg-0">
                 <article class="h-100 w-100 border-0">
 
-                <div class="artikel-card h-100 shadow-sm">
+                <div class="card h-100">
                     <a href="{{ route('berita.artikel.show',$art->slug) }}">
                         <img src="{{ asset('storage/' . $art->thumbnail) }}" class="card-img-top">
                     </a>
-                    <div class="card-body d-flex flex-column">
-                        <small class="mt-2 mb-2 d-flex justify-content-between">
+                    <div class="card-body flex-column">
+                        <small class="mb-2 d-flex justify-content-between">
                                 <span class="kategori">
                                     {{ $art->kategoriArtikel->nama_kategori }}
                                 </span>
@@ -74,10 +75,14 @@
                 </div>
                 </article>
             </div>
-        @endforeach
+            @endforeach
         </div>
+        @else
+        <div class="text-center py-5">
+            <h4 class="text-muted">Belum ada artikel tersedia</h4>
+        </div>
+        @endif
     </div>
 </div>
-
 </section>
 @endsection

@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PengumumanResource\Pages;
-use App\Filament\Resources\PengumumanResource\RelationManagers;
 use App\Models\Pengumuman;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PengumumanResource extends Resource
 {
@@ -19,7 +16,7 @@ class PengumumanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Artikel';
+    protected static ?string $navigationGroup = 'Berita';
 
     public static function form(Form $form): Form
     {
@@ -35,10 +32,6 @@ class PengumumanResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required(),
 
-                Forms\Components\FileUpload::make('thumbnail')
-                    ->image()
-                    ->directory('pengumuman'),
-
                 Forms\Components\FileUpload::make('file_pdf')
                     ->label('File PDF')
                     ->acceptedFileTypes(['application/pdf'])
@@ -53,8 +46,6 @@ class PengumumanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('thumbnail'),
-
                 Tables\Columns\TextColumn::make('judul')
                     ->searchable()
                     ->limit(40),

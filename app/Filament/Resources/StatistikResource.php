@@ -18,11 +18,12 @@ class StatistikResource extends Resource
     protected static ?string $model = Statistik::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Sambutan Sekolah';
 
-    protected static ?string $navigationLabel = 'Data Sekolah';
-    protected static ?string $pluralModelLabel = 'Data Sekolah';
+    protected static ?string $pluralModelLabel = 'Sambutan Sekolah';
 
-    protected static ?string $navigationGroup = 'Profil';
+    protected static ?string $navigationGroup = 'Home';
     
 
     public static function form(Form $form): Form
@@ -30,7 +31,7 @@ class StatistikResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
-                    ->label('Heading')
+                    ->label('Judul')
                     ->required()
                     ->maxLength(255)
                     ->default('Selamat Datang di SMA Arif Rahman Hakim'),
@@ -47,9 +48,8 @@ class StatistikResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->default('Kepala Sekolah'),
-                Forms\Components\Textarea::make('sambutan')
+                Forms\Components\RichEditor::make('sambutan')
                     ->label('Kalimat Sambutan')
-                    ->rows(5)
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\TextInput::make('total_teachers')
@@ -73,6 +73,8 @@ class StatistikResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->searchable(false)
+            ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
@@ -91,14 +93,8 @@ class StatistikResource extends Resource
                 Tables\Columns\TextColumn::make('total_classes')
                     ->label('Total Kelas')
                     ->numeric(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->paginated(false)
+
             ->filters([
                 //
             ])

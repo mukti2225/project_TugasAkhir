@@ -9,6 +9,8 @@ use Filament\Resources\Pages\EditRecord;
 class EditStatistik extends EditRecord
 {
     protected static string $resource = StatistikResource::class;
+    
+    protected static ?string $title = 'Edit Sambutan Sekolah';
 
     protected function getHeaderActions(): array
     {

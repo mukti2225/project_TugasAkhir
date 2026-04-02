@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->string('status_penerimaan')->default('Menunggu')->after('nomor_pendaftaran');
+        Schema::create('visi_misis', function (Blueprint $table) {
+            $table->id();
+            $table->text('visi');
+            $table->text('misi');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->dropColumn('status_penerimaan');
-        });
+        Schema::dropIfExists('visi_misis');
     }
 };

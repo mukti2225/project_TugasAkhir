@@ -1,0 +1,162 @@
+.kesiswaan-page {
+    padding: 40px 0;
+}
+
+.kesiswaan-page h2 {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+.kesiswaan-page h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+/* Grid logo kampus */
+.kesiswaan-page .logo-kampus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    row-gap: 40px;
+    margin-top: 20px;
+}
+
+/* Style untuk setiap item logo */
+.kesiswaan-page .logo-kampus-item {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    filter: grayscale(0%);
+    opacity: 0.9;
+}
+
+/* Efek hover yang menarik */
+.kesiswaan-page .logo-kampus-item:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    filter: grayscale(0%);
+    opacity: 1;
+    background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+}
+
+/* Alternatif: jika ingin efek dengan border */
+.kesiswaan-page .logo-kesiswaan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.kesiswaan-page .logo-kesiswaan:hover .logo-kampus-item {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.kesiswaan-page .logo-caption {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.kesiswaan-page .logo-kesiswaan:hover .logo-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .kesiswaan-page .container {
+        padding: 40px 20px;
+    }
+
+    .kesiswaan-page h2 {
+        font-size: 1.8rem;
+    }
+
+    .kesiswaan-page .logo-kampus {
+        gap: 25px;
+    }
+
+    .kesiswaan-page .logo-kampus-item {
+        width: 90px;
+        height: 90px;
+        padding: 15px;
+    }
+
+    .kesiswaan-page .logo-caption {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .kesiswaan-page .logo-kampus-item {
+        width: 75px;
+        height: 75px;
+        padding: 12px;
+    }
+
+    .kesiswaan-page .logo-kampus {
+        gap: 20px;
+    }
+}
+
+/* Animasi fade in untuk logo */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kesiswaan-page .logo-kesiswaan {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+/* Delay animasi untuk setiap logo */
+.kesiswaan-page .logo-kesiswaan:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.kesiswaan-page .logo-kesiswaan:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.kesiswaan-page .logo-kesiswaan:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.kesiswaan-page .logo-kesiswaan:nth-child(4) {
+    animation-delay: 0.4s;
+}
+.kesiswaan-page .logo-kesiswaan:nth-child(5) {
+    animation-delay: 0.5s;
+}
+.kesiswaan-page .logo-kesiswaan:nth-child(6) {
+    animation-delay: 0.6s;
+}

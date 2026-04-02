@@ -7,13 +7,13 @@
 
     @include('components.statistik')
 
-    @include('components.artikel')
-
-    @include('components.gallery')
-
     <div id="about">
         @include('components.about')
     </div>
+
+    @include('components.artikel')
+
+    @include('components.gallery')
 
     {{-- @include('components.vidio-profil') --}}
 

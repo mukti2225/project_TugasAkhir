@@ -13,7 +13,7 @@ class BerkasPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,7 +22,7 @@ class BerkasPolicy
     public function view(User $user, Berkas $berkas): bool
     {
          if ($user->hasRole('admin')) {
-            return true;
+            return false;
         }
 
         return $berkas->user_id === $user->id;
@@ -34,7 +34,7 @@ class BerkasPolicy
     public function create(User $user): bool
     {
          if ($user->hasRole('admin')) {
-            return true;
+            return false;
         }
 
         return $user->berkas()->count() === 0;
@@ -45,7 +45,7 @@ class BerkasPolicy
      */
     public function update(User $user, Berkas $berkas): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -53,7 +53,7 @@ class BerkasPolicy
      */
     public function delete(User $user, Berkas $berkas): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -61,7 +61,7 @@ class BerkasPolicy
      */
     public function restore(User $user, Berkas $berkas): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     /**
@@ -69,6 +69,6 @@ class BerkasPolicy
      */
     public function forceDelete(User $user, Berkas $berkas): bool
     {
-        return $user->hasRole('admin');
+        return false;
     }
 }

@@ -28,14 +28,13 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('spmb')
+            ->path('admin')
             ->login()
-            ->registration()
-            // ->emailVerification()
+            ->emailVerification()
             ->profile(\App\Filament\Pages\Auth\EditProfile::class)
-            ->topNavigation()
+            ->favicon(asset('img/logo/ARH.png'))
             ->brandLogo(asset('img/logo/ARH.png'))
-            ->brandLogoHeight('40px')
+            ->brandLogoHeight('50px')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Blue,
@@ -47,8 +46,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -65,8 +64,10 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationGroups([
-                'Profil',
-                'Artikel',
+                'Home',
+                'Profile',
+                'Berita',
+                
             ])
             ->plugins([
                 AuthUIEnhancerPlugin::make()
@@ -76,7 +77,6 @@ class AdminPanelProvider extends PanelProvider
                 ->emptyPanelBackgroundImageUrl(asset('img/dump/ARH.jpg'))
                 ->emptyPanelBackgroundImageOpacity('80%')
                 ->emptyPanelBackgroundColor(Color::hex('#000000')),
-
             ])
             ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
     }

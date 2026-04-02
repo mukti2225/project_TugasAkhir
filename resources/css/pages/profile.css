@@ -2,65 +2,45 @@
 .fasilitas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 32px;
+    gap: 10px;
 }
 
 .card-fasilitas {
-    background: #fff;
-    border-radius: 18px;
+    border-radius: 10px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    overflow: hidden;
-    position: relative;
+    position: absolute;
     transition:
         box-shadow 0.25s,
         transform 0.22s cubic-bezier(0.4, 2, 0.6, 1);
     display: flex;
     flex-direction: column;
-    min-height: 320px;
 }
 
 .card-fasilitas img {
     width: 100%;
-    height: 220px;
     object-fit: cover;
-    transition: transform 0.22s cubic-bezier(0.4, 2, 0.6, 1);
-    display: block;
-}
-
-.card-fasilitas:hover {
-    box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.16);
-    transform: translateY(-6px) scale(1.01);
 }
 
 .card-fasilitas:hover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
-.overlay {
+.card-fasilitas .overlay {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 28px 0 18px 0;
     background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.62) 60%,
-        rgba(0, 0, 0, 0.12) 100%,
-        transparent 100%
+        to top,
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0)
     );
     text-align: center;
-    z-index: 2;
-    border-bottom-left-radius: 18px;
-    border-bottom-right-radius: 18px;
 }
 
-.overlay h3 {
+.card-fasilitas .overlay h3 {
     color: #fff;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
     margin: 0;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 /* IMG FLUID */
 .img-sambutan {
@@ -70,9 +50,9 @@
 
 .img-sambutan img {
     width: 100%;
-    height: 400px;
+    height: 300px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -112,8 +92,11 @@
 
 .container-guru {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
     gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .card-guru {
@@ -152,4 +135,24 @@
 
 .card-guru:hover img {
     transform: scale(1.01);
+}
+
+.visi-misi {
+    padding: 20px 0;
+    margin: 20px 0;
+}
+
+.visi-misi h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.visi-misi .visi p,
+.visi-misi .misi li {
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.6;
+    margin: 10px 0;
 }

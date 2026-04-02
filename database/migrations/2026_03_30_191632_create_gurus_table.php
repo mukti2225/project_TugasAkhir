@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->string('email')->nullable()->after('nama');
-            $table->string('nomor_pendaftaran')->nullable()->after('id');
+        Schema::create('gurus', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama')->nullable();
+            $table->string('foto')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->dropColumn(['email', 'nomor_pendaftaran']);
-        });
+        Schema::dropIfExists('gurus');
     }
 };

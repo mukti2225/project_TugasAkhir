@@ -17,10 +17,11 @@
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <div class="bg-img bg-overlay-2by5 d-flex align-items-center"
                                  style="background-image:url('{{ asset('storage/'.$slider->image) }}')">
-                                <div class="container text-hero">
-                                    <p class="text-warning mb-2">{{ $slider->kategori }}</p>
+                                 <div class="container">
+                                    <div class="text-hero" data-aos="fade-up" data-aos-duration="2000">
+                                    <p class="text-warning mb-1">{{ $slider->kategori }}</p>
 
-                                    <h2 class="fw-bold mb-2">
+                                    <h2 class="fw-bold mb-1">
                                         {{ $slider->title }}
                                     </h2>
 
@@ -32,11 +33,12 @@
 
                                     @if($slider->button_text)
                                         <a href="{{ $slider->button_link }}"
-                                           class="btn btn-primary me-2">
+                                           class="btn btn-primary">
                                             {{ $slider->button_text }}
                                         </a>
                                     @endif
                                 </div>
+                                 </div>
                             </div>
                         </div>
                     @endforeach

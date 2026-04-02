@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ptn;
 use App\Models\Artikel;
 use App\Models\Gallery;
-use App\Models\Statistik;
 use App\Models\HeroSlider;
+use App\Models\Ptn;
+use App\Models\Statistik;
 
 class HomeController extends Controller
 {
@@ -22,7 +22,7 @@ class HomeController extends Controller
                 ->get(),
         ]);
     }
-
+    
     public function kontak()
     {
         return view('page.kontak');

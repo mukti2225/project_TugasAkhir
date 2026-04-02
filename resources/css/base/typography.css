@@ -10,13 +10,6 @@ p {
     line-height: var(--lh-relaxed);
 }
 
-small,
-.small,
-.text-muted {
-    font-family: var(--font-secondary);
-    font-size: var(--fs-sm);
-}
-
 h1 {
     font-size: var(--fs-3xl);
     font-weight: 700;

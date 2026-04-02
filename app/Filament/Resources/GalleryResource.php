@@ -18,10 +18,11 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
+    protected static ?int $navigationSort = 3;
     protected static ?string $navigationLabel = 'Galeri Sekolah';
     protected static ?string $pluralModelLabel = 'Daftar Galeri Sekolah';
 
-    protected static ?string $navigationGroup = 'Profil';
+    protected static ?string $navigationGroup = 'Home';
     
 
     public static function form(Form $form): Form
@@ -29,9 +30,11 @@ class GalleryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->label('Gambar')
                     ->image()
                     ->required(),
                 Forms\Components\TextInput::make('title')
+                    ->label('Judul')
                     ->maxLength(255)
                     ->default(null),
             ]);
@@ -41,9 +44,11 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -58,6 +63,7 @@ class GalleryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -20,7 +20,7 @@
                     <p class="text-muted mb-3">{{ $statistik->position }}</p>
 
                     <p style="text-align: justify;">
-                        {{ $statistik->sambutan ?? 'Sambutan belum tersedia.' }}
+                        {!! $statistik->sambutan !!}
                     </p>
                 </div>
 
@@ -34,9 +34,8 @@
                 @else
                 <!-- Fallback kalau data kosong -->
                 <div class="col-12 text-center">
-                        <h4 class="fw-bold">Sambutan belum tersedia</h4>
-                        <p class="text-muted">Silakan tambahkan data di panel admin.</p>
-                    </div>
+                    <h4 class="fw-bold">Sambutan belum tersedia</h4>
+                </div>
                 @endif
             </div>
         </div>

@@ -13,7 +13,7 @@ class ListFormulirs extends ListRecords
 {
     protected static string $resource = FormulirResource::class;
 
-    protected static ?string $title = 'Data Formulir SPMB';
+    protected static ?string $title = 'Data Pendaftaran SPMB';
 
     protected function getHeaderActions(): array
     {

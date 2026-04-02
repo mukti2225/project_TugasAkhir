@@ -10,7 +10,7 @@ class CreateFormulir extends CreateRecord
 {
     protected static string $resource = FormulirResource::class;
 
-    protected static ?string $title = 'Formulir SPMB';
+    protected static ?string $title = 'Tambah Formulir SPMB';
 
     protected function getFormActions(): array
     {
