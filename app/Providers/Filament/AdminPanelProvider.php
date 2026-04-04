@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->emailVerification()
+            // ->emailVerification()
             ->profile(\App\Filament\Pages\Auth\EditProfile::class)
             ->favicon(asset('img/logo/ARH.png'))
             ->brandLogo(asset('img/logo/ARH.png'))

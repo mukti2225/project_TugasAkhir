@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Ptn;
 use Illuminate\Database\Eloquent\Model;
 
 class Alumni extends Model

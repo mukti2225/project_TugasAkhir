@@ -1,96 +1,104 @@
-/* FASILITAS MODERN */
+/* Container utama */
+.fasilitas {
+    padding: 40px 20px;
+}
+
 .fasilitas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 10px;
-}
-
-.card-fasilitas {
-    border-radius: 10px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    position: absolute;
-    transition:
-        box-shadow 0.25s,
-        transform 0.22s cubic-bezier(0.4, 2, 0.6, 1);
-    display: flex;
-    flex-direction: column;
-}
-
-.card-fasilitas img {
-    width: 100%;
-    object-fit: cover;
-}
-
-.card-fasilitas:hover img {
-    transform: scale(1.03);
-}
-
-.card-fasilitas .overlay {
-    position: absolute;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.7),
-        rgba(0, 0, 0, 0.3),
-        rgba(0, 0, 0, 0)
-    );
-    text-align: center;
-}
-
-.card-fasilitas .overlay h3 {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-}
-/* IMG FLUID */
-.img-sambutan {
-    max-width: 320px;
-    margin: auto;
-}
-
-.img-sambutan img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 /* Card */
-.card-fasilitas {
+.fasilitas .card-fasilitas {
     position: relative;
     overflow: hidden;
-    border-radius: 6px;
-    height: 280px;
+    border-radius: 12px;
+    cursor: pointer;
 }
 
-.card-fasilitas img {
+/* Gambar */
+.fasilitas .card-fasilitas img {
     width: 100%;
-    display: block;
-    height: 280px;
+    height: 250px;
     object-fit: cover;
-    transition: 0.3s ease;
+    display: block;
+    transition: transform 0.4s ease;
 }
 
 /* Overlay */
-.overlay {
+.fasilitas .card-fasilitas .overlay {
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
-    padding: 20px;
     background: rgba(0, 0, 0, 0.5);
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s ease;
 }
 
-.overlay h3 {
+/* Judul */
+.fasilitas .card-fasilitas .overlay h3 {
     color: #fff;
     font-size: 18px;
-    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Hover effect */
+.fasilitas .card-fasilitas:hover img {
+    transform: scale(1.1);
+}
+
+.fasilitas .card-fasilitas:hover .overlay {
+    opacity: 1;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .fasilitas .fasilitas-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fasilitas .card-fasilitas img {
+        height: 220px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .fasilitas .fasilitas-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fasilitas .card-fasilitas img {
+        height: 200px;
+    }
+
+    .fasilitas .card-fasilitas .overlay {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .fasilitas .card-fasilitas .overlay h3 {
+        font-size: 16px;
+    }
 }
 
 /* GURU */
+.guru {
+    padding: 40px 20px;
+}
 
-.container-guru {
+.guru .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
     gap: 20px;
@@ -99,7 +107,7 @@
     justify-content: center;
 }
 
-.card-guru {
+.guru .card {
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -108,7 +116,7 @@
     transition: 0.3s;
 }
 
-.card-guru img {
+.guru .card img {
     width: 100%;
     height: 260px;
     object-fit: cover;
@@ -116,27 +124,61 @@
     transition: 0.3s;
 }
 
-.card-body-guru {
+.guru .card:hover img {
+    transform: scale(1.01);
+}
+
+.guru .card-body {
     padding: 12px;
     background: #ffffff;
 }
 
-.name {
+.guru .name {
     font-size: 14px;
     font-weight: bold;
     color: #333;
     margin: 5px 0;
 }
 
-.title {
-    font-size: 13px;
-    color: #555;
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+    .guru .container {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 90%;
+    }
+
+    .guru .card img {
+        height: 240px;
+    }
 }
 
-.card-guru:hover img {
-    transform: scale(1.01);
+/* =========================
+   MOBILE (2 KOLOM)
+========================= */
+@media (max-width: 576px) {
+    .guru {
+        padding: 30px 15px;
+    }
+
+    .guru .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .guru .card img {
+        height: 200px;
+    }
+
+    .guru .name {
+        font-size: 13px;
+    }
 }
 
+/* =========================
+   VISI MISI
+========================= */
 .visi-misi {
     padding: 20px 0;
     margin: 20px 0;
@@ -155,4 +197,18 @@
     color: #333333;
     line-height: 1.6;
     margin: 10px 0;
+}
+
+/* SAMBUATAN */
+.img-sambutan {
+    max-width: 320px;
+    margin: auto;
+}
+
+.img-sambutan img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }

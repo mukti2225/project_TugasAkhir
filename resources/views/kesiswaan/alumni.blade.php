@@ -17,22 +17,16 @@
         </div>
         
         <div class="logo-kampus">
+            @foreach($alumni as $alumni)
             <div class="logo-kesiswaan">
-                @foreach($alumni as $item)
-                    @if($item->ptn) {{-- cek relasi ada --}}
                     <div class="text-center">
-                        <img 
-                            src="{{ asset('storage/' . $item->ptn->logo) }}" 
-                            class="logo-kampus-item mb-2"
-                            alt="{{ $item->ptn->universitas }}">
-
-                        <span class="logo-caption">
-                            {{ $item->ptn->universitas }}
-                        </span>
+                        <img src="{{ asset('storage/' . $alumni->logo) }}" class="logo-kampus-item mb-2">
+                            <div class="logo-caption">
+                                {{ $alumni->caption }}
+                            </div>
                     </div>
-                    @endif
-                @endforeach
             </div>
+            @endforeach
         </div>
         @else
         <div class="text-center py-5">

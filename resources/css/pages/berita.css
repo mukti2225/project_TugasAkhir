@@ -22,13 +22,13 @@
     transition: transform 0.3s ease;
 }
 
-.artikel-index .card .card-title {
+.artikel-index .card-title {
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
 }
 
-.artikel-index .card .card-text {
+.artikel-index .card-text {
     font-weight: 400;
     font-size: 0.8rem;
     color: #3f3f3f;
@@ -93,7 +93,61 @@
     border-color: #0d6efd;
 }
 
-.pengumuman-container {
-    background-color: #f3f8ff;
-    padding: 30px;
+/*------ PENGUMUMAN ------*/
+.pengumuman {
+    background: #f0f8ff;
+    padding: 30px 0;
+}
+
+.pengumuman .card {
+    background-color: #fff;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pengumuman .card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+.pengumuman .card:hover .card-img-top {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+
+.pengumuman .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.pengumuman .card-text {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #3f3f3f;
+}
+
+.pengumuman .card-body {
+    display: flex;
+}
+
+.pengumuman .card-body .kategori {
+    background-color: #00a99042;
+    color: #00a98f;
+    font-weight: 400;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin: 2px 0px;
+    border-radius: 3px;
+}
+
+.pengumuman .card-body .text-muted {
+    color: #ffffff77;
+    font-weight: 400;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin: 2px 0px;
+    border-radius: 2px;
 }

@@ -21,7 +21,7 @@
               <img src="{{ asset('storage/'.$ptn->foto) }}">
               <div class="overlay">
                 <img src="{{ asset('storage/'.$ptn->logo) }}">
-                <div>
+                <div class="text">
                   <h2>{{ $ptn->nama }}</h2>
                   <h5>{{ $ptn->universitas }}</h5>
                 </div>

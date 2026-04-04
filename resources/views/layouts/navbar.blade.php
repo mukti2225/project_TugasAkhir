@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-modern sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
 
-       <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <img src="/img/logo/ARH.png" alt="Logo" height="40" class="logo-img me-2">
+       <a class="navbar-brand" href="{{ route('home') }}">
+            <img src="/img/logo/ARH.png" height="40" class="logo-img me-2">
 
             <div class="brand-text">
                 <span class="title">SMA Arif Rahman Hakim</span>
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarMain">
 
             {{-- Menu Tengah --}}
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-lg-0">
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
@@ -106,7 +106,7 @@
                         <span class="user-avatar"><i class="bi bi-person-circle"></i></span>
                         <span class="user-name">{{ auth()->user()->name }}</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-user">
+                    <ul class="dropdown-menu dropdown-menu-user">
                         <li class="dropdown-header">
                             <div class="user-info">
                                 <div class="user-avatar-large">

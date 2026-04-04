@@ -351,7 +351,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -470,28 +470,21 @@
 
 .ptn .scroll {
     display: flex;
-    gap: 1.2rem;
-    overflow-x: hidden;
-    padding-bottom: 1rem;
-    scroll-snap-type: x mandatory;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
     cursor: grab;
-    user-select: none;
-    -webkit-overflow-scrolling: touch;
-}
-
-.ptn .scroll .active {
-    cursor: grabbing;
-}
-
-.ptn .item {
-    flex: 0 0 auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .ptn .card-ptn {
     position: relative;
     width: 240px;
     height: 320px;
-    border-radius: 16px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -521,8 +514,8 @@
 }
 
 .ptn .overlay img {
-    top: -10px;
-    left: -10px;
+    top: 8px;
+    left: 8px;
     height: 40px;
     width: 40px;
     object-fit: contain;
@@ -547,14 +540,20 @@
     z-index: 1;
 }
 
+.ptn .overlay .text {
+    position: relative;
+    text-align: center;
+    bottom: 10px;
+    z-index: 2;
+}
+
 .ptn .overlay h2 {
-    margin-bottom: 2px;
     font-size: 1rem;
+    margin-bottom: 3px;
     font-weight: 700;
 }
 
 .ptn .overlay h5 {
-    margin: 0;
     font-size: 0.9rem;
     font-weight: 200;
 }

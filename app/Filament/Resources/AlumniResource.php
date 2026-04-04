@@ -29,7 +29,7 @@ class AlumniResource extends Resource
                     ->label('Logo Perguruan Tinggi')
                     ->image()
                     ->directory('alumni-logo')
-                    ->maxSize(1024)
+                    ->maxSize(2*1024)
                     ->acceptedFileTypes(['image/*']),
                 Forms\Components\TextInput::make('caption')
                     ->label('Nama Perguruan Tinggi')
