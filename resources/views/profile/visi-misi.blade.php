@@ -37,10 +37,10 @@
                 <div class="col-md-5 mb-4 mb-md-0">
                     <img src="img/dump/visi-misi.png" class="img-fluid rounded">
                 </div>
+                
                 @else
-
                 <div class="col-12 text-center">
-                    <h3 class="fw-bold">Visi dan Misi belum tersedia</h3>
+                    <h4 class="fw-bold">Visi dan Misi belum tersedia</h4>
                 </div>
                 @endif
             </div>

@@ -22,8 +22,8 @@
             @endforeach
         </div>
     @else
-        <div class="text-center py-5">
-            <h3 class="fw-bold">Data guru belum tersedia</h3>
+        <div class="text-center py-3">
+            <h4 class="fw-bold">Data guru belum tersedia</h4>
         </div>
     @endif
 </div>

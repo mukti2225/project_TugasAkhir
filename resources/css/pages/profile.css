@@ -176,6 +176,89 @@
     }
 }
 
+/* GURU */
+.staff {
+    padding: 40px 20px;
+}
+
+.staff .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.staff .card {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.staff .card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    transition: 0.3s;
+}
+
+.staff .card:hover img {
+    transform: scale(1.01);
+}
+
+.staff .card-body {
+    padding: 12px;
+    background: #ffffff;
+}
+
+.staff .name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+    .staff .container {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 90%;
+    }
+
+    .staff .card img {
+        height: 240px;
+    }
+}
+
+/* =========================
+   MOBILE (2 KOLOM)
+========================= */
+@media (max-width: 576px) {
+    .staff {
+        padding: 30px 15px;
+    }
+
+    .staff .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .staff .card img {
+        height: 200px;
+    }
+
+    .staff .name {
+        font-size: 13px;
+    }
+}
+
 /* =========================
    VISI MISI
 ========================= */
