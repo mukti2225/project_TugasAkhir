@@ -16,6 +16,15 @@
       "app.css"
     ]
   },
+  "resources/css/filament/admin/theme.css": {
+    "file": "assets/theme-CDZ1Gisr.css",
+    "src": "resources/css/filament/admin/theme.css",
+    "isEntry": true,
+    "name": "theme",
+    "names": [
+      "theme.css"
+    ]
+  },
   "resources/js/app.js": {
     "file": "assets/app-DlKoD_g0.js",
     "name": "app",
