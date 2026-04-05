@@ -21,6 +21,10 @@ class AlumniResource extends Resource
 
     protected static ?string $navigationGroup = 'Kesiswaan';
 
+    protected static ?string $navigationLabel = 'Alumni';
+
+    protected static ?string $pluralModelLabel = 'Daftar Alumni';
+
     public static function form(Form $form): Form
     {
         return $form

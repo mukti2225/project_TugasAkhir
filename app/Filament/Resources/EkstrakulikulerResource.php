@@ -21,6 +21,10 @@ class EkstrakulikulerResource extends Resource
 
     protected static ?string $navigationGroup = 'Kesiswaan';
 
+    protected static ?string $navigationLabel = 'Ekstrakulikuler';
+
+    protected static ?string $pluralModelLabel = 'Daftar Ekstrakulikuler';
+
     public static function form(Form $form): Form
     {
         return $form

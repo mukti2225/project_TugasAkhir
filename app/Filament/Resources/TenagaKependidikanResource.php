@@ -21,6 +21,10 @@ class TenagaKependidikanResource extends Resource
 
     protected static ?string $navigationGroup = 'Profile';
 
+    protected static ?string $navigationLabel = 'Tenaga Kependidikan';
+
+    protected static ?string $pluralModelLabel = 'Daftar Tenaga Kependidikan';
+
     public static function form(Form $form): Form
     {
         return $form

@@ -21,6 +21,10 @@ class GuruResource extends Resource
 
     protected static ?string $navigationGroup = 'Profile';
 
+    protected static ?string $navigationLabel = 'Guru';
+
+    protected static ?string $pluralModelLabel = 'Daftar Guru';
+
     public static function form(Form $form): Form
     {
         return $form
