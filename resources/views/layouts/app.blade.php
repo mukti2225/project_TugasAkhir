@@ -23,9 +23,11 @@
 <body>
     @include('layouts.navbar')
 
-    @yield('content')
+    <div style="overflow-x: hidden;">
+        @yield('content')
 
-    <footer> @include('layouts.footer') </footer>
+        <footer> @include('layouts.footer') </footer>
+    </div>
 
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

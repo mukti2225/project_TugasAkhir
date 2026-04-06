@@ -34,12 +34,12 @@
 }
 
 .page-header .page-title {
-    font-size: 1.8rem;
+    font-size: var(--fs-2xl);
     font-weight: 700;
 }
 
 .page-header .breadcrumb-custom {
-    font-size: 16px;
+    font-size: var(--fs-base);
 }
 
 .page-header .breadcrumb-custom a {

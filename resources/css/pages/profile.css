@@ -44,7 +44,7 @@
 /* Judul */
 .fasilitas .card-fasilitas .overlay h3 {
     color: #fff;
-    font-size: 18px;
+    font-size: var(--fs-md);
     text-align: center;
     padding: 10px;
 }
@@ -89,7 +89,7 @@
     }
 
     .fasilitas .card-fasilitas .overlay h3 {
-        font-size: 16px;
+        font-size: var(--fs-base);
     }
 }
 
@@ -134,7 +134,7 @@
 }
 
 .guru .name {
-    font-size: 14px;
+    font-size: var(--fs-sm);
     font-weight: bold;
     color: #333;
     margin: 5px 0;
@@ -172,7 +172,7 @@
     }
 
     .guru .name {
-        font-size: 13px;
+        font-size: var(--fs-sm);
     }
 }
 
@@ -217,7 +217,7 @@
 }
 
 .staff .name {
-    font-size: 14px;
+    font-size: var(--fs-sm);
     font-weight: bold;
     color: #333;
     margin: 5px 0;
@@ -255,7 +255,7 @@
     }
 
     .staff .name {
-        font-size: 13px;
+        font-size: var(--fs-sm);
     }
 }
 
@@ -268,7 +268,7 @@
 }
 
 .visi-misi h3 {
-    font-size: 24px;
+    font-size: var(--fs-xl);
     font-weight: bold;
     color: #000000;
     margin-bottom: 20px;
@@ -276,7 +276,7 @@
 
 .visi-misi .visi p,
 .visi-misi .misi li {
-    font-size: 16px;
+    font-size: var(--fs-base);
     color: #333333;
     line-height: 1.6;
     margin: 10px 0;

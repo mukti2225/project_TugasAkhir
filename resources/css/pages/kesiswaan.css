@@ -3,7 +3,7 @@
 }
 
 .kesiswaan-page h2 {
-    font-size: 2rem;
+    font-size: var(--fs-2xl);
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -62,7 +62,7 @@
 }
 
 .kesiswaan-page .logo-caption {
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     color: #555;
     font-weight: 500;
     opacity: 0;
@@ -82,7 +82,7 @@
     }
 
     .kesiswaan-page h2 {
-        font-size: 1.8rem;
+        font-size: var(--fs-2xl);
     }
 
     .kesiswaan-page .logo-kampus {
@@ -96,7 +96,7 @@
     }
 
     .kesiswaan-page .logo-caption {
-        font-size: 0.75rem;
+        font-size: var(--fs-xs);
     }
 }
 

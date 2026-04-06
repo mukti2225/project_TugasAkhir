@@ -1,5 +1,5 @@
 .form-label {
-    font-size: 0.875rem;
+    font-size: var(--fs-sm);
     margin-bottom: 0.25rem;
 }
 
@@ -51,11 +51,11 @@ textarea[readonly] {
 }
 
 .form-control::placeholder {
-    font-size: 0.9rem;
+    font-size: var(--fs-base);
     color: #6c757d;
 }
 
 .judul-cek {
-    font-size: 1rem;
+    font-size: var(--fs-base);
     color: #0d6efd;
 }
