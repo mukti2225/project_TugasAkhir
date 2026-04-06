@@ -101,12 +101,10 @@ class PendaftaranController extends Controller
         // Amankan nama file
         $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $pendaftaran->nama ?? 'formulir');
 
-        return response()->streamDownload(function () use ($pendaftaran) {
-            $pdf = Pdf::loadView('pdf.formulir', [
-                'data' => $pendaftaran,
-            ])->setPaper('A4', 'portrait');
+         $pdf = Pdf::loadView('pdf.formulir', [
+            'data' => $pendaftaran,
+        ])->setPaper('A4', 'portrait');
 
-            echo $pdf->output();
-        }, "Formulir_{$safeName}.pdf");
+        return $pdf->download("Formulir_{$safeName}.pdf");
     }
 }
