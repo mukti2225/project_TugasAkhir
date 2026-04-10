@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\FormulirResource\Pages;
 
 use App\Filament\Resources\FormulirResource;
+use App\Mail\PendaftaranSukses;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Mail;
 
 class CreateFormulir extends CreateRecord
 {

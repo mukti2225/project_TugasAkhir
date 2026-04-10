@@ -8,7 +8,6 @@ use App\Models\User;
 
 class Formulir extends Model
 {
-    /** @use HasFactory<\Database\Factories\FormulirFactory> */
     use HasFactory;
     
     protected $table = 'pendaftarans'; 
@@ -16,8 +15,11 @@ class Formulir extends Model
     protected $fillable = [
         // USER ID
         'user_id',
-
+        
         // DATA PRIBADI
+        'email',
+        'nomor_pendaftaran',
+        'status_penerimaan',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
@@ -30,11 +32,6 @@ class Formulir extends Model
 
         // TEMPAT TINGGAL
         'alamat',
-        // 'jalan',
-        // 'rt_rw',
-        // 'kelurahan',
-        // 'kecamatan',
-        // 'kota',
         'nomor_telepon',
         'nomor_telepon_siswa',
         'tinggal',

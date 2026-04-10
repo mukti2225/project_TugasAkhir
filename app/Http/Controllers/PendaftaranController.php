@@ -38,19 +38,19 @@ class PendaftaranController extends Controller
         // user_id required in database
         $data['user_id'] = auth()->id() ?? 1;
         
-        // Buat nomor pendaftaran dari tanggal lahir (format: ddmmyyyy)
-        $data['nomor_pendaftaran'] = date('dmY', strtotime($data['tanggal_lahir']));
+        // // Buat nomor pendaftaran dari tanggal lahir (format: ddmmyyyy)
+        // $data['nomor_pendaftaran'] = date('dmY', strtotime($data['tanggal_lahir']));
 
         // SIMPAN
         $pendaftaran = Pendaftaran::create($data);
 
-        // Kirim Email ke pendaftar
-        try {
-            \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\PendaftaranSukses($pendaftaran));
-        } catch (\Exception $e) {
-            // Log error if mail fails, but continue to success page
-            \Illuminate\Support\Facades\Log::error('Gagal mengirim email pendaftaran: ' . $e->getMessage());
-        }
+        // // Kirim Email ke pendaftar
+        // try {
+        //     \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\PendaftaranSukses($pendaftaran));
+        // } catch (\Exception $e) {
+        //     // Log error if mail fails, but continue to success page
+        //     \Illuminate\Support\Facades\Log::error('Gagal mengirim email pendaftaran: ' . $e->getMessage());
+        // }
 
         // Beri otorisasi untuk bisa masuk ke halaman success
         session(['nomor_pendaftaran' => $pendaftaran->id]);
@@ -98,7 +98,6 @@ class PendaftaranController extends Controller
     {
         $pendaftaran = Pendaftaran::Where('nomor_pendaftaran', $id)->firstOrFail();
 
-        // Amankan nama file
         $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $pendaftaran->nama ?? 'formulir');
 
          $pdf = Pdf::loadView('pdf.formulir', [

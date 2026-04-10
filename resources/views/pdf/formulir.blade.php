@@ -5,40 +5,63 @@
     <title>Formulir Pendaftaran SPMB - {{ $data->nama }}</title>
     <style>
         * {
-            margin: 0;
+            margin: 0px;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            line-height: 1.6;
+            font-family: Poppins, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
             color: #1a1a1a;
             background: #fff;
         }
 
-        .page {
+        .print-page {
             padding: 40px 50px;
+            margin: 4px 4px 3px 3px; 
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .header-logo {
+            width: 70px;
+            height: 70px;
+            margin-right: 16px;
+            flex-shrink: 0;
+            position: absolute;
+            left: 0;
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* ── HEADER ── */
-        .header {
+        .header-text {
+            width: 100%;
             text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a1a1a;
-            margin-bottom: 4px;
+            padding-bottom: 0;
+            margin-bottom: 0;
         }
 
         .header-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .header-sub {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             margin-top: 2px;
         }
@@ -52,14 +75,14 @@
         .header-line2 {
             width: 100%;
             border: none;
-            border-top: 1px solid #1a1a1a;
+            border-top: 2px solid #1a1a1a;
             margin-top: 0;
-            margin-bottom: 22px;
+            margin-bottom: 15px;
         }
 
         /* ── SECTION TITLE ── */
         .section-title {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -75,14 +98,14 @@
         }
 
         .data-table td {
-            padding: 4.5px 8px;
+            padding: 4.5px 10px;
             vertical-align: top;
             border-bottom: 1px solid #ebebeb;
-            margin-left: 10px;
+            margin-left: 0px;
         }
 
         .data-table tr:last-child td {
-            border-bottom: none;
+            border-bottom: 1px solid #ebebeb;
         }
 
         .col-label {
@@ -134,7 +157,7 @@
         }
 
         .sign-role {
-            font-size: 10.5px;
+            font-size: 12px;
             color: #444;
         }
 
@@ -149,19 +172,24 @@
         }
 
         .sign-name {
-            font-size: 10.5px;
+            font-size: 12px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-<div class="page">
+<div class="print-page">
 
     {{-- HEADER --}}
     <div class="header">
-        <div class="header-title">Formulir Pendaftaran Siswa Baru</div>
-        <div class="header-sub">Penerimaan Murid Baru SMA ARH</div>
-        <div class="header-year">Tahun Pelajaran {{ date('Y') }}/{{ date('Y') + 1 }}</div>
+        <div class="header-logo">
+            <img src="{{ public_path('img/logo/ARH.png') }}" alt="Logo SMA ARH">
+        </div>
+        <div class="header-text">
+            <div class="header-title">Formulir Pendaftaran Siswa Baru</div>
+            <div class="header-sub">Penerimaan Murid Baru SMA ARH</div>
+            <div class="header-year">Tahun Pelajaran {{ date('Y') }}/{{ date('Y') + 1 }}</div>
+        </div>
     </div>
     <hr class="header-line2">
 
@@ -425,7 +453,7 @@
 
     <div class="footer-meta">Dicetak pada: {{ date('d F Y, H:i') }} WIB</div>
 
-    </div>{{-- end page-break --}}
+    </div>
 
 </div>
 </body>

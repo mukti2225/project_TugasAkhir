@@ -83,4 +83,17 @@ class Pendaftaran extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($data) {
+            $data->user_id = auth()->id() ?? 1;
+            $data->nomor_pendaftaran = date('dmY', strtotime($data->tanggal_lahir));
+        });
+
+        static::created(function ($data) {
+            \Mail::to($data->email)
+                ->send(new \App\Mail\PendaftaranSukses($data));
+        });
+    }
 }

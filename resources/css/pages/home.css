@@ -168,7 +168,7 @@
         max-width: 100%;
         margin-top: -30px;
     }
-    
+
     .statistik .horizontal-card {
         border-radius: 0;
         padding: 20px 15px;
@@ -383,6 +383,14 @@
     height: 320px;
     border-radius: 5px;
     overflow: hidden;
+}
+
+@media (max-width: 480px) {
+    .gallery .scroll .item {
+        min-width: 160px;
+        max-width: 160px;
+        height: 240px;
+    }
 }
 
 .gallery .card-gallery {
