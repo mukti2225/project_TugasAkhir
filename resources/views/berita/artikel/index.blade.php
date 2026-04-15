@@ -40,9 +40,9 @@
         </div>
 
         <!-- Artikel -->
-        <div class="row g-4 justify-content-start">
+        <div class="row g-2 justify-content-start">
             @foreach($artikel as $art)
-            <div class="col-6 col-md-3 col-lg-0">
+            <div class="col-6 col-md-4 col-lg-3">
                 <article class="h-100 w-100 border-0">
 
                 <div class="card h-100">

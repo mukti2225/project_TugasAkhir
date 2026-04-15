@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtikelsController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\PendaftaranController;
@@ -44,3 +45,5 @@ Route::get('/staf-pendidik',[ProfilController::class,'pendidik'])->name('profil.
 //Kesiswaan
 Route::get('/alumni',[KesiswaanController::class,'alumni'])->name('kesiswaan.alumni');
 Route::get('/ekstrakulikuler',[KesiswaanController::class,'ekstrakulikuler'])->name('kesiswaan.ekstrakulikuler');
+
+Route::post('/chat', [ChatController::class, 'chat']);

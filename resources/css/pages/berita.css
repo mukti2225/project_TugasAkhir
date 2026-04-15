@@ -36,6 +36,7 @@
 
 .artikel-index .card-body {
     display: flex;
+    flex-direction: column;
 }
 
 .artikel-index .card-body .kategori {
@@ -55,6 +56,28 @@
     padding: 2px 6px;
     margin: 2px 0px;
     border-radius: 2px;
+}
+
+@media (max-width: 576px) {
+    .artikel-index .card-title {
+        font-size: 13px;
+    }
+
+    .artikel-index .card-text {
+        font-size: 12px;
+    }
+
+    .artikel-index .card-body .text-muted {
+        font-size: 7px;
+    }
+
+    .artikel-index .card-body {
+        padding: 10px;
+    }
+
+    .artikel-index .card-body .kategori {
+        font-size: 5px;
+    }
 }
 
 .container.show {

@@ -38,12 +38,12 @@
 @push('js')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const galleryContainer = document.getElementById('ptnContainer');
+    const ptnContainer = document.getElementById('ptnContainer');
     
-    if(galleryContainer) {
+    if(ptnContainer) {
         
         // Hover Effects via JS for Overlay
-        const cards = galleryContainer.querySelectorAll('.scroll');
+        const cards = ptnContainer.querySelectorAll('.card-ptn');
         cards.forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.classList.add('active');
@@ -57,27 +57,27 @@ document.addEventListener('DOMContentLoaded', function() {
         let startX;
         let scrollLeft;
 
-        galleryContainer.addEventListener('mousedown', (e) => {
+        ptnContainer.addEventListener('mousedown', (e) => {
             isDown = true;
-            galleryContainer.style.cursor = 'grabbing';
-            startX = e.pageX - galleryContainer.offsetLeft;
-            scrollLeft = galleryContainer.scrollLeft;
+            ptnContainer.style.cursor = 'grabbing';
+            startX = e.pageX - ptnContainer.offsetLeft;
+            scrollLeft = ptnContainer.scrollLeft;
         });
 
         const resetDrag = () => {
             isDown = false;
-            if(galleryContainer) galleryContainer.style.cursor = 'grab';
+            if(ptnContainer) ptnContainer.style.cursor = 'grab';
         };
 
-        galleryContainer.addEventListener('mouseleave', resetDrag);
-        galleryContainer.addEventListener('mouseup', resetDrag);
+        ptnContainer.addEventListener('mouseleave', resetDrag);
+        ptnContainer.addEventListener('mouseup', resetDrag);
 
-        galleryContainer.addEventListener('mousemove', (e) => {
+        ptnContainer.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
-            const x = e.pageX - galleryContainer.offsetLeft;
+            const x = e.pageX - ptnContainer.offsetLeft;
             const walk = (x - startX) * 2; 
-            galleryContainer.scrollLeft = scrollLeft - walk;
+            ptnContainer.scrollLeft = scrollLeft - walk;
         });
     }
 });
