@@ -6,7 +6,7 @@
 
             <div class="brand-text">
                 <span class="title">SMA Arif Rahman Hakim</span>
-                <span class="subtitle">Terakreditasi “A”</span>
+                <span class="subtitle">berkarakter, berakhlak, berilmu</span>
             </div>
         </a>
 
@@ -141,3 +141,35 @@
         </div>
     </div>
 </nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".navbar");
+    const hero = document.getElementById("hero");
+
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", function () {
+        let currentScroll = window.scrollY;
+        let heroHeight = hero.offsetHeight;
+
+        if (currentScroll < heroHeight) {
+
+            // scroll ke bawah → hide
+            if (currentScroll > lastScroll && currentScroll > 60) {
+                navbar.classList.add("hide-navbar");
+            } 
+            // scroll ke atas → show
+            else {
+                navbar.classList.remove("hide-navbar");
+            }
+
+        } 
+        else {
+            navbar.classList.remove("hide-navbar");
+        }
+
+        lastScroll = currentScroll;
+    });
+});
+</script>

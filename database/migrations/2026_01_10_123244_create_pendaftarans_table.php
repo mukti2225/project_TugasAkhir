@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('nomor_pendaftaran')->nullable();
             $table->string('status_penerimaan')->default('Menunggu');
 
@@ -75,6 +75,25 @@ return new class extends Migration
             $table->bigInteger('penghasilan_wali')->nullable();
             $table->string('nomor_telepon_wali')->nullable();
             $table->text('alamat_wali')->nullable();
+
+            //UPLOAD BERKAS
+            $table->string('ijazah_file_name')->nullable();
+            $table->string('ijazah_file_path')->nullable();
+
+            $table->string('kk_file_name')->nullable();
+            $table->string('kk_file_path')->nullable();
+
+            $table->string('akta_file_name')->nullable();
+            $table->string('akta_file_path')->nullable();
+ 
+            // ─── Status Verifikasi ───────────────────────────────────────────
+            $table->enum('status_verifikasi', ['belum_diverifikasi', 'diverifikasi', 'ditolak'])
+                  ->default('belum_diverifikasi');
+            $table->text('catatan_verifikasi')->nullable();
+            $table->timestamp('verified_at')->nullable();
+            $table->foreignId('verified_by')->nullable()
+                  ->constrained('users')
+                  ->nullOnDelete();
 
             $table->timestamps();
         });

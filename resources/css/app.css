@@ -10,7 +10,7 @@
 @import "./components/navbar.css";
 @import "./components/footer.css";
 @import "./components/page-header.css";
-@import "./components/chatbot.css";
+@import "./components/whatsapp.css";
 
 /* =========================
    PAGES (optional)
@@ -18,5 +18,6 @@
 @import "./pages/home.css";
 @import "./pages/profile.css";
 @import "./pages/berita.css";
+@import "./pages/kontak.css";
 @import "./pages/spmb.css";
 @import "./pages/kesiswaan.css";

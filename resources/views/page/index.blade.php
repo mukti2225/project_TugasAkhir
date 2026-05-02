@@ -3,7 +3,9 @@
 ])
 
 @section('content')
-    @include('components.carousel')
+    <div id="hero">
+        @include('components.carousel')
+    </div>    
 
     @include('components.statistik')
 

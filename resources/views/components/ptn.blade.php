@@ -1,15 +1,17 @@
 @if($ptn->count() > 0)
 <section class="ptn">
     <div class="container">
-      <div class="row">
-
-        <!-- TEKS -->
-        <div class="col-lg-12 text-center">
-          <h4 class="section">Prestasi</h4>
-          <h1 class="judul">SISWA YANG DITERIMA PERGURUAN TINGGI</h1>
-          <p class="desc mb-4">
-            Lulusan SMA Arif Rahman Hakim yang berhasil diterima di berbagai Perguruan Tinggi Negeri (PTN) melalui berbagai jalur seleksi seperti SNBP, SNBT, dan jalur mandiri.
-          </p>
+      
+      {{-- Header --}}
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <span class="section-label">Prestasi</span>
+                <div class="section-divider mx-auto mt-2 mb-3"></div>
+                <h2 class="section-title">SISWA YANG DITERIMA PERGURUAN TINGGI</h2>
+                <p class="section-desc mx-auto">
+                    Lulusan SMA Arif Rahman Hakim yang berhasil diterima di berbagai Perguruan Tinggi Negeri (PTN) melalui berbagai jalur seleksi seperti SNBP, SNBT, dan jalur mandiri.
+                </p>
+            </div>
         </div>
 
       <!-- CARD -->

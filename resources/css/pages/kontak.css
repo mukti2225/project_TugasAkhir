@@ -1,0 +1,368 @@
+/* ---------- Kontak dan saran ---------- */
+.ks-section {
+    background: var(--ks-bg);
+    padding: 40px 20px;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ks-text);
+}
+
+.ks-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* ---------- Card ---------- */
+.ks-card {
+    background: var(--ks-card-bg);
+    border-radius: var(--ks-radius);
+    box-shadow: var(--ks-shadow);
+    padding: 32px 28px;
+    border: 1px solid var(--ks-border);
+}
+
+/* ---------- Card Header ---------- */
+.ks-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.ks-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.ks-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ks-text);
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+/* ---------- Form Groups ---------- */
+.ks-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ks-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ks-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ks-text);
+    letter-spacing: 0.1px;
+}
+
+.ks-required {
+    color: var(--ks-error);
+    margin-left: 2px;
+}
+
+/* ---------- Input / Textarea ---------- */
+.ks-input,
+.ks-select,
+.ks-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--ks-border);
+    border-radius: 8px;
+    font-size: 0.93rem;
+    color: var(--ks-text);
+    background: #fff;
+    transition:
+        border-color var(--ks-transition),
+        box-shadow var(--ks-transition);
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.ks-input:focus,
+.ks-select:focus,
+.ks-textarea:focus {
+    border-color: var(--ks-primary);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.ks-input.ks-input-error,
+.ks-select.ks-input-error,
+.ks-textarea.ks-input-error {
+    border-color: var(--ks-error);
+}
+
+.ks-textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.5;
+}
+
+/* ---------- Select Wrapper ---------- */
+.ks-select-wrapper {
+    position: relative;
+}
+
+.ks-select {
+    cursor: pointer;
+    padding-right: 36px;
+}
+
+.ks-select-arrow {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: var(--ks-text-muted);
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* ---------- Error Message ---------- */
+.ks-error-msg {
+    font-size: 0.8rem;
+    color: var(--ks-error);
+    margin-top: 2px;
+}
+
+/* ---------- Submit Button ---------- */
+.ks-btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, #7c74ff 0%, #5b51f0 100%);
+    color: #fff;
+    font-size: 0.97rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        transform var(--ks-transition),
+        box-shadow var(--ks-transition),
+        background var(--ks-transition);
+    letter-spacing: 0.2px;
+    margin-top: 6px;
+}
+
+.ks-btn-submit:hover {
+    background: linear-gradient(135deg, #6c63ff 0%, #4e45e0 100%);
+    box-shadow: 0 4px 14px rgba(108, 99, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.ks-btn-submit:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* ---------- Success Alert ---------- */
+.ks-alert-success {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    color: var(--ks-success);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* ---------- Map ---------- */
+.ks-map-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--ks-border);
+    margin-bottom: 20px;
+}
+
+/* ---------- Info Block ---------- */
+.ks-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.ks-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ks-info-icon {
+    font-size: 1.15rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.ks-info-title {
+    font-weight: 700;
+    font-size: 0.93rem;
+    margin: 0 0 4px 0;
+    color: var(--ks-text);
+}
+
+.ks-info-text {
+    font-size: 0.875rem;
+    color: var(--ks-text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .ks-container {
+        grid-template-columns: 1fr;
+    }
+
+    .ks-card {
+        padding: 24px 18px;
+    }
+
+    .ks-section {
+        padding: 24px 12px;
+    }
+}
+
+/* =========================================================
+   FAQ SECTION
+   ========================================================= */
+
+.faq-section {
+    background: #fff;
+    padding: 60px 20px 70px;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.faq-container {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+/* ---------- Heading ---------- */
+.faq-heading {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.faq-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tertiary);
+    margin-bottom: 10px;
+}
+
+.faq-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+/* ---------- FAQ List ---------- */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---------- FAQ Item ---------- */
+.faq-item {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.faq-item.active {
+    border-color: var(--color-tertiary);
+    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.15);
+}
+
+/* ---------- Question Button ---------- */
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 17px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #111;
+    text-align: left;
+    gap: 12px;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.faq-item.active .faq-question {
+    background: var(--color-tertiary);
+    color: #fff;
+}
+
+.faq-question:hover:not(.faq-item.active .faq-question) {
+    background: #fffbeb;
+}
+
+.faq-chevron {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    transition: transform 0.25s ease;
+}
+
+/* ---------- Answer ---------- */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 0.35s ease,
+        padding 0.3s ease;
+    padding: 0 20px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 400px;
+    padding: 16px 20px 20px;
+}
+
+.faq-answer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4b5563;
+    line-height: 1.75;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+    .faq-title {
+        font-size: 1.5rem;
+    }
+
+    .faq-question {
+        font-size: 0.9rem;
+        padding: 14px 16px;
+    }
+}

@@ -13,6 +13,8 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{ asset('img/logo/ARH.png') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     {{-- VITE Bootstrap --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -26,7 +28,7 @@
 
     <div style="overflow-x: hidden;">
         @yield('content')
-        @include('components.chatbot')
+        @include('components.whatsapp')
     </div>
 
     @include('layouts.footer')

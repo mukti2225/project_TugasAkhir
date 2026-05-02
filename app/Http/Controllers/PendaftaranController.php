@@ -27,6 +27,10 @@ class PendaftaranController extends Controller
             'nisn' => 'required|digits:10|unique:pendaftarans,nisn',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
+
+            'ijazah_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'kk_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'akta_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ], [
             'nik.unique' => 'Maaf, NIK ini sudah pernah didaftarkan.',
             'nik.digits' => 'Format NIK tidak valid. Harus berjumlah 16 digit angka.',
@@ -35,22 +39,41 @@ class PendaftaranController extends Controller
         ]);
 
         $data = $request->all();
+        
+        // ================== IJAZAH ==================
+        if ($request->hasFile('ijazah_file')) {
+            $file = $request->file('ijazah_file');
+
+            $path = $file->store('berkas/ijazah', 'public');
+
+            $data['ijazah_file_path'] = $path;
+            $data['ijazah_file_name'] = $file->getClientOriginalName();
+        }
+
+        // ================== KK ==================
+        if ($request->hasFile('kk_file')) {
+            $file = $request->file('kk_file');
+
+            $path = $file->store('berkas/kk', 'public');
+
+            $data['kk_file_path'] = $path;
+            $data['kk_file_name'] = $file->getClientOriginalName();
+        }
+
+        // ================== AKTA ==================
+        if ($request->hasFile('akta_file')) {
+            $file = $request->file('akta_file');
+
+            $path = $file->store('berkas/akta', 'public');
+
+            $data['akta_file_path'] = $path;
+            $data['akta_file_name'] = $file->getClientOriginalName();
+        }
         // user_id required in database
         $data['user_id'] = auth()->id() ?? 1;
         
-        // // Buat nomor pendaftaran dari tanggal lahir (format: ddmmyyyy)
-        // $data['nomor_pendaftaran'] = date('dmY', strtotime($data['tanggal_lahir']));
-
         // SIMPAN
         $pendaftaran = Pendaftaran::create($data);
-
-        // // Kirim Email ke pendaftar
-        // try {
-        //     \Illuminate\Support\Facades\Mail::to($data['email'])->send(new \App\Mail\PendaftaranSukses($pendaftaran));
-        // } catch (\Exception $e) {
-        //     // Log error if mail fails, but continue to success page
-        //     \Illuminate\Support\Facades\Log::error('Gagal mengirim email pendaftaran: ' . $e->getMessage());
-        // }
 
         // Beri otorisasi untuk bisa masuk ke halaman success
         session(['nomor_pendaftaran' => $pendaftaran->id]);

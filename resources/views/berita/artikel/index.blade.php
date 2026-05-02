@@ -11,11 +11,9 @@
 
 <div class="container-fluid artikel-index">
     <div class="container">
-        @if($artikel->count())
         <div class="row py-3">
-            <div class="col-12">
-                <div class="d-flex justify-content-md-between justify-content-end align-items-center">
-                    <div class="kategori-filter d-none d-md-flex flex-wrap gap-2 justify-content-center">
+                <div class="d-flex justify-content-md-between align-items-center">
+                    <div class="kategori-filter d-none d-md-flex gap-2 justify-content-center">
                         <a href="{{ route('berita.artikel') }}"
                         class="btn kategori-btn {{ !request('kategori') ? 'active' : '' }}">
                             Semua
@@ -28,7 +26,7 @@
                         @endforeach
                     </div>
 
-                    <form class="d-flex" action="{{ route('berita.artikel.search') }}" method="GET" style="width: 250px;">
+                    <form class="d-flex w-md-auto " action="{{ route('berita.artikel.search') }}" method="GET" style="width: 350px;">
                         <input class="form-control form-control-sm me-2" type="search"
                                name="keyword" placeholder="Cari berita">
                         <button class="btn btn-primary btn-sm" type="submit">
@@ -36,11 +34,11 @@
                         </button>
                     </form>
                 </div>
-            </div>
         </div>
 
         <!-- Artikel -->
         <div class="row g-2 justify-content-start">
+        @if($artikel->count())
             @foreach($artikel as $art)
             <div class="col-6 col-md-4 col-lg-3">
                 <article class="h-100 w-100 border-0">

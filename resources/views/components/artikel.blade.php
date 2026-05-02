@@ -1,54 +1,62 @@
 @if($artikel->count() > 0)
-<section class="artikel">
+<section class="section-artikel py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 p-2 text-center">
-                <h4 class="section">Artikel Berita</h4>
-                <h1 class="judul">PORTAL INFORMASI SEKOLAH ARIF RAHMAN HAKIM</h1>
-                <p class="desc">
+
+        {{-- Header --}}
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <span class="section-label">Artikel Berita</span>
+                <div class="section-divider mx-auto mt-2 mb-3"></div>
+                <h2 class="section-title">Portal Informasi Sekolah Arif Rahman Hakim</h2>
+                <p class="section-desc mx-auto">
                     Baca artikel, berita, dan informasi terbaru seputar kegiatan dan prestasi sekolah
                 </p>
             </div>
         </div>
-            
 
-        <div class="row mb-4 g-3 justify-content-center">
+        {{-- Cards --}}
+        <div class="row g-4 justify-content-center">
             @foreach($artikel as $art)
-            <div class="col-12 col-md-6 col-lg-3">
-                <article class="h-100 w-100 border-0">
-                    <a href="{{ route('berita.artikel.show', $art->slug) }}" class="text-decoration-none text-dark">
-                        <div class="card h-100" data-aos="fade-up">
-                            <img src="{{ asset('storage/' . $art->thumbnail) }}" class="card-img-top">
-                            <div class="card-body flex-column">
-                                <small class="mb-2 d-flex justify-content-between">
-                                        <span class="kategori">
-                                            {{ $art->kategoriArtikel->nama_kategori }}
-                                        </span>
-                                        <span class="text-muted">
-                                            {{ $art->created_at->format('d M Y') }}
-                                        </span>
-                                </small>
-                            
-                                <h6 class="card-title mb-2">
-                                        {{ Str::limit($art->judul, 60) }}
-                                </h6>
-
-                                <p class="card-text small mb-3">
-                                    {!! Str::limit(strip_tags($art->deskripsi), 150) !!}
-                                </p>
-                            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <a href="{{ route('berita.artikel.show', $art->slug) }}" class="text-decoration-none">
+                    <article class="artikel-card h-100" data-aos="fade-up">
+                        <div class="artikel-img-wrapper">
+                            <img
+                                src="{{ asset('storage/' . $art->thumbnail) }}"
+                                alt="{{ $art->judul }}"
+                                class="artikel-img"
+                                loading="lazy"
+                            >
                         </div>
-                    </a>
-                </article>
+                        <div class="artikel-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge-kategori">
+                                    {{ $art->kategoriArtikel->nama_kategori }}
+                                </span>
+                                <span class="artikel-date">
+                                    {{ $art->created_at->format('d M Y') }}
+                                </span>
+                            </div>
+                            <h6 class="artikel-title">
+                                {{ Str::limit($art->judul, 60) }}
+                            </h6>
+                            <p class="artikel-desc">
+                                {!! Str::limit(strip_tags($art->deskripsi), 100) !!}
+                            </p>
+                        </div>
+                    </article>
+                </a>
             </div>
             @endforeach
         </div>
 
-        <div class="text-center mt-5 mb-4">
-            <a href="{{ route('berita.artikel') }}" class="btn-lihat">
-                Lihat Semua Artikel
+        {{-- CTA --}}
+        <div class="text-center mt-5">
+            <a href="{{ route('berita.artikel') }}" class="btn-lihat-semua">
+                Lihat Semua Artikel &rarr;
             </a>
         </div>
+
     </div>
 </section>
 @endif

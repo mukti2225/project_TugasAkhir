@@ -13,65 +13,87 @@ return new class extends Migration
     {
         Schema::create('formulirs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('nomor_pendaftaran')->nullable();
+            $table->string('status_penerimaan')->default('Menunggu');            
             
-            //KETERANGAN DATA PRIBADI
-            $table->string('nama');
-            $table->string('nik')->unique();
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin');
-            $table->string('agama');
-            $table->string('anak');
-            $table->string('status');
+            // DATA SISWA
+            $table->string('nama')->nullable();
+            $table->string('email')->nullable();
+            $table->string('nik', 16)->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('agama')->nullable();
+            $table->integer('anak')->nullable();
+            $table->string('status')->nullable();
 
-            //KETERANGAN TEMPAT TINGGAL
-            $table->text('alamat');
-            $table->string('nomor_telepon')->nullable();
+            // TEMPAT TINGGAL
             $table->string('nomor_telepon_siswa')->nullable();
-            $table->string('tinggal');
-            $table->string('jarak_sekolah');
+            $table->string('nomor_telepon')->nullable();
+            $table->string('tinggal')->nullable();
+            $table->string('jarak_sekolah')->nullable();
+            $table->text('alamat')->nullable();
 
-            //KETERANGAN PENDIDIKAN SEBELUMNYA
-            $table->string('pendidikan');
-            $table->string('nisn')->unique();
-            $table->string('ijazah');
-            $table->string('asal_sekolah');
+            // PENDIDIKAN
+            $table->string('pendidikan')->nullable();
+            $table->string('nisn', 10)->nullable();
+            $table->string('ijazah')->nullable();
+            $table->string('asal_sekolah')->nullable();
             $table->string('pindahan')->nullable();
-             $table->string('program_studi');
+            $table->string('program_studi')->nullable();
 
-            //KETERANGAN AYAH
+            // AYAH
             $table->string('nama_ayah')->nullable();
             $table->string('tempat_lahir_ayah')->nullable();
             $table->date('tanggal_lahir_ayah')->nullable();
             $table->string('agama_ayah')->nullable();
             $table->string('pendidikan_ayah')->nullable();
             $table->string('pekerjaan_ayah')->nullable();
-            $table->string('penghasilan_ayah')->nullable();
-            $table->text('alamat_ayah')->nullable();
+            $table->bigInteger('penghasilan_ayah')->nullable();
             $table->string('nomor_telepon_ayah')->nullable();
+            $table->text('alamat_ayah')->nullable();
 
-            //KETERANGAN IBU
+            // IBU
             $table->string('nama_ibu')->nullable();
             $table->string('tempat_lahir_ibu')->nullable();
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->string('agama_ibu')->nullable();
             $table->string('pendidikan_ibu')->nullable();
             $table->string('pekerjaan_ibu')->nullable();
-            $table->string('penghasilan_ibu')->nullable();
-            $table->text('alamat_ibu')->nullable();
+            $table->bigInteger('penghasilan_ibu')->nullable();
             $table->string('nomor_telepon_ibu')->nullable();
+            $table->text('alamat_ibu')->nullable();
 
-            //KETERANGAN WALI
+            // WALI
             $table->string('nama_wali')->nullable();
             $table->string('tempat_lahir_wali')->nullable();
             $table->date('tanggal_lahir_wali')->nullable();
             $table->string('agama_wali')->nullable();
             $table->string('pendidikan_wali')->nullable();
             $table->string('pekerjaan_wali')->nullable();
-            $table->string('penghasilan_wali')->nullable();
-            $table->text('alamat_wali')->nullable();
+            $table->bigInteger('penghasilan_wali')->nullable();
             $table->string('nomor_telepon_wali')->nullable();
+            $table->text('alamat_wali')->nullable();
+
+            //UPLOAD BERKAS
+            $table->string('ijazah_file_name')->nullable();
+            $table->string('ijazah_file_path')->nullable();
+
+            $table->string('kk_file_name')->nullable();
+            $table->string('kk_file_path')->nullable();
+
+            $table->string('akta_file_name')->nullable();
+            $table->string('akta_file_path')->nullable();
+ 
+            // ─── Status Verifikasi ───────────────────────────────────────────
+            $table->enum('status_verifikasi', ['belum_diverifikasi', 'diverifikasi', 'ditolak'])
+                  ->default('belum_diverifikasi');
+            $table->text('catatan_verifikasi')->nullable();
+            $table->timestamp('verified_at')->nullable();
+            $table->foreignId('verified_by')->nullable()
+                  ->constrained('users')
+                  ->nullOnDelete();
 
             $table->timestamps();
         });

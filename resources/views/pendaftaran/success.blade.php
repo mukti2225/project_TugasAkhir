@@ -1,6 +1,7 @@
 @extends('layouts.app', ['title' => 'Pendaftaran Berhasil'])
 
 @section('content')
+<div class="spmb">
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -61,6 +62,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
 

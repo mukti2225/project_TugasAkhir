@@ -13,13 +13,11 @@ class Formulir extends Model
     protected $table = 'pendaftarans'; 
 
     protected $fillable = [
-        // USER ID
-        'user_id',
-        
-        // DATA PRIBADI
         'email',
         'nomor_pendaftaran',
         'status_penerimaan',
+
+        // DATA PRIBADI
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
@@ -76,6 +74,22 @@ class Formulir extends Model
         'penghasilan_wali',
         'alamat_wali',
         'nomor_telepon_wali',
+
+        // FILE
+        'ijazah_file_name',
+        'ijazah_file_path',
+
+        'kk_file_name',
+        'kk_file_path',
+
+        'akta_file_name',
+        'akta_file_path',
+
+        // VERIFIKASI
+        'status_verifikasi',
+        'catatan_verifikasi',
+        'verified_at',
+        'verified_by',
     ];
 
     protected $casts = [
@@ -83,10 +97,35 @@ class Formulir extends Model
         'tanggal_lahir_ayah' => 'date',
         'tanggal_lahir_ibu' => 'date',
         'tanggal_lahir_wali' => 'date',
+        'verified_at' => 'datetime',
+
+        'penghasilan_ayah' => 'integer',
+        'penghasilan_ibu' => 'integer',
+        'penghasilan_wali' => 'integer',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+     public function verifier()
+    {
+        return $this->belongsTo(User::class, 'verified_by');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($data) {
+            $data->nomor_pendaftaran = 'SPMB-' . date('Y') . '-' . strtoupper(uniqid());
+
+            // Default status
+            $data->status_penerimaan = 'Menunggu';
+            $data->status_verifikasi = 'belum_diverifikasi';
+        });
+
+        static::created(function ($data) {
+            \Mail::to($data->email)->queue(new \App\Mail\PendaftaranSukses($data));
+        });
     }
 }

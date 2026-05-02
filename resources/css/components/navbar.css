@@ -6,7 +6,14 @@
     background: rgb(255, 255, 255);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     padding: 0;
-    transition: all 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.navbar.hide-navbar {
+    transform: translateY(-100%);
+    opacity: 0;
 }
 
 .navbar .navbar-brand {
@@ -27,12 +34,12 @@
 
 .navbar .title {
     font-weight: bold;
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
 }
 
 .navbar .subtitle {
     font-weight: 400;
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     color: #444;
 }
 
@@ -60,12 +67,12 @@
 }
 
 .navbar .nav-link:hover {
-    color: #00a98f !important;
+    color: #038180 !important;
     background: transparent !important;
 }
 
 .navbar .nav-link.active {
-    color: #00a98f !important;
+    color: #038180 !important;
     font-weight: 500;
 }
 

@@ -5,10 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\FormulirResource\Pages;
 use App\Models\Pendaftaran;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -17,6 +18,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,6 +42,9 @@ class FormulirResource extends Resource
             ->schema([
                 Section::make('KETERANGAN DATA DIRI SISWA')
                 ->schema([
+                    Hidden::make('ijazah_file_name'),
+                    Hidden::make('kk_file_name'),
+                    Hidden::make('akta_file_name'),
                     Hidden::make('user_id')->default(auth()->id()),
                     TextInput::make('nomor_pendaftaran')->label('Nomor Pendaftaran')
                         ->disabled()
@@ -210,6 +215,85 @@ class FormulirResource extends Resource
                             ->required()
                             ->visible(fn () => auth()->user()?->hasRole('admin') ?? false),
                 ])->columns(2),
+
+              // ─── UNGGAH BERKAS PERSYARATAN ────────────────
+                Section::make('UNGGAH BERKAS PERSYARATAN')
+                    ->description('Upload dokumen yang diperlukan. Format: PDF, JPG, PNG (Maks. 2MB per file).')
+                    ->icon('heroicon-o-cloud-arrow-up')
+                    ->schema([
+                        // Ijazah / SKL
+                        FileUpload::make('ijazah_file_path')
+                            ->label('Ijazah / SKL')
+                            ->disk('public')
+                            ->directory('berkas/ijazah')
+                            ->downloadable()
+                            ->openable()
+                            ->previewable()
+                            ->afterStateUpdated(function ($state, $set, $get) {
+                                if ($state) {
+                                    $set('ijazah_file_name', basename($state));
+                                }
+                            }),
+
+                        FileUpload::make('kk_file_path')
+                            ->label('Kartu Keluarga')
+                            ->disk('public')
+                            ->directory('berkas/kk')
+                            ->downloadable()
+                            ->openable()
+                            ->previewable()
+                            ->afterStateUpdated(function ($state, $set) {
+                                if ($state) {
+                                    $set('kk_file_name', basename($state));
+                                }
+                            }),
+
+                        FileUpload::make('akta_file_path')
+                            ->label('Akta Kelahiran')
+                            ->disk('public')
+                            ->directory('berkas/akta')
+                            ->downloadable()
+                            ->openable()
+                            ->previewable()
+                            ->afterStateUpdated(function ($state, $set) {
+                                if ($state) {
+                                    $set('akta_file_name', basename($state));
+                                }
+                            }),
+                    ])
+                    ->columns(1),
+ 
+                // ─── SECTION VERIFIKASI BERKAS (hanya admin) ─────────────────
+                Section::make('VERIFIKASI BERKAS')
+                    ->icon('heroicon-o-shield-check')
+                    ->description('Bagian ini hanya dapat diakses oleh admin.')
+                    ->schema([
+                        Select::make('status_verifikasi')
+                            ->label('Status Verifikasi')
+                            ->options([
+                                'belum_diverifikasi' => 'Belum Diverifikasi',
+                                'diverifikasi'       => 'Diverifikasi',
+                                'ditolak'            => 'Ditolak',
+                            ])
+                            ->default('belum_diverifikasi')
+                            ->required()
+                            ->native(false),
+ 
+                        Textarea::make('catatan_verifikasi')
+                            ->label('Catatan Verifikasi')
+                            ->helperText('Isi jika berkas ditolak atau perlu revisi oleh pendaftar.')
+                            ->rows(3)
+                            ->nullable()
+                            ->columnSpanFull(),
+ 
+                        Placeholder::make('verified_at')
+                            ->label('Waktu Verifikasi')
+                            ->content(fn ($record) => $record?->verified_at
+                                ? $record->verified_at->format('d M Y, H:i')
+                                : '-'),
+                    ])
+                    ->columns(2)
+                    ->visible(fn () => auth()->user()?->hasRole('admin') ?? false),
             ]);
     }
 
@@ -254,6 +338,27 @@ class FormulirResource extends Resource
 
                 TextColumn::make('asal_sekolah')
                     ->searchable(),
+
+                TextColumn::make('asal_sekolah')
+                    ->searchable(),
+ 
+                // Kolom status verifikasi berkas (hanya admin)
+                TextColumn::make('status_verifikasi')
+                    ->label('Berkas')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'belum_diverifikasi' => 'Belum Diverifikasi',
+                        'diverifikasi'       => 'Diverifikasi',
+                        'ditolak'            => 'Ditolak',
+                        default              => '-',
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'belum_diverifikasi' => 'gray',
+                        'diverifikasi'       => 'success',
+                        'ditolak'            => 'danger',
+                        default              => 'gray',
+                    })
+                    ->visible(fn () => auth()->user()?->hasRole('admin') ?? false),
 
                 TextColumn::make('created_at')
                     ->label('Tanggal Daftar')

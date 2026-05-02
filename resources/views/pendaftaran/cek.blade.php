@@ -1,90 +1,148 @@
 @extends('layouts.app', [
-    'title' => 'Cek Pengumuman Pendaftaran',
+    'title' => 'Cek Status Pendaftaran',
 ])
 
 @section('content')
-<div class="container py-4">
+<div class="spmb">
+<div class="container py-5">
+
   <div class="row g-4">
     
     <!-- Sidebar -->
     @include('components.sidebar-spmb', [
-      'infoText' => 'Masukkan Nomor Pendaftaran Anda untuk melihat status kelulusan/penerimaan secara Real-Time.'
+      'infoText' => 'Masukkan Nomor Pendaftaran untuk melihat status secara real-time.'
     ])
 
-    <!-- Main Content -->
+    <!-- Main -->
     <div class="col-lg-9">
-      <div class="card shadow-sm mb-4">
-        <div class="card-header bg-white py-3">
-          <h5 class="judul-cek mb-0"><i class="bi bi-search me-2"></i> Cari Berdasarkan Nomor Pendaftaran</h5>
-        </div>
-        <div class="card-body-spmb">
+
+      <!-- HERO SEARCH CARD -->
+      <div class="card spmb-hover border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+
+          <h5 class="fw-bold mb-3"> Cek Status Pendaftaran </h5>
+          <p class="text-muted small mb-4"> Gunakan nomor pendaftaran yang Anda terima setelah melakukan pendaftaran. </p>
+
           <form action="{{ route('pendaftaran.cek.hasil') }}" method="POST">
             @csrf
-            <div class="row align-items-center g-3">
-              <div class="col-md-9">
-                <input type="text" 
-                       name="nomor_pendaftaran" 
-                       class="form-control form-control-lg @error('nomor_pendaftaran') is-invalid @enderror" 
-                       placeholder="Masukkan Nomor Pendaftaran (misal: 12042005)" 
-                       value="{{ old('nomor_pendaftaran') }}">
-                @error('nomor_pendaftaran')
-                  <div class="invalid-feedback fw-bold">{{ $message }}</div>
-                @enderror
-              </div>
-              <div class="col-md-3 d-grid">
-                <button type="submit" class="btn btn-primary sbtn-lg">
-                  Cari Data
-                </button>
-              </div>
+
+            <div class="input-group">
+              <span class="input-group-text bg-white border-end-0">
+                <i class="bi bi-search"></i>
+              </span>
+
+              <input type="text"
+                     name="nomor_pendaftaran"
+                     class="form-control border-start-0 @error('nomor_pendaftaran') is-invalid @enderror"
+                     placeholder="Contoh: SPMB-2026-000123"
+                     value="{{ old('nomor_pendaftaran') }}">
+
+              <button class="btn btn-primary px-4">
+                Cari
+              </button>
             </div>
+
+            @error('nomor_pendaftaran')
+              <div class="text-danger small mt-2">{{ $message }}</div>
+            @enderror
           </form>
+
         </div>
       </div>
 
-      <!-- Result Card -->
+      <!-- RESULT -->
       @if(isset($pendaftaran))
-        <div class="card shadow-sm border-0 bg-light">
-          <div class="card-body-spmb p-4">
-            <h5 class="fw-bold border-bottom pb-2 mb-4 text-center">Hasil Pencarian Peserta</h5>
+      <div class="card border-0 shadow-sm">
 
-            <div class="row mb-3">
-              <div class="col-sm-4 text-muted">Nomor Pendaftaran</div>
-              <div class="col-sm-8 fw-bold">{{ $pendaftaran->nomor_pendaftaran }}</div>
-            </div>
-            
-            <div class="row mb-3">
-              <div class="col-sm-4 text-muted">Nama Peserta</div>
-              <div class="col-sm-8 fw-bold">{{ $pendaftaran->nama }}</div>
+        <div class="card-body p-4">
+
+          <!-- HEADER -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h5 class="fw-bold mb-0">{{ $pendaftaran->nama }}</h5>
+              <small class="text-muted">{{ $pendaftaran->nomor_pendaftaran }}</small>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-sm-4 text-muted">Program Studi</div>
-              <div class="col-sm-8 fw-bold">{{ $pendaftaran->program_studi }}</div>
+            <!-- STATUS PENERIMAAN -->
+            @php
+              $status = $pendaftaran->status_penerimaan;
+              $color = match($status) {
+                  'Diterima' => 'success',
+                  'Ditolak' => 'danger',
+                  default => 'warning'
+              };
+            @endphp
+
+            <span class="badge bg-{{ $color }} px-3 py-2 fs-6">
+              {{ $status }}
+            </span>
+          </div>
+
+          <!-- INFO GRID -->
+          <div class="row g-3 mb-4">
+
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded">
+                <small class="text-muted">Program Studi</small>
+                <div class="fw-semibold">{{ $pendaftaran->program_studi }}</div>
+              </div>
             </div>
 
-            <div class="row mt-4 pt-3 border-top">
-              <div class="col-sm-4 text-muted mt-2">Status Penerimaan</div>
-              <div class="col-sm-8">
-                @if($pendaftaran->status_penerimaan == 'Menunggu')
-                  <span class="badge bg-warning text-dark fs-6 py-2 px-3">
-                    <i class="bi bi-hourglass-split me-1"></i> Sedang Diproses (Menunggu)
-                  </span>
-                @elseif($pendaftaran->status_penerimaan == 'Diterima')
-                  <span class="badge bg-success fs-6 py-2 px-3">
-                    <i class="bi bi-check-circle-fill me-1"></i> Selamat, Anda Diterima!
-                  </span>
-                @elseif($pendaftaran->status_penerimaan == 'Ditolak')
-                  <span class="badge bg-danger fs-6 py-2 px-3">
-                    <i class="bi bi-x-circle-fill me-1"></i> Mohon Maaf, Anda Ditolak
-                  </span>
-                @else
-                  <span class="badge bg-secondary fs-6 py-2 px-3">{{ $pendaftaran->status_penerimaan }}</span>
-                @endif
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded">
+                <small class="text-muted">Email</small>
+                <div class="fw-semibold">{{ $pendaftaran->email }}</div>
               </div>
             </div>
 
           </div>
+
+          <!-- VERIFIKASI -->
+          <div class="border-top pt-4">
+
+            <h6 class="fw-bold mb-3">Verifikasi Berkas</h6>
+
+            @php
+              $verif = $pendaftaran->status_verifikasi;
+              $verifColor = match($verif) {
+                  'diverifikasi' => 'success',
+                  'ditolak' => 'danger',
+                  default => 'secondary'
+              };
+              $verifText = match($verif) {
+                  'diverifikasi' => 'Berkas Valid',
+                  'ditolak' => 'Berkas Ditolak',
+                  default => 'Menunggu Verifikasi'
+              };
+            @endphp
+
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="text-muted">Status</span>
+              <span class="badge bg-{{ $verifColor }} px-3 py-2">
+                {{ $verifText }}
+              </span>
+            </div>
+
+            <!-- CATATAN -->
+            @if($pendaftaran->status_verifikasi == 'ditolak' && $pendaftaran->catatan_verifikasi)
+              <div class="alert alert-danger border-0 small">
+                <strong>Catatan Admin:</strong><br>
+                {{ $pendaftaran->catatan_verifikasi }}
+              </div>
+            @endif
+
+          </div>
+
+          <!-- ACTION -->
+          @if($pendaftaran->status_verifikasi == 'ditolak')
+          <div class="mt-4 text-end">
+            <a href="{{ route('pendaftaran', $pendaftaran->nomor_pendaftaran) }}"
+               class="btn btn-danger"> Upload Ulang Berkas </a>
+          </div>
+          @endif
+
         </div>
+      </div>
       @endif
 
     </div>
@@ -92,6 +150,28 @@
 </div>
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('css/pages/spmb.css') }}">
+<style>
+/* Modern Touch */
+.card {
+  border-radius: 14px;
+}
+
+.input-group-text {
+  border-radius: 10px 0 0 10px;
+}
+
+.form-control {
+  border-radius: 0 10px 10px 0;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+</style>
 @endpush
+</div>
 @endsection
