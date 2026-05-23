@@ -19,7 +19,7 @@ class Artikel extends Model
         'user_id',
         'kategori_artikel_id',
     ];
-
+    
     public function user()
     {
     	return $this->belongsTo(User::class);

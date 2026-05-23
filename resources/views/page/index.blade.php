@@ -1,25 +1,27 @@
-@extends('layouts.app',[
-    'title' => 'Home',
+@extends('layouts.app', [
+    'title' => '',
 ])
 
 @section('content')
     <div id="hero">
         @include('components.carousel')
-    </div>    
+    </div>
 
     @include('components.statistik')
+
+    @include('components.artikel')
+
+    @include('components.agenda')
+
+    @include('components.gallery')
 
     <div id="about">
         @include('components.about')
     </div>
 
-    @include('components.artikel')
-
-    @include('components.gallery')
+    @include('components.ptn')
 
     {{-- @include('components.vidio-profil') --}}
-
-    @include('components.ptn')
 @endsection
 
 @push('js')

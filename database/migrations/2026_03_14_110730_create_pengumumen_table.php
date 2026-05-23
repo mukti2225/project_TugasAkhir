@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pengumumen', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
+            $table->string('deskripsi')->nullable();
             $table->string('slug')->unique();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('thumbnail')->nullable();

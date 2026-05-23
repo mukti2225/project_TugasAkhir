@@ -1,49 +1,55 @@
 @extends('layouts.app', [
-    'title' => 'Visi Misi',
+    'title' => 'Visi Misi - ',
 ])
 
 @section('content')
     <div>
-
-        <!-- Header -->
         @include('components.page-header', [
-            'title' => 'Visi Misi'
+            'title' => 'Visi Misi',
         ])
 
-        
-        <!-- Content -->
-        <div class="container visi-misi">
-            <div class="row align-items-center">
-                @if($visiMisi)
-                <!-- kiri -->
-                <div class="col-md-7 mb-4 mb-md-0">
-                    <div class="visi">
-                        <h3 class="fw-bold text-center">Visi</h3>
-
-                        <p style="text-align: justify;">
-                        {!! $visiMisi->visi !!}
-                        </p>
+        <section class="visi-misi">
+            <div class="visi-misi-container">
+                @if ($visiMisi)
+                    {{-- ── VISI ── --}}
+                    <div class="visi-block">
+                        <div class="visi-block-inner">
+                            <div class="visi-block-label">
+                                <div class="visi-icon-wrap" aria-hidden="true">
+                                    <i class="bi bi-eye"></i>
+                                </div>
+                                <div class="visi-label-text">
+                                    Visi
+                                    <small>Vision</small>
+                                </div>
+                            </div>
+                            <div class="visi-text">
+                                {!! $visiMisi->visi !!}
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="misi">
-                        <h3 class="fw-bold text-center">Misi</h3>
 
-                        <div style="text-align: justify;">
+                    {{-- ── MISI ── --}}
+                    <div class="misi-block">
+                        <div class="misi-block-label">
+                            <div class="misi-icon-wrap" aria-hidden="true">
+                                <i class="bi bi-bullseye"></i>
+                            </div>
+                            <div class="misi-label-text">
+                                Misi
+                                <small>Mission</small>
+                            </div>
+                        </div>
+                        <div class="misi-grid">
                             {!! $visiMisi->misi !!}
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-5 mb-4 mb-md-0">
-                    <img src="img/dump/visi-misi.png" class="img-fluid rounded">
-                </div>
-                
                 @else
-                <div class="col-12 text-center">
-                    <h4 class="fw-bold">Visi dan Misi belum tersedia</h4>
-                </div>
+                    <div class="text-center py-3">
+                        <h4 class="fw-bold">Visi Misi belum tersedia</h4>
+                    </div>
                 @endif
             </div>
-        </div>
+        </section>
     </div>
 @endsection

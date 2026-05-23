@@ -13,6 +13,75 @@ class PendaftaranController extends Controller
         return view('pendaftaran.form');
     }
 
+    public function edit($nomor)
+    {
+        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)->firstOrFail();
+
+        return view('pendaftaran.form', compact('pendaftaran'));
+    }
+
+    public function update(Request $request, $nomor)
+    {
+        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)->firstOrFail();
+
+        // VALIDASI (ignore data sendiri)
+        $validated = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email',
+            'nik' => 'required|digits:16|unique:pendaftarans,nik,' . $pendaftaran->id,
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'nisn' => 'required|digits:10|unique:pendaftarans,nisn,' . $pendaftaran->id,
+            'nama_ayah' => 'required',
+            'nama_ibu' => 'required',
+
+            // file sekarang OPTIONAL (karena bisa hanya ganti salah satu)
+            'ijazah_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'kk_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'akta_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        // ================== IJAZAH ==================
+        if ($request->hasFile('ijazah_file')) {
+            $file = $request->file('ijazah_file');
+            $path = $file->store('berkas/ijazah', 'public');
+
+            $data['ijazah_file_path'] = $path;
+            $data['ijazah_file_name'] = $file->getClientOriginalName();
+        }
+
+        // ================== KK ==================
+        if ($request->hasFile('kk_file')) {
+            $file = $request->file('kk_file');
+            $path = $file->store('berkas/kk', 'public');
+
+            $data['kk_file_path'] = $path;
+            $data['kk_file_name'] = $file->getClientOriginalName();
+        }
+
+        // ================== AKTA ==================
+        if ($request->hasFile('akta_file')) {
+            $file = $request->file('akta_file');
+            $path = $file->store('berkas/akta', 'public');
+
+            $data['akta_file_path'] = $path;
+            $data['akta_file_name'] = $file->getClientOriginalName();
+        }
+
+        // 🔥 RESET STATUS (PENTING)
+        $data['status_verifikasi'] = 'menunggu';
+        $data['catatan_verifikasi'] = null;
+
+        // UPDATE
+        $pendaftaran->update($data);
+
+        return redirect()->route('pendaftaran.cek')
+            ->with('success', 'Berkas berhasil diperbarui, menunggu verifikasi ulang');
+    }
+
     public function store(Request $request)
     {
         // VALIDASI

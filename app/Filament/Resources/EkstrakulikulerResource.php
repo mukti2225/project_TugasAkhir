@@ -17,7 +17,7 @@ class EkstrakulikulerResource extends Resource
 {
     protected static ?string $model = Ekstrakulikuler::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-trophy';
 
     protected static ?string $navigationGroup = 'Kesiswaan';
 
@@ -29,17 +29,37 @@ class EkstrakulikulerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->label('Nama Ekstrakulikuler')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\FileUpload::make('foto')
-                    ->label('Foto')
-                    ->image()
-                    ->directory('ekstrakulikuler-fotos')
-                    ->maxSize(1024)
-                    ->acceptedFileTypes(['image/*'])
-                    ->default(null),
+                Forms\Components\Section::make('Data Ekstrakurikuler')
+                    ->description('Kelola kegiatan ekstrakurikuler sekolah')
+                    ->icon('heroicon-o-trophy')
+                    ->schema([
+                        Forms\Components\TextInput::make('nama')
+                            ->label('Nama Ekstrakurikuler')
+                            ->required()
+                            ->placeholder('Contoh: Basket')
+                            ->prefixIcon('heroicon-m-trophy')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\FileUpload::make('foto')
+                            ->label('Foto Ekstrakurikuler')
+                            ->image()
+                            ->required()
+                            ->directory('ekstrakulikuler-fotos')
+                            ->acceptedFileTypes([
+                                'image/*',
+                            ])
+
+                            ->imageEditor()
+                            ->panelLayout('compact')
+                            ->removeUploadedFileButtonPosition('right')
+                            ->uploadButtonPosition('left')
+                            ->maxSize(1024)
+                            ->openable()
+                            ->downloadable()
+                            ->helperText('Upload foto kegiatan ekstrakurikuler')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -47,32 +67,41 @@ class EkstrakulikulerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')
-                    ->label('Nama Ekstrakulikuler')
-                    ->searchable(),
                 Tables\Columns\ImageColumn::make('foto')
-                    ->label('Foto')
-                    ->circular(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('')
+                    ->square()
+                    ->size(100)
+                    ->defaultImageUrl(url('/images/no-image.png')),
+
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Ekstrakurikuler')
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->weight('bold')
+                    ->lineClamp(2)
+                    ->description(fn ($record) =>
+                        'Ditambahkan ' .
+                        $record->created_at?->diffForHumans()
+                    ),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+
+            ->emptyStateHeading('Belum ada ekstrakurikuler')
+            ->emptyStateDescription('Tambahkan kegiatan ekstrakurikuler sekolah.')
+            ->emptyStateIcon('heroicon-o-trophy');
     }
 
     public static function getRelations(): array

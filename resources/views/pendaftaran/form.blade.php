@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="spmb">
-<div class="container py-5">
+<div class="container py-3">
   <div class="row g-4">
     
     <!-- Sidebar -->
@@ -25,8 +25,13 @@
 
         <div class="card-body p-4 p-md-5">
           
-          <form action="{{ route('pendaftaran.store') }}" method="POST" enctype="multipart/form-data" id="registrationForm">
+          <form action="{{ isset($pendaftaran) 
+            ? route('pendaftaran.update', $pendaftaran->nomor_pendaftaran) 
+            : route('pendaftaran.store') }}" method="POST" enctype="multipart/form-data" id="registrationForm">
             @csrf
+            @if(isset($pendaftaran))
+                @method('PUT')
+            @endif
             
             <!-- Progress Steps -->
             <div class="mb-5">

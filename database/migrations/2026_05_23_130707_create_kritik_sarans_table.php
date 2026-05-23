@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenaga_kependidikans', function (Blueprint $table) {
+        Schema::create('kritik_sarans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
-            $table->string('foto')->nullable();
+            $table->string('nama');
+            $table->string('email');
+            $table->string('subjek');
+            $table->text('pesan');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenaga_kependidikans');
+        Schema::dropIfExists('kritik_sarans');
     }
 };

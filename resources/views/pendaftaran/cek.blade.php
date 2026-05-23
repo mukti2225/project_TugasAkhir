@@ -136,7 +136,7 @@
           <!-- ACTION -->
           @if($pendaftaran->status_verifikasi == 'ditolak')
           <div class="mt-4 text-end">
-            <a href="{{ route('pendaftaran', $pendaftaran->nomor_pendaftaran) }}"
+            <a href="{{ route('pendaftaran.edit', $pendaftaran->nomor_pendaftaran) }}"
                class="btn btn-danger"> Upload Ulang Berkas </a>
           </div>
           @endif

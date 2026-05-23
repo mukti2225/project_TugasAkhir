@@ -23,9 +23,9 @@ class PtnResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationLabel = 'Lulus PTN';
+    protected static ?string $navigationLabel = 'Kelulusan Siswa';
 
-    protected static ?string $pluralModelLabel = 'Daftar Lulus PTN';
+    protected static ?string $pluralModelLabel = 'Daftar Kelulusan Siswa';
 
     protected static ?string $navigationGroup = 'Home';
     
@@ -34,18 +34,62 @@ class PtnResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('universitas')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('foto')
-                    ->image()
-                    ->maxSize(1024*2),
-                Forms\Components\FileUpload::make('logo')
-                    ->image()
-                    ->maxSize(1024*2),
+                Forms\Components\Section::make('Informasi Alumni PTN')
+                    ->description('Kelola data siswa yang lolos Perguruan Tinggi Negeri')
+                    ->icon('heroicon-o-academic-cap')
+                    ->schema([
+                        Forms\Components\Grid::make([
+                            'default' => 1,
+                            'md' => 2,
+                        ])
+                            ->schema([
+                                Forms\Components\TextInput::make('nama')
+                                    ->label('Nama Siswa')
+                                    ->required()
+                                    ->placeholder('Contoh: Ahmad Rizki')
+                                    ->prefixIcon('heroicon-m-user')
+                                    ->maxLength(255),
+
+                                Forms\Components\TextInput::make('universitas')
+                                    ->label('Universitas')
+                                    ->required()
+                                    ->placeholder('Universitas Indonesia')
+                                    ->prefixIcon('heroicon-m-building-library')
+                                    ->maxLength(255),
+                            ]),
+
+                        Forms\Components\Grid::make([
+                            'default' => 1,
+                            'md' => 2,
+                        ])
+                            ->schema([
+                                Forms\Components\FileUpload::make('foto')
+                                    ->label('Foto Siswa')
+                                    ->image()
+                                    ->directory('ptn/siswa')
+                                    ->imageEditor()
+                                    ->avatar()
+                                    ->imagePreviewHeight('120')
+                                    ->panelLayout('compact')
+                                    ->maxSize(2048)
+                                    ->helperText('Upload foto siswa')
+                                    ->openable()
+                                    ->downloadable(),
+
+                                Forms\Components\FileUpload::make('logo')
+                                    ->label('Logo Universitas')
+                                    ->image()
+                                    ->directory('ptn/logo')
+                                    ->imageEditor()
+                                    ->imagePreviewHeight('100')
+                                    ->panelLayout('compact')
+                                    ->panelAspectRatio('1:1')
+                                    ->maxSize(2048)
+                                    ->helperText('Upload logo universitas')
+                                    ->openable()
+                                    ->downloadable(),
+                            ]),
+                    ]),
             ]);
     }
 
@@ -53,30 +97,51 @@ class PtnResource extends Resource
     {
         return $table
             ->columns([
-                tables\Columns\TextColumn::make('nama')
-                    ->searchable(),
-                tables\Columns\TextColumn::make('universitas')
-                    ->searchable(),
-                tables\Columns\ImageColumn::make('foto')
-                    ->rounded(),
-                tables\Columns\ImageColumn::make('logo')
-                    ->rounded(),
+                Tables\Columns\ImageColumn::make('foto')
+                    ->label('Foto')
+                    ->circular()
+                    ->size(50),
+
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama')
+                    ->searchable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->universitas),
+
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->square()
+                    ->size(45),
+
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label('Ditambahkan')
+                    ->since()
+                    ->color('gray')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
+
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+
+            ->emptyStateHeading('Belum ada data alumni PTN')
+            ->emptyStateDescription('Tambahkan siswa yang lolos perguruan tinggi negeri.')
+            ->emptyStateIcon('heroicon-o-academic-cap');
     }
 
     public static function getRelations(): array

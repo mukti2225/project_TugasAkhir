@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Fasilitas;
 use App\Models\Guru;
 use App\Models\Statistik;
-use App\Models\TenagaKependidikan;
+// use App\Models\TenagaKependidikan;
 use App\Models\VisiMisi;
+use App\Models\Gallery;
 
 class ProfilController extends Controller
 {
@@ -39,14 +40,14 @@ class ProfilController extends Controller
     public function pengajar()
     {
     	return view('profile.guru', [
-            'guru' => Guru::select('nama', 'foto')->get(),
+            'guru' => Guru::select('nama', 'foto', 'nip', 'jabatan', 'status', 'mata_pelajaran', 'pendidikan', 'telepon')->get(),
         ]);
     }
 
-    public function pendidik()
+    public function galeri()
     {
-    	return view('profile.staff', [
-            'staff' => TenagaKependidikan::select('nama', 'foto')->get(),
+    	return view('profile.galeri-sekolah', [
+            'galeri' => Gallery::select('image', 'title')->get(),
         ]);
     }
 }

@@ -1,61 +1,62 @@
-@extends('layouts.app',[
-    'title' => 'List Pengumuman',
+@extends('layouts.app', [
+    'title' => 'Pengumuman - ',
 ])
 
 @section('content')
-<section class="section-padding-100-0 mb-50">
-        <!-- Header -->
+    <section class="section-padding-100-0 mb-50">
         @include('components.page-header', [
-            'title' => 'Pengumuman'
+            'title' => 'Pengumuman',
         ])
 
-<div class="container-fluid pengumuman">
-<div class="container ">
-    @if($pengumuman->count())
-        <div class="row py-3">
-            <div class="col-12">
-                <div class="d-flex justify-content-end align-items-end">
-                    <form class="d-flex" action="{{ route('berita.pengumuman.search') }}" method="GET" style="width: 250px;">
-                        <input class="form-control form-control-sm me-2" type="search" name="keyword" placeholder="Cari pengumuman">
-                        <button class="btn btn-primary btn-sm" type="submit"><i class="bi bi-search"></i></button>
+        <div class="container-fluid artikel-index pengumuman-index">
+            <div class="container">
+
+                <div class="artikel-toolbar">
+                    <div></div>{{-- spacer agar search tetap ke kanan --}}
+
+                    <form class="search-form" action="{{ route('berita.pengumuman.search') }}" method="GET">
+                        <input type="search" name="keyword" placeholder="Cari pengumuman...">
+                        <button type="submit">
+                            <i class="bi bi-search"></i> Cari
+                        </button>
                     </form>
                 </div>
-            </div>
-        </div>
 
-        <!--Card Artikel -->
-        <div class="row g-4 justify-content-start">
-            @foreach($pengumuman as $p)
-            <div class="col-6 col-md-3 col-lg-3">
-                <article class="h-100 w-100 border-0">
-                    <div class="card h-100 shadow-sm">
-                        <a href="{{ route('berita.pengumuman.show', $p->slug) }}">
-                            <img src="{{ asset('img/logo/announcement.png') }}" class="card-img-top">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <small class="mb-2 d-flex justify-content-between">
-                                <span class="kategori">Pengumuman</span>
-                                <span class="text-muted">{{ $p->created_at ? $p->created_at->format('d M Y') : '' }}</span>
-                            </small>
-                            <h6 class="card-title mb-2">
-                                <a href="{{ route('berita.pengumuman.show', $p->slug) }}" class="text-decoration-none text-dark">
-                                    {{ \Illuminate\Support\Str::limit($p->judul, 60) }}
-                                </a>
-                            </h6>
+                <div class="artikel-grid">
+                    @if ($pengumuman->count())
+                        @foreach ($pengumuman as $p)
+                            <a href="{{ route('berita.pengumuman.show', $p->slug) }}" class="artikel-card">
+                                <div class="artikel-img-wrapper">
+                                    <img src="{{ asset('img/dump/pengumuman.png') }}" alt="{{ $p->judul }}">
+                                </div>
+                                <div class="artikel-body">
+                                    <div class="artikel-meta">
+                                        <span class="badge-kategori">Pengumuman</span>
+                                        <span class="artikel-date">
+                                            {{ $p->created_at ? $p->created_at->format('d M Y') : '' }}
+                                        </span>
+                                    </div>
+                                    <h6 class="artikel-title">
+                                        {{ Str::limit($p->judul, 50) }}
+                                    </h6>
+                                    <span class="artikel-readmore">Baca selengkapnya →</span>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                        <div class="artikel-empty">
+                            <h4>Belum ada pengumuman tersedia</h4>
                         </div>
+                    @endif
+                </div>
+
+                @if ($pengumuman->count())
+                    <div class="mt-4">
+                        {{ $pengumuman->links() }}
                     </div>
-                </article>
+                @endif
+
             </div>
-            @endforeach
         </div>
-        <div class="mt-4">
-            {{ $pengumuman->links() }}
-        </div>
-    @else
-        <div class="text-center fw-bold py-5">
-            <h4 class="text-muted">Belum ada pengumuman tersedia</h4>
-        </div>
-    @endif
-</div>
-</section>
+    </section>
 @endsection

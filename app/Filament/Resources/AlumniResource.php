@@ -16,53 +16,91 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AlumniResource extends Resource
 {
     protected static ?string $model = Alumni::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup = 'Kesiswaan';
-
     protected static ?string $navigationLabel = 'Alumni';
-
-    protected static ?string $pluralModelLabel = 'Daftar Alumni';
+    protected static ?string $pluralModelLabel = 'Data Alumni';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('logo')
-                    ->label('Logo Perguruan Tinggi')
-                    ->image()
-                    ->directory('alumni-logo')
-                    ->maxSize(2*1024)
-                    ->acceptedFileTypes(['image/*']),
-                Forms\Components\TextInput::make('caption')
-                    ->label('Nama Perguruan Tinggi')
-                    ->maxLength(255),
+                Forms\Components\Section::make('Data Alumni')
+                    ->description('Kelola daftar perguruan tinggi tujuan alumni')
+                    ->icon('heroicon-o-academic-cap')
+                    ->schema([
+                        Forms\Components\TextInput::make('caption')
+                            ->label('Nama Perguruan Tinggi')
+                            ->required()
+                            ->placeholder('Contoh: Universitas Indonesia')
+                            ->prefixIcon('heroicon-m-building-library')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\FileUpload::make('logo')
+                            ->label('Logo Perguruan Tinggi')
+                            ->image()
+                            ->required()
+                            ->directory('alumni-logo')
+                            ->acceptedFileTypes([
+                                'image/*',
+                            ])
+                            ->imageEditor()
+                            ->panelLayout('compact')
+                            ->removeUploadedFileButtonPosition('right')
+                            ->uploadButtonPosition('left')
+                            ->maxSize(2048)
+                            ->openable()
+                            ->downloadable()
+                            ->helperText('Upload logo universitas/perguruan tinggi')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 4,
+            ])
+
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
                     ->label('Logo')
-                    ->circular(),
+                    ->square()
+                    ->size(80)
+                    ->defaultImageUrl(url('/images/no-image.png')),
+
                 Tables\Columns\TextColumn::make('caption')
-                    ->label('Nama Perguruan Tinggi')
-                    ->limit(50),
+                    ->label('Perguruan Tinggi')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->lineClamp(2)
+                    ->description(fn ($record) =>
+                        'Ditambahkan ' .
+                        $record->created_at?->diffForHumans()
+                    ),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Belum ada data alumni')
+            ->emptyStateDescription('Tambahkan perguruan tinggi tujuan alumni.')
+            ->emptyStateIcon('heroicon-o-academic-cap');
     }
 
     public static function getRelations(): array

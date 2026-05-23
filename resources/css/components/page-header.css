@@ -10,11 +10,12 @@
 /* background image */
 .page-header .header-bg {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    top: 0;
-    left: 0;
+    opacity: 50%;
+    mix-blend-mode: luminosity;
 }
 
 /* overlay biru */
@@ -23,30 +24,35 @@
     width: 100%;
     height: 100%;
     background: rgba(8, 36, 80, 0.884);
-    top: 0;
-    left: 0;
 }
 
-/* content */
 .page-header .header-content {
     position: relative;
-    color: white;
+    color: var(--color-primary);
+    z-index: 2;
+    padding-left: 20px;
 }
 
 .page-header .page-title {
     font-size: var(--fs-2xl);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: 0.03em;
 }
 
 .page-header .breadcrumb-custom {
-    font-size: var(--fs-base);
+    font-size: var(--fs-sm);
+    font-family: Inter;
 }
 
 .page-header .breadcrumb-custom a {
-    color: white;
+    color: var(--color-primary);
     text-decoration: none;
+    font-weight: 500;
 }
 
 .page-header .breadcrumb-custom .active {
-    color: #f7c35f;
+    color: var(--color-tertiary);
+    font-weight: 500;
 }

@@ -1,6 +1,6 @@
 <section class="page-header">
 
-    <img src="/img/fasilitas/laboratorium.jpg" class="header-bg" alt="Background">
+    <img src="/img/fasilitas/laboratorium.jpg" class="header-bg">
 
     <div class="header-overlay"></div>
 
@@ -15,3 +15,4 @@
     </div>
 
 </section>
+<div class="page-header-bar"></div>

@@ -1,3 +1,4 @@
+@if($sliders->count() > 0)
     <div class="hero-area">
         <div class="hero-wrapper">
             <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
@@ -47,3 +48,4 @@
             </div>
         </div>
     </div>
+@endif

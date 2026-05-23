@@ -1,28 +1,66 @@
 @extends('layouts.app', [
-    'title' => 'Lihat Pengumuman',
+    'title' => $pengumuman->judul . ' - ',
 ])
 
 @section('content')
-<div class="container show">
+    <section class="section-padding-100-0 mb-50">
+        @include('components.page-header', [
+            'title' => 'Pengumuman',
+        ])
 
-    <div class="headline mb-2">
-        <h3>{{ $pengumuman->judul }}</h3>
-    </div>
+        <div class="container-fluid pengumuman-show">
+            <div class="container">
+                <div class="pengumuman-show-wrapper">
 
+                    {{-- Cover image --}}
+                    <div class="pengumuman-cover">
+                        <img src="{{ asset('img/dump/pengumuman.png') }}" alt="{{ $pengumuman->judul }}">
+                    </div>
 
-    <span class="text-muted d-block mb-3 d-flex justify-content-between align-items-center">
-        {{ $pengumuman->created_at->format('F, d Y') }}
-        @if($pengumuman->file_pdf)
-            <a href="{{ asset('storage/' . $pengumuman->file_pdf) }}" class="btn btn-sm btn-success ms-2 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;padding:0;" download title="Download PDF">
-                <i class="bi bi-download"></i>
-            </a>
-        @endif
-    </span>
+                    {{-- Content card --}}
+                    <div class="pengumuman-content-card">
 
-    <div
-        class="blog-img d-flex align-items-center justify-content-center mb-4"
-        style="background-image: url('{{ asset('img/logo/announcement.png') }}')">
-    </div>
+                        {{-- Meta --}}
+                        <div class="pengumuman-meta">
+                            <span class="badge-kategori-pengumuman">
+                                <i class="bi bi-megaphone-fill me-1"></i> Pengumuman
+                            </span>
+                            <span class="pengumuman-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                {{ $pengumuman->created_at->format('d F Y') }}
+                            </span>
+                        </div>
 
-</div>
+                        {{-- Title --}}
+                        <h1 class="pengumuman-title">{{ $pengumuman->judul }}</h1>
+
+                        <hr class="pengumuman-divider">
+
+                        {{-- Body / konten --}}
+                        @if ($pengumuman->konten ?? ($pengumuman->deskripsi ?? null))
+                            <div class="pengumuman-body">
+                                {!! $pengumuman->konten ?? $pengumuman->deskripsi !!}
+                            </div>
+                        @endif
+
+                        {{-- Download PDF --}}
+                        @if ($pengumuman->file_pdf)
+                            <div class="pengumuman-attachment">
+                                <div class="attachment-label">
+                                    <i class="bi bi-paperclip"></i> Lampiran
+                                </div>
+                                <a href="{{ asset('storage/' . $pengumuman->file_pdf) }}" class="attachment-btn" download>
+                                    <i class="bi bi-file-earmark-pdf-fill"></i>
+                                    <span>Download PDF</span>
+                                    <i class="bi bi-download ms-auto"></i>
+                                </a>
+                            </div>
+                        @endif
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

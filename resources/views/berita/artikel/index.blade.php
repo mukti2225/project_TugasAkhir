@@ -1,86 +1,72 @@
-@extends('layouts.app',[
-    'title' => 'List Artikel',
+@extends('layouts.app', [
+    'title' => 'Artikel - ',
 ])
 
 @section('content')
-<section class="section-padding-100-0 mb-50">
-        <!-- Header -->
+    <section class="section-padding-100-0 mb-50">
         @include('components.page-header', [
-            'title' => 'Berita & Artikel'
+            'title' => 'Berita & Artikel',
         ])
 
-<div class="container-fluid artikel-index">
-    <div class="container">
-        <div class="row py-3">
-                <div class="d-flex justify-content-md-between align-items-center">
-                    <div class="kategori-filter d-none d-md-flex gap-2 justify-content-center">
+        <div class="container-fluid artikel-index">
+            <div class="container">
+
+                <div class="artikel-toolbar">
+                    <div class="kategori-filter d-none d-md-flex gap-2">
                         <a href="{{ route('berita.artikel') }}"
-                        class="btn kategori-btn {{ !request('kategori') ? 'active' : '' }}">
+                            class="btn kategori-btn {{ !request('kategori') ? 'active' : '' }}">
                             Semua
                         </a>
-                        @foreach($kategori as $kat)
+                        @foreach ($kategori as $kat)
                             <a href="{{ route('berita.artikel', ['kategori' => $kat->id]) }}"
-                            class="btn kategori-btn {{ request('kategori') == $kat->id ? 'active' : '' }}">
+                                class="btn kategori-btn {{ request('kategori') == $kat->id ? 'active' : '' }}">
                                 {{ $kat->nama_kategori }}
                             </a>
                         @endforeach
                     </div>
 
-                    <form class="d-flex w-md-auto " action="{{ route('berita.artikel.search') }}" method="GET" style="width: 350px;">
-                        <input class="form-control form-control-sm me-2" type="search"
-                               name="keyword" placeholder="Cari berita">
-                        <button class="btn btn-primary btn-sm" type="submit">
-                            <i class="bi bi-search"></i>
+                    <form class="search-form" action="{{ route('berita.artikel.search') }}" method="GET">
+                        <input type="search" name="keyword" placeholder="Cari berita atau artikel...">
+                        <button type="submit">
+                            <i class="bi bi-search"></i> Cari
                         </button>
                     </form>
                 </div>
-        </div>
 
-        <!-- Artikel -->
-        <div class="row g-2 justify-content-start">
-        @if($artikel->count())
-            @foreach($artikel as $art)
-            <div class="col-6 col-md-4 col-lg-3">
-                <article class="h-100 w-100 border-0">
-
-                <div class="card h-100">
-                    <a href="{{ route('berita.artikel.show',$art->slug) }}">
-                        <img src="{{ asset('storage/' . $art->thumbnail) }}" class="card-img-top">
-                    </a>
-                    <div class="card-body flex-column">
-                        <small class="mb-2 d-flex justify-content-between">
-                                <span class="kategori">
-                                    {{ $art->kategoriArtikel->nama_kategori }}
-                                </span>
-                                <span class="text-muted">
-                                    {{ $art->created_at->format('d M Y') }}
-                                </span>
-                        </small>
-                       
-                        <h6 class="card-title mb-2">
-                            <a href="{{ route('berita.artikel.show', $art->slug) }}"
-                               class="text-decoration-none text-dark">
-                                {{ Str::limit($art->judul, 60) }}
+                <div class="artikel-grid">
+                    @if ($artikel->count())
+                        @foreach ($artikel as $art)
+                            <a href="{{ route('berita.artikel.show', $art->slug) }}" class="artikel-card">
+                                <div class="artikel-img-wrapper">
+                                    <img src="{{ asset('storage/' . $art->thumbnail) }}" alt="{{ $art->judul }}">
+                                </div>
+                                <div class="artikel-body">
+                                    <div class="artikel-meta">
+                                        <span class="badge-kategori">
+                                            {{ $art->kategoriArtikel->nama_kategori }}
+                                        </span>
+                                        <span class="artikel-date">
+                                            {{ $art->created_at->format('d M Y') }}
+                                        </span>
+                                    </div>
+                                    <h6 class="artikel-title">
+                                        {{ Str::limit($art->judul, 50) }}
+                                    </h6>
+                                    <p class="artikel-desc">
+                                        {!! Str::limit(strip_tags($art->deskripsi), 75) !!}
+                                    </p>
+                                    <span class="artikel-readmore">Baca selengkapnya →</span>
+                                </div>
                             </a>
-                        </h6>
-
-                        <p class="card-text small mb-3">
-                            {!! Str::limit(strip_tags($art->deskripsi), 100) !!}
-                            <a href="{{ route('berita.artikel.show',$art->slug) }}" class="text-decoration-none">Selengkapnya
-                            </a>
-                        </p>
-                    </div>
+                        @endforeach
+                    @else
+                        <div class="artikel-empty">
+                            <h4>Belum ada artikel tersedia</h4>
+                        </div>
+                    @endif
                 </div>
-                </article>
+
             </div>
-            @endforeach
         </div>
-        @else
-        <div class="text-center py-5">
-            <h4 class="text-muted">Belum ada artikel tersedia</h4>
-        </div>
-        @endif
-    </div>
-</div>
-</section>
+    </section>
 @endsection

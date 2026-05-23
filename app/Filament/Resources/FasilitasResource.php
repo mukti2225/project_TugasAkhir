@@ -17,11 +17,13 @@ class FasilitasResource extends Resource
 {
     protected static ?string $model = Fasilitas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     protected static ?string $navigationGroup = 'Profile';
 
-    protected static ?string $navigationLabel = 'Fasilitas';
+    protected static ?string $navigationLabel = 'Fasilitas Sekolah';
+    
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $pluralModelLabel = 'Daftar Fasilitas';
 
@@ -29,13 +31,36 @@ class FasilitasResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->maxLength(255)
-                    ->required(),
-                Forms\Components\FileUpload::make('foto')
-                    ->image()
-                    ->maxSize(1024*2)
-                    ->required(),
+                Forms\Components\Section::make('Informasi Fasilitas')
+                    ->description('Kelola fasilitas yang tersedia di sekolah')
+                    ->icon('heroicon-o-building-office-2')
+                    ->schema([
+
+                        Forms\Components\TextInput::make('nama')
+                            ->label('Nama Fasilitas')
+                            ->required()
+                            ->placeholder('Contoh: Laboratorium Komputer')
+                            ->prefixIcon('heroicon-m-building-library')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\FileUpload::make('foto')
+                            ->label('Foto Fasilitas')
+                            ->image()
+                            ->required()
+                            ->directory('fasilitas')
+                            ->imageEditor()
+                            ->imagePreviewHeight('140')
+                            ->panelAspectRatio('16:9')
+                            ->panelLayout('compact')
+                            ->removeUploadedFileButtonPosition('right')
+                            ->uploadButtonPosition('left')
+                            ->maxSize(2048)
+                            ->openable()
+                            ->downloadable()
+                            ->helperText('Upload foto fasilitas sekolah')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -43,30 +68,39 @@ class FasilitasResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')
-                    ->searchable(),
                 Tables\Columns\ImageColumn::make('foto')
-                    ->rounded(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Foto')
+                    ->square()
+                    ->size(60)
+                    ->defaultImageUrl(url('/images/no-image.png')),
+
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Fasilitas')
+                    ->weight('bold')
+                    ->lineClamp(2)
+                    ->description(fn ($record) =>
+                        'Ditambahkan ' . $record->created_at->diffForHumans()
+                    ),
             ])
-            ->filters([
-                //
-            ])
+
+            ->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
+
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Belum ada fasilitas')
+            ->emptyStateDescription('Tambahkan fasilitas sekolah.')
+            ->emptyStateIcon('heroicon-o-building-office-2');
     }
 
     public static function getRelations(): array

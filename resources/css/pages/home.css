@@ -1,13 +1,13 @@
-/*-------------------
---- CAROUSEL SECTION--- 
---------------------*/
+/* =============================================
+CAROUSEL HERO
+============================================= */
 .hero-area {
     z-index: 0;
     overflow: visible;
 }
 
 .hero-area .hero-wrapper {
-    height: 95vh;
+    height: 95dvh;
 }
 
 .hero-area .bg-img {
@@ -69,9 +69,9 @@
     margin-top: -60px;
 }
 
-/*-------------------
---- STATISTIK SECTION--- 
---------------------*/
+/* =============================================
+SAMBUTAN STATISTIK
+============================================= */
 .statistik {
     background-color: var(--color-primary);
     position: relative;
@@ -81,10 +81,10 @@
 }
 
 .statistik .horizontal-card {
-    background-color: #ffffff;
+    background-color: var(--color-primary);
     border-radius: 12px;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13);
-    padding: 25px;
+    padding: 30px;
 }
 
 .statistik .stats-card .title {
@@ -96,11 +96,11 @@
 .statistik .stats-card .desc {
     font-weight: 400;
     font-size: var(--fs-base);
-    line-height: 1.5;
+    line-height: var(--lh-normal);
 }
 
 .statistik .link-sambutan {
-    color: black;
+    color: var(--color-black);
     font-weight: 600;
     font-size: var(--fs-base);
     text-decoration: none;
@@ -112,16 +112,28 @@
 }
 
 .statistik .foto-kepsek {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.statistik .kepsek-info h6 {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+.statistik .kepsek-info span {
+    font-size: var(--fs-xs);
+    font-weight: 500;
 }
 
 .statistik .stat-number {
     font-size: var(--fs-2xl);
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.4;
 }
 
 .statistik .stat-label {
@@ -132,8 +144,8 @@
 
 .statistik .btn-stat {
     background-color: var(--color-secondary);
-    color: #fff;
-    font-weight: 400;
+    color: var(--color-primary);
+    font-size: var(--fs-base);
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
@@ -143,7 +155,7 @@
     background-color: transparent;
     border: 1px solid var(--color-secondary);
     color: var(--color-secondary);
-    font-weight: 400;
+    font-size: var(--fs-base);
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
@@ -151,16 +163,12 @@
 
 .statistik .btn-stat-outline:hover {
     background-color: var(--color-secondary);
-    color: #fff;
-    font-weight: 400;
+    color: var(--color-primary);
+    font-size: var(--fs-base);
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
 }
-
-/*-------------------
---- ABOUT SECTION--- 
---------------------*/
 
 @media (max-width: 768px) {
     .statistik.container {
@@ -172,11 +180,15 @@
 
     .statistik .horizontal-card {
         border-radius: 20;
-        padding: 20px 15px;
+        padding: 25px 20px;
         margin-left: 0;
         margin-right: 0;
     }
 }
+
+/* =============================================
+ABOUT SECTION
+============================================= */
 
 .about {
     margin-bottom: 40px;
@@ -232,13 +244,14 @@
     }
 }
 
-/*------ Artikel ------*/
-/* ── Section wrapper ── */
+/* =============================================
+ARTIKEL SECTION
+============================================= */
 .section-artikel {
-    background-color: #f7f8fc;
+    background-color: var(--color-primary);
+    margin: 20px 0 10px;
 }
 
-/* ── Header ── */
 .section-label {
     font-size: var(--fs-md);
     font-weight: 600;
@@ -248,10 +261,10 @@
 }
 
 .section-divider {
-    width: 48px;
+    width: 58px;
     height: 3px;
     background: var(--color-tertiary);
-    border-radius: 99px;
+    border-radius: 50px;
 }
 
 .section-title {
@@ -267,10 +280,9 @@
     max-width: 600px;
 }
 
-/* ── Card ── */
 .artikel-card {
     background: #fff;
-    border-radius: 14px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
     transition:
@@ -306,50 +318,48 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-/* ── Badge & meta ── */
 .badge-kategori {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: var(--fs-xs);
     background: #e8f0fe;
-    color: #3b67d6;
+    color: var(--color-secondary);
     padding: 3px 10px;
     border-radius: 6px;
     letter-spacing: 0.4px;
 }
 
 .artikel-date {
-    font-size: 11px;
+    font-size: var(--fs-xs);
     color: #9ca3af;
 }
 
-/* ── Text ── */
 .artikel-title {
-    font-size: 0.875rem;
+    font-size: var(--fs-base);
     font-weight: 600;
     color: #111827;
-    line-height: 1.5;
-    margin: 10px 0 6px;
+    line-height: 1.4;
+    margin: 8px 0 6px;
 }
 
 .artikel-desc {
-    font-size: 0.8rem;
+    font-size: var(--fs-sm);
     color: #6b7280;
-    line-height: 1.65;
+    line-height: 1.5;
     margin: 0;
-    flex: 1;
+    width: 100%;
+    overflow: hidden;
 }
 
-/* ── CTA Button ── */
 .btn-lihat-semua {
     display: inline-block;
     padding: 10px 32px;
-    border-radius: 99px;
+    border-radius: 50px;
     background: transparent;
-    border: 1.5px solid #4f8ef7;
-    color: #4f8ef7;
-    font-size: 0.875rem;
+    border: 1.5px solid var(--color-secondary);
+    color: var(--color-secondary);
+    font-size: var(--fs-sm);
     font-weight: 500;
     text-decoration: none;
     transition:
@@ -358,17 +368,19 @@
 }
 
 .btn-lihat-semua:hover {
-    background: #4f8ef7;
-    color: #fff;
+    background: var(--color-secondary);
+    color: var(--color-primary);
 }
 
-/* Gallery Section */
-.gallery {
+/* =============================================
+GALLERY SECTION
+============================================= */
+.section-gallery {
     background: #f0f8ff;
-    padding: 30px 0;
+    margin: 0px 0;
 }
 
-.gallery .scroll {
+.section-gallery .scroll {
     display: flex;
     gap: 15px;
     overflow-x: auto;
@@ -380,26 +392,18 @@
     scrollbar-width: none;
 }
 
-.gallery .scroll::-webkit-scrollbar {
+.section-gallery .scroll::-webkit-scrollbar {
     display: none;
 }
 
-.gallery .item {
+.section-gallery .item {
     flex: 0 0 clamp(160px, 38vw, 230px);
     height: clamp(200px, 45vw, 320px);
     border-radius: 5px;
     overflow: hidden;
 }
 
-@media (max-width: 480px) {
-    .gallery .scroll .item {
-        min-width: 150px;
-        max-width: 150px;
-        height: 200px;
-    }
-}
-
-.gallery .card-gallery {
+.section-gallery .card-gallery {
     border: none;
     border-radius: 10px;
     overflow: hidden;
@@ -407,11 +411,11 @@
 }
 
 .card-gallery:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: transform 0.3s ease;
 }
 
-.gallery .item img {
+.section-gallery .item img {
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -423,7 +427,7 @@
     pointer-events: auto;
 }
 
-.gallery .overlay {
+.section-gallery .overlay {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -431,7 +435,7 @@
     pointer-events: none;
 }
 
-.gallery .text-overlay {
+.section-gallery .text-overlay {
     color: #fff;
     font-weight: 500;
     font-size: var(--fs-base);
@@ -439,7 +443,7 @@
     z-index: 3;
 }
 
-.gallery .active .overlay {
+.section-gallery .active .overlay {
     opacity: 1;
     pointer-events: auto;
 }
@@ -447,25 +451,10 @@
 #galleryContainer::-webkit-scrollbar {
     display: none;
 }
+
 #galleryContainer {
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
-
-.gallery .btn-lihat {
-    text-decoration: none;
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 1px solid var(--color-secondary);
-    color: var(--color-secondary);
-    border-radius: 30px;
-    font-weight: 400;
-    transition: all 0.3s ease;
-}
-
-.gallery .btn-lihat:hover {
-    color: #ffffff;
-    background-color: var(--color-secondary);
 }
 
 /* =============================================
@@ -619,7 +608,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .gm-prev {
         left: 6px;
     }
@@ -632,7 +621,9 @@
     }
 }
 
-/* PTN SECTION */
+/* =============================================
+PTN SECTION
+============================================= */
 .ptn {
     background-color: #f8f9fa;
     padding: 30px 0;
@@ -668,7 +659,6 @@
     object-fit: cover;
 }
 
-/* OVERLAY */
 .ptn .overlay {
     position: absolute;
     inset: 0;
@@ -730,4 +720,448 @@
 .ptn .overlay h5 {
     font-size: var(--fs-base);
     font-weight: 200;
+}
+
+/* ============================================================
+   AGENDA SEKOLAH — Section Homepage
+   Kalender interaktif + panel detail
+   ============================================================ */
+/* ---- Section wrapper ---- */
+.agenda-section {
+    background: #f8fafc;
+    padding: 40px 0;
+}
+
+/* ---- Header ---- */
+.agenda-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.agenda-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    margin: 0 0 6px;
+}
+
+.agenda-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.agenda-viewall {
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-bottom: 1px solid #cbd5e1;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition:
+        color 0.2s,
+        border-color 0.2s;
+}
+.agenda-viewall:hover {
+    color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+/* ---- Layout grid ---- */
+.agenda-wrap {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* ============================================================
+   KALENDER
+   ============================================================ */
+.agenda-cal-card {
+    background: #fff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* Nav bulan */
+.cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.cal-nav-btn {
+    background: none;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1;
+    transition:
+        background 0.15s,
+        border-color 0.15s,
+        color 0.15s;
+}
+.cal-nav-btn:hover {
+    background: #f1f5f9;
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+}
+
+.cal-month-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* Grid 7 kolom */
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.cal-dow {
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    color: #94a3b8;
+    padding: 4px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cal-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #475569;
+    cursor: default;
+    position: relative;
+    transition: background 0.15s;
+}
+
+.cal-num {
+    display: block;
+    line-height: 1;
+}
+
+.cal-other {
+    color: #cbd5e1;
+}
+
+.cal-today {
+    background: #0f172a;
+    color: #fff !important;
+    font-weight: 700;
+}
+.cal-today .cal-dots .cal-dot {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.cal-selected {
+    background: #eff6ff;
+    color: #1d4ed8 !important;
+    font-weight: 600;
+}
+
+.cal-has-event {
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+}
+.cal-has-event:not(.cal-today):not(.cal-selected):hover {
+    background: #f8fafc;
+}
+
+/* Dots indikator */
+.cal-dots {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+}
+
+.cal-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Warna dot per kategori */
+.dot-upacara {
+    background: #7f77dd;
+}
+.dot-akademik {
+    background: #378add;
+}
+.dot-olahraga {
+    background: #639922;
+}
+.dot-kegiatan {
+    background: #ba7517;
+}
+.dot-libur {
+    background: #e24b4a;
+}
+
+/* Legenda */
+.cal-legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1.5px solid #f1f5f9;
+}
+
+.cal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: #64748b;
+}
+
+.cal-legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   PANEL DETAIL
+   ============================================================ */
+.agenda-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.agenda-detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin: 0 0 4px;
+}
+
+/* Empty state */
+.agenda-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1.5px dashed #e2e8f0;
+    border-radius: 12px;
+    padding: 36px 20px;
+    color: #94a3b8;
+    text-align: center;
+}
+.agenda-empty i {
+    font-size: 28px;
+}
+.agenda-empty p {
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Event card */
+.ev-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+.ev-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+/* Strip warna kiri */
+.ev-strip {
+    width: 3px;
+    border-radius: 2px;
+    align-self: stretch;
+    flex-shrink: 0;
+    min-height: 40px;
+}
+.ev-strip.upacara {
+    background: #7f77dd;
+}
+.ev-strip.akademik {
+    background: #378add;
+}
+.ev-strip.olahraga {
+    background: #639922;
+}
+.ev-strip.kegiatan {
+    background: #ba7517;
+}
+.ev-strip.libur {
+    background: #e24b4a;
+}
+
+.ev-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.ev-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ev-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.ev-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #64748b;
+}
+.ev-meta-item i {
+    font-size: 12px;
+}
+
+/* Badge kategori */
+.ev-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+.ev-badge-upacara {
+    background: #eeedfe;
+    color: #3c3489;
+}
+.ev-badge-akademik {
+    background: #e6f1fb;
+    color: #0c447c;
+}
+.ev-badge-olahraga {
+    background: #eaf3de;
+    color: #27500a;
+}
+.ev-badge-kegiatan {
+    background: #faeeda;
+    color: #633806;
+}
+.ev-badge-libur {
+    background: #fcebeb;
+    color: #791f1f;
+}
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   Kalender di atas, detail di bawah
+   ============================================================ */
+@media (max-width: 768px) {
+    .agenda-section {
+        padding: 36px 12px 32px;
+    }
+
+    .agenda-title {
+        font-size: 20px;
+    }
+
+    .agenda-wrap {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .agenda-cal-card {
+        padding: 20px;
+    }
+
+    .cal-cell {
+        font-size: 11px;
+        border-radius: 6px;
+    }
+
+    .cal-month-label {
+        font-size: 14px;
+    }
+
+    /* Dot sedikit lebih kecil agar tidak sempit */
+    .cal-dot {
+        width: 3px;
+        height: 3px;
+    }
+
+    .cal-legend {
+        gap: 8px;
+    }
+
+    /* Detail panel: tampilkan max 3 item di mobile */
+    .agenda-detail-list .ev-card:nth-child(n + 4) {
+        display: none;
+    }
+
+    /* Event card lebih compact */
+    .ev-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .ev-title {
+        font-size: 12px;
+    }
+
+    .ev-meta-item {
+        font-size: 10px;
+    }
+
+    /* Badge tersembunyi di mobile agar tidak sesak */
+    .ev-badge {
+        display: none;
+    }
 }

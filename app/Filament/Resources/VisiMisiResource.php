@@ -17,11 +17,12 @@ class VisiMisiResource extends Resource
 {
     protected static ?string $model = VisiMisi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rocket-launch';
 
     protected static ?string $navigationGroup = 'Profile';
 
-    protected static ?string $navigationLabel = 'Visi Misi';
+    protected static ?string $navigationLabel = 'Visi Misi Sekolah';
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $pluralModelLabel = 'Visi Misi';
 
@@ -29,11 +30,39 @@ class VisiMisiResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\RichEditor::make('visi')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\RichEditor::make('misi')
-                    ->required(),
+                Forms\Components\Section::make('Visi Sekolah')
+                    ->description('Masukkan visi utama sekolah')
+                    ->icon('heroicon-o-eye')
+                    ->schema([
+                        Forms\Components\Textarea::make('visi')
+                            ->label('Visi')
+                            ->required()
+                            ->placeholder('Tuliskan visi sekolah...')
+                            ->columnSpanFull(),
+                    ]),
+
+                Forms\Components\Section::make('Misi Sekolah')
+                    ->description('Masukkan daftar misi sekolah')
+                    ->icon('heroicon-o-rocket-launch')
+                    ->schema([
+                        Forms\Components\RichEditor::make('misi')
+                            ->label('Misi')
+                            ->required()
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'bulletList',
+                                'orderedList',
+                                'h2',
+                                'h3',
+                                'blockquote',
+                                'redo',
+                                'undo',
+                            ])
+                            ->placeholder('Tuliskan misi sekolah...')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -44,29 +73,25 @@ class VisiMisiResource extends Resource
             ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make('visi')
+                    ->label('Visi Sekolah')
+                    ->formatStateUsing(fn ($state) => strip_tags($state))
+                    ->lineClamp(1)
                     ->limit(40),
+
                 Tables\Columns\TextColumn::make('misi')
+                    ->label('Misi Sekolah')
+                    ->formatStateUsing(fn ($state) => strip_tags($state))
+                    ->lineClamp(1)
                     ->limit(40),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->emptyStateHeading('Belum ada visi misi')
+            ->emptyStateDescription('Tambahkan visi dan misi sekolah.')
+            ->emptyStateIcon('heroicon-o-academic-cap');
     }
 
     public static function getRelations(): array

@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengumuman extends Model
 {
-    /** @use HasFactory<\Database\Factories\PengumumanFactory> */
     use HasFactory;
 
     protected $fillable = [
         'judul',
         'slug',
         'user_id',
-        'thumbnail',
+        'deskripsi',
         'file_pdf',
     ];
 

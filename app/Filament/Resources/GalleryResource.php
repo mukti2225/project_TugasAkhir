@@ -18,25 +18,42 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
-    protected static ?int $navigationSort = 3;
-    protected static ?string $navigationLabel = 'Galeri Sekolah';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Galeri Kegiatan';
     protected static ?string $pluralModelLabel = 'Daftar Galeri Sekolah';
 
-    protected static ?string $navigationGroup = 'Home';
+    protected static ?string $navigationGroup = 'Profile';
     
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->label('Gambar')
-                    ->image()
-                    ->required(),
-                Forms\Components\TextInput::make('title')
-                    ->label('Judul')
-                    ->maxLength(255)
-                    ->default(null),
+                Forms\Components\Section::make('Informasi Galeri')
+                ->description('Upload foto kegiatan dan dokumentasi sekolah')
+                ->icon('heroicon-o-photo')
+                ->schema([
+                    Forms\Components\FileUpload::make('image')
+                        ->label('Foto Galeri')
+                        ->image()
+                        ->required()
+                        ->directory('gallery')
+                        ->imageEditor()
+                        ->panelLayout('compact')
+                        ->removeUploadedFileButtonPosition('right')
+                        ->uploadButtonPosition('left')
+                        ->openable()
+                        ->downloadable()
+                        ->helperText('Upload foto dokumentasi sekolah')
+                        ->columnSpanFull(),
+
+                    Forms\Components\TextInput::make('title')
+                        ->label('Judul Foto')
+                        ->placeholder('Contoh: Kegiatan Class Meeting')
+                        ->prefixIcon('heroicon-m-photo')
+                        ->maxLength(255)
+                        ->columnSpanFull(),
+                ]),
             ]);
     }
 
@@ -44,32 +61,39 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Foto')
+                    ->square()
+                    ->size(90)
+                    ->defaultImageUrl(url('/images/no-image.png')),
+
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
-                    ->label('Gambar'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()
+                    ->weight('bold')
+                    ->lineClamp(2)
+                    ->placeholder('Tanpa Judul')
+                    ->description(fn ($record) =>
+                        'Upload ' . $record->created_at->diffForHumans()
+                    ),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Belum ada foto galeri')
+            ->emptyStateDescription('Tambahkan dokumentasi kegiatan sekolah.')
+            ->emptyStateIcon('heroicon-o-photo');
     }
 
     public static function getRelations(): array
