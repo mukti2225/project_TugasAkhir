@@ -41,18 +41,18 @@ class AlumniResource extends Resource
                             ->label('Logo Perguruan Tinggi')
                             ->image()
                             ->required()
+                            ->disk('public')
                             ->directory('alumni-logo')
                             ->acceptedFileTypes([
                                 'image/*',
                             ])
-                            ->imageEditor()
                             ->panelLayout('compact')
                             ->removeUploadedFileButtonPosition('right')
                             ->uploadButtonPosition('left')
                             ->maxSize(2048)
                             ->openable()
                             ->downloadable()
-                            ->helperText('Upload logo universitas/perguruan tinggi')
+                            ->helperText('Upload logo universitas/perguruan tinggi (png)')
                             ->columnSpanFull(),
                     ]),
             ]);

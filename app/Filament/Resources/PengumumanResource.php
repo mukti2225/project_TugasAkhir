@@ -73,6 +73,7 @@ class PengumumanResource extends Resource
                             ->acceptedFileTypes([
                                 'application/pdf',
                             ])
+                            ->disk('public')
                             ->directory('pengumuman/pdf')
                             ->panelLayout('compact')
                             ->helperText('Upload file PDF pengumuman')

@@ -45,16 +45,14 @@ class EkstrakulikulerResource extends Resource
                             ->label('Foto Ekstrakurikuler')
                             ->image()
                             ->required()
+                            ->disk('public')
                             ->directory('ekstrakulikuler-fotos')
                             ->acceptedFileTypes([
                                 'image/*',
                             ])
-
-                            ->imageEditor()
                             ->panelLayout('compact')
                             ->removeUploadedFileButtonPosition('right')
                             ->uploadButtonPosition('left')
-                            ->maxSize(1024)
                             ->openable()
                             ->downloadable()
                             ->helperText('Upload foto kegiatan ekstrakurikuler')

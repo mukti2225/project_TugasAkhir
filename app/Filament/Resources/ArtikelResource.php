@@ -75,15 +75,11 @@ class ArtikelResource extends Resource
                             ->required()
                             ->disk('public')
                             ->directory('artikel')
-                            ->imageEditor()
                             ->panelLayout('compact')
-
                             ->removeUploadedFileButtonPosition('right')
                             ->uploadButtonPosition('left')
-
                             ->openable()
                             ->downloadable()
-
                             ->helperText('Upload thumbnail artikel')
                             ->columnSpanFull(),
 
