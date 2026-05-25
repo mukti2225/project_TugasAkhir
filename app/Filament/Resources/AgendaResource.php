@@ -77,7 +77,6 @@ class AgendaResource extends Resource
                                     ->placeholder('Lapangan Utama')
                                     ->prefixIcon('heroicon-m-map-pin')
                                     ->maxLength(255),
-
                             ]),
 
                         Forms\Components\Textarea::make('deskripsi')

@@ -4,10 +4,18 @@ namespace App\Exports;
 
 use App\Models\Formulir;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class FormulirExport implements FromCollection, WithHeadings, WithMapping
+class FormulirExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -133,4 +141,123 @@ class FormulirExport implements FromCollection, WithHeadings, WithMapping
 
         ];
     }
+        public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => [
+                'font' => [
+                    'bold' => true,
+                    'color' => ['rgb' => 'FFFFFF'],
+                    'size' => 12,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ],
+            ],
+        ];
+    }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+
+                $sheet = $event->sheet->getDelegate();
+
+                $highestColumn = $sheet->getHighestColumn();
+                $highestRow = $sheet->getHighestRow();
+
+                /**
+                 * HEADER STYLE
+                 */
+                $sheet->getStyle("A1:{$highestColumn}1")
+                    ->applyFromArray([
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '1D4ED8',
+                            ],
+                        ],
+                    ]);
+
+                /**
+                 * BORDER ALL
+                 */
+                $sheet->getStyle("A1:{$highestColumn}{$highestRow}")
+                    ->applyFromArray([
+                        'borders' => [
+                            'allBorders' => [
+                                'borderStyle' => Border::BORDER_THIN,
+                                'color' => [
+                                    'rgb' => 'D1D5DB',
+                                ],
+                            ],
+                        ],
+                    ]);
+
+                /**
+                 * ALIGNMENT
+                 */
+                $sheet->getStyle("A1:{$highestColumn}{$highestRow}")
+                    ->getAlignment()
+                    ->setVertical(Alignment::VERTICAL_CENTER);
+
+                /**
+                 * WRAP TEXT
+                 */
+                $sheet->getStyle("A1:{$highestColumn}{$highestRow}")
+                    ->getAlignment()
+                    ->setWrapText(true);
+
+                /**
+                 * HEADER HEIGHT
+                 */
+                $sheet->getRowDimension(1)
+                    ->setRowHeight(30);
+
+                /**
+                 * FREEZE HEADER
+                 */
+                $sheet->freezePane('A2');
+
+                /**
+                 * AUTO FILTER
+                 */
+                $sheet->setAutoFilter(
+                    "A1:{$highestColumn}{$highestRow}"
+                );
+
+                /**
+                 * CENTER KOLOM TERTENTU
+                 */
+                $sheet->getStyle("B:B")
+                    ->getAlignment()
+                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+                $sheet->getStyle("D:D")
+                    ->getAlignment()
+                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+                /**
+                 * ZEBRA STRIPE
+                 */
+                for ($i = 2; $i <= $highestRow; $i++) {
+
+                    if ($i % 2 == 0) {
+
+                        $sheet->getStyle("A{$i}:{$highestColumn}{$i}")
+                            ->applyFromArray([
+                                'fill' => [
+                                    'fillType' => Fill::FILL_SOLID,
+                                    'startColor' => [
+                                        'rgb' => 'F8FAFC',
+                                    ],
+                                ],
+                            ]);
+                    }
+                }
+            },
+        ];
+    }
+
 }

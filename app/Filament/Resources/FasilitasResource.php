@@ -48,7 +48,7 @@ class FasilitasResource extends Resource
                             ->label('Foto Fasilitas')
                             ->image()
                             ->required()
-                            ->disk('panel')
+                            ->disk('public')
                             ->directory('fasilitas')
                             ->panelLayout('compact')
                             ->removeUploadedFileButtonPosition('right')

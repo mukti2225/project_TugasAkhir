@@ -1,23 +1,40 @@
 <x-mail::message>
-# Halo {{ $pendaftaran->nama }},
+    # Halo {{ $pendaftaran->nama }},
 
-Terima kasih telah melakukan pendaftaran sebagai calon Peserta Didik Baru Arif Rahman Hakim Tahun Ajaran 2025/2026.
+    Terima kasih telah melakukan pendaftaran sebagai calon Peserta Didik Baru di **SMA Arif Rahman Hakim** Tahun Ajaran
+    2025/2026.
 
-Berikut adalah Nomor Pendaftaran Anda:
+    Pendaftaran Anda telah berhasil kami terima. Berikut Nomor Pendaftaran Anda:
 
-<x-mail::panel>
-**{{ $pendaftaran->nomor_pendaftaran }}**
-</x-mail::panel>
+    <x-mail::panel>
+        <div style="text-align:center;">
+            <div style="font-size:13px; color:#666;">
+                Nomor Pendaftaran
+            </div>
 
-Harap simpan Nomor Pendaftaran ini baik-baik. Nomor ini akan digunakan untuk melakukan pengecekan pengumuman seleksi Anda pada halaman website kami.
+            <div style="font-size:28px; font-weight:bold; color:#166534; margin-top:8px;">
+                {{ $pendaftaran->nomor_pendaftaran }}
+            </div>
+        </div>
+    </x-mail::panel>
 
-<x-mail::button :url="url(route('pendaftaran.download', $pendaftaran->nomor_pendaftaran))">
-    Download Formulir
-</x-mail::button>
+    Mohon simpan nomor tersebut dengan baik karena akan digunakan untuk:
+    - pengecekan status pendaftaran,
+    - proses verifikasi,
+    - dan pengumuman hasil seleksi.
 
+    <x-mail::button :url="url(route('pendaftaran.download', $pendaftaran->nomor_pendaftaran))" color="success">
+        Download Formulir
+    </x-mail::button>
 
-Jika Anda membutuhkan bantuan, silakan hubungi kami di (021) 1234-5678 atau WhatsApp di 0812-3456-7890.
+    Jika ada data yang kurang sesuai atau mengalami kendala selama proses pendaftaran, jangan ragu untuk menghubungi
+    panitia SPMB kami.
 
-Salam Hangat,<br>   
-Panitia SPMB ARH
+    📞 (021) 1234-5678
+    📱 0812-3456-7890
+
+    Terima kasih atas kepercayaan Anda kepada **SMA Arif Rahman Hakim** sebagai pilihan pendidikan putra/putri Anda.
+
+    Salam hangat,<br>
+    **Panitia SPMB ARH**
 </x-mail::message>

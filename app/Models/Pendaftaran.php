@@ -84,6 +84,10 @@ class Pendaftaran extends Model
         'catatan_verifikasi',
         'verified_at',
         'verified_by',
+
+        'ocr_results',
+        'ocr_status',
+        'ocr_checked_at',
     ];
 
     protected $casts = [
@@ -96,6 +100,9 @@ class Pendaftaran extends Model
         'penghasilan_ayah' => 'integer',
         'penghasilan_ibu' => 'integer',
         'penghasilan_wali' => 'integer',
+
+        'ocr_results'    => 'array',
+        'ocr_checked_at' => 'datetime',
     ];
 
     public function user()

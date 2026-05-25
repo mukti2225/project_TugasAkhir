@@ -22,6 +22,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use App\Jobs\ValidateBerkasJob;
 
 class FormulirResource extends Resource
 {
@@ -403,6 +404,58 @@ class FormulirResource extends Resource
                 |--------------------------------------------------------------------------
                 */
 
+                /*
+                |--------------------------------------------------------------------------
+                | HASIL VALIDASI OCR
+                |--------------------------------------------------------------------------
+                */
+
+                Section::make('Hasil Validasi OCR')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->collapsible()
+                    ->visible(fn () => auth()->user()?->hasRole('admin'))
+                    ->schema([
+                        Placeholder::make('ocr_status')
+                            ->label('Status Keseluruhan')
+                            ->content(fn ($record) => match($record?->ocr_status) {
+                                'passed' => '✅ Semua berkas lolos validasi',
+                                'failed' => '❌ Ada berkas yang tidak lolos',
+                                default  => '⏳ Belum dicek',
+                            }),
+
+                        Placeholder::make('ocr_checked_at')
+                            ->label('Waktu Pengecekan')
+                            ->content(fn ($record) =>
+                                $record?->ocr_checked_at?->format('d M Y H:i') ?? '-'
+                            ),
+
+                        Placeholder::make('ocr_ijazah')
+                            ->label('Validasi Ijazah / SKL')
+                            ->content(fn ($record) =>
+                                $record?->ocr_results['ijazah']['message'] ?? '— Belum dicek'
+                            )
+                            ->columnSpanFull(),
+
+                        Placeholder::make('ocr_kk')
+                            ->label('Validasi Kartu Keluarga')
+                            ->content(fn ($record) =>
+                                $record?->ocr_results['kk']['message'] ?? '— Belum dicek'
+                            )
+                            ->columnSpanFull(),
+
+                        Placeholder::make('ocr_akta')
+                            ->label('Validasi Akta Kelahiran')
+                            ->content(fn ($record) =>
+                                $record?->ocr_results['akta']['message'] ?? '— Belum dicek'
+                            )
+                            ->columnSpanFull(),
+                    ])
+                    ->columns([
+                        'default' => 1,
+                        'md' => 2,
+                    ]),
+
+                /*Verifikasi */
                 Section::make('Verifikasi Berkas')
                     ->icon('heroicon-o-shield-check')
                     ->visible(fn () => auth()->user()?->hasRole('admin'))
@@ -500,7 +553,7 @@ class FormulirResource extends Resource
                     }),
 
                 TextColumn::make('created_at')
-                    ->label('Tanggal')
+                    ->label('Waktu')
                     ->since(),
             ])
 
@@ -539,6 +592,20 @@ class FormulirResource extends Resource
                             ])->setPaper('A4', 'portrait');
                             echo $pdf->output();
                         }, "Formulir_{$safeName}.pdf");
+                    }),
+                Action::make('recheck_ocr')
+                    ->label('Cek Berkas')
+                    ->icon('heroicon-o-magnifying-glass')
+                    ->color('warning')
+                    ->visible(fn () => auth()->user()?->hasRole('admin'))
+                    ->action(function ($record) {
+                        $job = new \App\Jobs\ValidateBerkasJob($record);
+                        $job->handle(new \App\Services\OcrValidationService());
+                        \Filament\Notifications\Notification::make()
+                            ->title('Pengecekan OCR Selesai')
+                            ->body('Hasil validasi berkas telah diperbarui.')
+                            ->success()
+                            ->send();
                     }),
             ])
 

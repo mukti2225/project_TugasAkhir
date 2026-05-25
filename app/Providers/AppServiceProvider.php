@@ -3,13 +3,17 @@
 namespace App\Providers;
 
 use App\Models\Artikel;
+use App\Models\Formulir;
 use App\Models\Gallery;
 use App\Models\HeroSlider;
 use App\Models\KategoriArtikel;
+use App\Models\Pendaftaran;
 use App\Models\Pengumuman;
 use App\Models\Ptn;
 use App\Models\Statistik;
 use App\Models\User;
+use App\Observers\FormulirObserver;
+use App\Observers\PendaftaranObserver;
 use App\Policies\ArtikelPolicy;
 use App\Policies\GalleryPolicy;
 use App\Policies\HeroSliderPolicy;
@@ -51,5 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Gallery::class, GalleryPolicy::class);
         Gate::policy(Statistik::class, StatistikPolicy::class);
         Gate::policy(Pengumuman::class, PengumumanPolicy::class);
+        Pendaftaran::observe(PendaftaranObserver::class);
+        Formulir::observe(FormulirObserver::class);
     }
 }

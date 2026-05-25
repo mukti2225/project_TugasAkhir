@@ -19,25 +19,11 @@ class KontakController extends Controller
         ]);
 
         // SIMPAN KE DATABASE
-        KritikSaran::create([
-            'nama'   => $validated['nama'],
-            'email'  => $validated['email'],
-            'subjek' => $validated['subjek'],
-            'pesan'  => $validated['pesan'],
-        ]);
+        $kritikSaran = KritikSaran::create($validated);
 
         // KIRIM EMAIL
-        Mail::raw(
-            "Pesan Kritik & Saran\n\n" .
-            "Nama: {$validated['nama']}\n" .
-            "Email: {$validated['email']}\n" .
-            "Subjek: {$validated['subjek']}\n\n" .
-            "Pesan:\n{$validated['pesan']}",
-            function ($message) use ($validated) {
-                $message->to('raehanmukti03@gmail.com')
-                        ->subject('Kritik & Saran Baru');
-            }
-        );
+        Mail::to('raehanmukti03@gmail.com')
+            ->queue(new \App\Mail\KritikSaranMail($kritikSaran));
 
         // REDIRECT
         return back()->with('success', 'Pesan berhasil dikirim!');

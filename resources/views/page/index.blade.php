@@ -20,10 +20,4 @@
     </div>
 
     @include('components.ptn')
-
-    {{-- @include('components.vidio-profil') --}}
 @endsection
-
-@push('js')
-    <script src="{{ asset('js/index.js') }}"></script>
-@endpush

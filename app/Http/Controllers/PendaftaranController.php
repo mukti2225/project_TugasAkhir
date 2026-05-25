@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pendaftaran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PendaftaranController extends Controller
 {
@@ -15,71 +17,74 @@ class PendaftaranController extends Controller
 
     public function edit($nomor)
     {
-        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)->firstOrFail();
-
-        return view('pendaftaran.form', compact('pendaftaran'));
+        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)
+            ->where('status_verifikasi', 'ditolak')
+            ->firstOrFail();
+        
+        if (!session("verified_{$nomor}")) {
+            return view('pendaftaran.verifikasi-identitas', compact('pendaftaran'));
+        }
+        return view('pendaftaran.edit-berkas', compact('pendaftaran'));
     }
 
-    public function update(Request $request, $nomor)
+    public function verifyIdentity(Request $request, $nomor)
+    {
+        $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)->firstOrFail();
+        $request->validate([
+            'nik' => 'required|string',
+        ]);
+
+        if ($request->nik !== $pendaftaran->nik) {
+            return back()->withErrors(['nik' => 'NIK tidak sesuai dengan data pendaftaran.']);
+        }
+        session(["verified_{$nomor}" => true]);
+
+        return redirect()->route('pendaftaran.edit', $nomor);
+    }
+
+
+    public function updateBerkas(Request $request, $nomor)
     {
         $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $nomor)->firstOrFail();
 
-        // VALIDASI (ignore data sendiri)
-        $validated = $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email',
-            'nik' => 'required|digits:16|unique:pendaftarans,nik,' . $pendaftaran->id,
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'nisn' => 'required|digits:10|unique:pendaftarans,nisn,' . $pendaftaran->id,
-            'nama_ayah' => 'required',
-            'nama_ibu' => 'required',
+        // Guard
+        if ($pendaftaran->status_verifikasi !== 'ditolak') {
+            abort(403, 'Berkas hanya bisa diubah jika status verifikasi ditolak.');
+        }
 
-            // file sekarang OPTIONAL (karena bisa hanya ganti salah satu)
+        // Validasi hanya file
+        $validator = Validator::make($request->all(), [
             'ijazah_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'kk_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'akta_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-        ]);
+            'kk_file'     => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'akta_file'   => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ])->after(function ($v) use ($request) {
+            if (!$request->hasFile('ijazah_file') &&
+                !$request->hasFile('kk_file') &&
+                !$request->hasFile('akta_file')) {
+                $v->errors()->add('files', 'Minimal satu berkas harus diunggah ulang.');
+            }
+        })->validate();
 
-        $data = $request->all();
-
-        // ================== IJAZAH ==================
-        if ($request->hasFile('ijazah_file')) {
-            $file = $request->file('ijazah_file');
-            $path = $file->store('berkas/ijazah', 'public');
-
-            $data['ijazah_file_path'] = $path;
-            $data['ijazah_file_name'] = $file->getClientOriginalName();
+        // Handle upload + hapus file lama
+        foreach (['ijazah' => 'ijazah_file', 'kk' => 'kk_file', 'akta' => 'akta_file'] as $folder => $field) {
+            if ($request->hasFile($field)) {
+                if ($pendaftaran->{$field . '_path'}) {
+                    Storage::disk('public')->delete($pendaftaran->{$field . '_path'});
+                }
+                $file = $request->file($field);
+                $pendaftaran->{$field . '_path'} = $file->store("berkas/{$folder}", 'public');
+                $pendaftaran->{$field . '_name'} = $file->getClientOriginalName();
+            }
         }
 
-        // ================== KK ==================
-        if ($request->hasFile('kk_file')) {
-            $file = $request->file('kk_file');
-            $path = $file->store('berkas/kk', 'public');
-
-            $data['kk_file_path'] = $path;
-            $data['kk_file_name'] = $file->getClientOriginalName();
-        }
-
-        // ================== AKTA ==================
-        if ($request->hasFile('akta_file')) {
-            $file = $request->file('akta_file');
-            $path = $file->store('berkas/akta', 'public');
-
-            $data['akta_file_path'] = $path;
-            $data['akta_file_name'] = $file->getClientOriginalName();
-        }
-
-        // 🔥 RESET STATUS (PENTING)
-        $data['status_verifikasi'] = 'menunggu';
-        $data['catatan_verifikasi'] = null;
-
-        // UPDATE
-        $pendaftaran->update($data);
+        // Reset status
+        $pendaftaran->status_verifikasi  = 'belum_diverifikasi';
+        $pendaftaran->status_penerimaan  = 'menunggu';
+        $pendaftaran->catatan_verifikasi = null;
+        $pendaftaran->save();
 
         return redirect()->route('pendaftaran.cek')
-            ->with('success', 'Berkas berhasil diperbarui, menunggu verifikasi ulang');
+            ->with('success', 'Berkas berhasil diunggah ulang, menunggu verifikasi.');
     }
 
     public function store(Request $request)

@@ -117,7 +117,7 @@
 
                             <li>
                                 <a class="dropdown-item" href="{{ route('filament.admin.pages.dashboard') }}">
-                                    <i class="bi bi-speedometer2"></i> Dashboard
+                                    <i class="bi bi-speedometer2 me-2"></i>Dashboard
                                 </a>
                             </li>
                             <li>
@@ -127,7 +127,7 @@
                                 <form method="POST" action="{{ route('filament.admin.auth.logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger">
-                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                        <i class="bi bi-box-arrow-right me-2"></i>Logout
                                     </button>
                                 </form>
                             </li>

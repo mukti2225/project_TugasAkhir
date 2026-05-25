@@ -86,7 +86,12 @@
                     </button>
 
                     @if (session('success'))
-                        <div class="ks-alert-success">{{ session('success') }}</div>
+                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 mt-3"
+                            role="alert">
+                            <i class="bi bi-check-circle-fill fs-5"></i>
+                            <div>{{ session('success') }}</div>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+                        </div>
                     @endif
                 </form>
             </div>

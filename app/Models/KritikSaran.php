@@ -11,5 +11,11 @@ class KritikSaran extends Model
         'email',
         'subjek',
         'pesan',
+        'balasan',
+        'dibalas_at',
+    ];
+
+    protected $casts = [
+        'dibalas_at' => 'datetime',
     ];
 }

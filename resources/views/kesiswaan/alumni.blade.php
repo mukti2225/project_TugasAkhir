@@ -29,7 +29,7 @@
                 @endforeach
             </div>
         @else
-            <div class="text-center py-5">
+            <div class="text-center py-3">
                 <h3 class="fw-bold">Data alumni belum tersedia</h3>
             </div>
         @endif

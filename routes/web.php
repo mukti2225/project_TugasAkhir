@@ -21,6 +21,15 @@ Route::get('/pendaftaran/download/{id}', [PendaftaranController::class, 'downloa
 Route::get('/pendaftaran/{nomor}', [PendaftaranController::class, 'edit'])->name('pendaftaran.edit');
 Route::put('/pendaftaran/{nomor}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
 
+Route::get('/pendaftaran/{nomor}/edit', [PendaftaranController::class, 'edit'])
+    ->name('pendaftaran.edit');
+Route::put('/pendaftaran/{nomor}/update', [PendaftaranController::class, 'update'])
+    ->name('pendaftaran.update');
+Route::post('/pendaftaran/{nomor}/verify-identity', [PendaftaranController::class, 'verifyIdentity'])
+    ->name('pendaftaran.verifikasi-identitas');
+Route::put('/pendaftaran/{nomor}/berkas', [PendaftaranController::class, 'updateBerkas'])
+     ->name('pendaftaran.update-berkas');
+
 // Cek status pendaftaran
 Route::get('/cek-pendaftaran', [PendaftaranController::class, 'cek'])->name('pendaftaran.cek');
 Route::post('/cek-pendaftaran', [PendaftaranController::class, 'cekHasil'])->name('pendaftaran.cek.hasil');
@@ -51,3 +60,14 @@ Route::get('/ekstrakulikuler',[KesiswaanController::class,'ekstrakulikuler'])->n
 //Kontak
 Route::post('/kritik-saran', [KontakController::class, 'store'])
     ->name('kritik-saran.store');
+
+// PREVIEW — hapus setelah selesai testing
+Route::get('/preview-email/kritik-saran', function () {
+    $kritikSaran = \App\Models\KritikSaran::latest()->first();
+    return new \App\Mail\KritikSaranMail($kritikSaran);
+});
+
+Route::get('/preview-email/balasan-kritik-saran', function () {
+    $kritikSaran = \App\Models\KritikSaran::whereNotNull('balasan')->latest()->first();
+    return new \App\Mail\BalasanKritikSaranMail($kritikSaran);
+});

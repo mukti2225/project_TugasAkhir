@@ -353,11 +353,11 @@
                         </span>
                         ${ev.lokasi
                             ? `
-                                                                                                        <span class="ev-meta-item">
-                                                                                                            <i class="bi bi-geo-alt"></i>
-                                                                                                            ${ev.lokasi}
-                                                                                                        </span>
-                                                                                                    `
+                                                                                                            <span class="ev-meta-item">
+                                                                                                                <i class="bi bi-geo-alt"></i>
+                                                                                                                ${ev.lokasi}
+                                                                                                            </span>
+                                                                                                        `
                             : ''
                         }
                     </div>

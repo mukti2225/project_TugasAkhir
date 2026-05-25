@@ -18,7 +18,27 @@
     --color-blue: #1d4ed8;
     --color-black: #000000;
     --color-primary: #ffffff;
-    --color-secondary: #038180;
-    --color-tertiary: #f59e0b;
     --color-bg: #e1f1ff;
+
+    --color-font-black: #222222;
+    --color-font-gray: #1e293b;
+    --color-font-dark: #64748b;
+
+    /* ==========================================================================
+       1. SECONDARY GRADIENT (Deep Teal - #038180)
+       ========================================================================== */
+    --color-secondary-900: #013b3b; /* Sangat gelap: Bagus untuk teks di atas background terang */
+    --color-secondary-700: #025c5b; /* Agak gelap: Sempurna untuk efek HOVER tombol */
+    --color-secondary: #038180; /* WARNA ASLI UTAMA (Base) */
+    --color-secondary-400: #359a99; /* Agak terang: Untuk border, garis tipis, atau ikon */
+    --color-secondary-100: #e6f7f7; /* Sangat terang: Sempurna untuk BACKGROUND box/alert info */
+
+    /* ==========================================================================
+       2. TERTIARY GRADIENT (Amber/Kuning - #f59e0b)
+       ========================================================================== */
+    --color-tertiary-900: #78350f; /* Sangat gelap: Teks di atas background kuning (agar terbaca) */
+    --color-tertiary-700: #b45309; /* Agak gelap: Sempurna untuk efek HOVER tombol kuning */
+    --color-tertiary: #f59e0b; /* WARNA ASLI UTAMA (CTA / Aksen penting) */
+    --color-tertiary-400: #fbbf24; /* Agak terang: Untuk pembatas warna oranye/kuning */
+    --color-tertiary-100: #fef3c7; /* Sangat terang: Sempurna untuk BACKGROUND pengumuman/warning */
 }

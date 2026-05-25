@@ -80,7 +80,6 @@ class PtnResource extends Resource
                                     ->disk('public')
                                     ->directory('ptn/logo')
                                     ->panelLayout('compact')
-                                    ->panelAspectRatio('1:1')
                                     ->maxSize(2048)
                                     ->helperText('Upload logo universitas')
                                     ->openable()
