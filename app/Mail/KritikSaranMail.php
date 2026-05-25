@@ -19,7 +19,7 @@ class KritikSaranMail extends Mailable
      */
     public function __construct(public KritikSaran $kritikSaran)
     {
-        //
+        $this->kritikSaran = $kritikSaran;
     }
 
     /**
@@ -38,6 +38,17 @@ class KritikSaranMail extends Mailable
     public function content(): Content
     {
         return new Content(view: 'emails.kritik-saran');
+    }
+
+    public function build()
+    {
+        return $this
+            ->subject('Pesan Kritik & Saran Baru')
+            ->replyTo(
+                $this->kritikSaran->email,
+                $this->kritikSaran->nama
+            )
+            ->view('emails.kritik-saran');
     }
 
     /**

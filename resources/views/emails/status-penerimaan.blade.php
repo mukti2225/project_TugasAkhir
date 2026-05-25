@@ -246,7 +246,7 @@
         <div class="header">
             <div class="school-name">SMA ARH</div>
             <div class="header-title">Hasil Seleksi Penerimaan Peserta Didik Baru</div>
-            <div class="header-sub">SPMB Online — Tahun Ajaran 2025/2026</div>
+            <div class="header-sub">SPMB Online — Tahun Ajaran 2026/2027</div>
         </div>
 
         {{-- Body --}}

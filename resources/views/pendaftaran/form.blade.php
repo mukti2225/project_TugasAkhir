@@ -19,7 +19,7 @@
                         <div class="bg-gradient-primary px-4 py-4">
                             <div class="text-center text-white">
                                 <h3 class="fw-bold mb-2">FORMULIR PENDAFTARAN</h3>
-                                <p class="mb-0 opacity-80">Peserta Didik Baru SMA ARH Tahun Ajaran 2025/2026</p>
+                                <p class="mb-0 opacity-80">Peserta Didik Baru SMA ARH Tahun Ajaran 2026/2027</p>
                             </div>
                         </div>
 
@@ -114,7 +114,7 @@
                                         </button>
                                         <button type="submit" class="btn btn-success px-5" id="submitBtn"
                                             style="display: none;">
-                                            <i class="bi bi-send me-2"></i>Kirim Pendaftaran
+                                            Kirim Pendaftaran
                                         </button>
                                     </div>
                                 </div>

@@ -5,6 +5,8 @@ namespace App\Providers\Filament;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Resources\FormulirResource\Widgets\PendaftaranChart;
 use App\Filament\Resources\FormulirResource\Widgets\StatusPendaftaran;
+use App\Filament\Widgets\PendaftaranTerbaru;
+use App\Filament\Widgets\ProgramStudiChart;
 use DiogoGPinto\AuthUIEnhancer\AuthUIEnhancerPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -31,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            // ->emailVerification()
+            ->emailVerification()
             ->profile(\App\Filament\Pages\Auth\EditProfile::class)
             ->favicon(asset('img/logo/ARH.png'))
             ->brandLogo(asset('img/logo/ARH.png'))
@@ -47,9 +49,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
                 StatusPendaftaran::class,
                 PendaftaranChart::class,
+                ProgramStudiChart::class,
+                PendaftaranTerbaru::class,
             ])
             ->middleware([
                 EncryptCookies::class,

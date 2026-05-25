@@ -38,7 +38,7 @@ class PendaftaranSukses extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.pendaftaran.sukses',
+            view: 'emails.pendaftaran.sukses',
         );
     }
 

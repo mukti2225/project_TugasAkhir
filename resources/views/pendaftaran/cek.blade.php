@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="spmb">
-        <div class="container py-5">
+        <div class="container py-3">
 
             <div class="row g-4">
 

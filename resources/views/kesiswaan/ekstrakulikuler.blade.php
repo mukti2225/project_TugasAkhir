@@ -10,16 +10,27 @@
 
     <div class="container py-3">
         <div class="ekstrakulikuler">
-            <div class="grid">
-                @foreach ($ekstrakulikuler as $item)
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama }}">
-                        <div class="overlay">
-                            <h3>{{ $item->nama }}</h3>
+
+            @if ($ekstrakulikuler->count())
+                <div class="grid">
+                    @foreach ($ekstrakulikuler as $item)
+                        <div class="card">
+                            <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama }}">
+
+                            <div class="overlay">
+                                <h3>{{ $item->nama }}</h3>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-4">
+                    <h3 class="fw-bold mb-2">
+                        Data ekstrakulikuler belum tersedia
+                    </h3>
+                </div>
+            @endif
+
         </div>
     </div>
 @endsection

@@ -13,20 +13,16 @@
         <div class="agenda-wrap">
 
             {{-- Kalender --}}
-            <div class="agenda-cal-card">
-
+            <div class="agenda-cal-card" data-aos="fade-right" data-aos-duration="500">
                 <div class="cal-nav">
                     <button class="cal-nav-btn" id="agPrevBtn">
                         <i class="bi bi-chevron-left"></i>
                     </button>
-
                     <span class="cal-month-label" id="agCalMonth"></span>
-
                     <button class="cal-nav-btn" id="agNextBtn">
                         <i class="bi bi-chevron-right"></i>
                     </button>
                 </div>
-
                 <div class="cal-grid" id="agCalGrid"></div>
 
                 {{-- Legend --}}
@@ -60,7 +56,7 @@
             </div>
 
             {{-- Detail --}}
-            <div class="agenda-detail">
+            <div class="agenda-detail" data-aos="flip-up" data-aos-duration="600">
                 <p class="agenda-detail-label" id="agDetailLabel">
                     Agenda bulan ini
                 </p>
@@ -353,11 +349,11 @@
                         </span>
                         ${ev.lokasi
                             ? `
-                                                                                                            <span class="ev-meta-item">
-                                                                                                                <i class="bi bi-geo-alt"></i>
-                                                                                                                ${ev.lokasi}
-                                                                                                            </span>
-                                                                                                        `
+                                                                                                                                    <span class="ev-meta-item">
+                                                                                                                                        <i class="bi bi-geo-alt"></i>
+                                                                                                                                        ${ev.lokasi}
+                                                                                                                                    </span>
+                                                                                                                                `
                             : ''
                         }
                     </div>

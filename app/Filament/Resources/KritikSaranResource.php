@@ -46,10 +46,21 @@ class KritikSaranResource extends Resource
                     ->content(fn ($record) => $record?->pesan)
                     ->columnSpanFull(),
 
+                Placeholder::make('dibalas_at')
+                    ->label('Dibalas pada')
+                    ->content(fn ($record) => $record?->dibalas_at?->format('d M Y, H:i') . ' WIB')
+                    ->visible(fn ($record) => (bool) $record?->dibalas_at)
+                    ->columnSpanFull(),
+
                 Textarea::make('balasan')
                     ->label('Balasan Admin')
-                    ->rows(5)
+                    ->rows(6)
                     ->placeholder('Tulis balasan untuk pengirim...')
+                    ->disabled(fn ($record) => (bool) $record?->dibalas_at)
+                    ->helperText(fn ($record) => $record?->dibalas_at
+                        ? 'Pesan ini sudah dibalas pada ' . $record->dibalas_at->format('d M Y, H:i')
+                        : 'Isi balasan lalu klik "Kirim Balasan"'
+                    )
                     ->columnSpanFull(),
             ]);
     }
@@ -79,12 +90,24 @@ class KritikSaranResource extends Resource
                 TextColumn::make('pesan')
                     ->limit(60)
                     ->tooltip(fn ($record) => $record->pesan),
+                
+                TextColumn::make('balasan')
+                    ->label('Balasan')
+                    ->limit(40)
+                    ->placeholder('—')
+                    ->tooltip(fn ($record) => $record->balasan),
 
                 TextColumn::make('dibalas_at')
                     ->label('Status')
                     ->badge()
                     ->formatStateUsing(fn ($state) => $state ? 'Sudah Dibalas' : 'Belum Dibalas')
                     ->color(fn ($state) => $state ? 'success' : 'warning'),
+
+                TextColumn::make('dibalas_at')
+                    ->label('Dibalas')
+                    ->since()
+                    ->placeholder('Belum dibalas')
+                    ->toggleable(),
 
                 TextColumn::make('created_at')
                     ->label('Dikirim')
@@ -96,6 +119,10 @@ class KritikSaranResource extends Resource
                     ->label('Balas')
                     ->icon('heroicon-o-paper-airplane')
                     ->color('primary')
+                    ->requiresConfirmation()
+                    ->modalHeading('Balas Pesan')
+                    ->modalDescription(fn ($record) => "Balas pesan dari {$record->nama} ({$record->email})")
+                    ->modalSubmitActionLabel('Kirim Balasan')
                     ->form([
                         Textarea::make('balasan')
                             ->label('Isi Balasan')
@@ -109,14 +136,23 @@ class KritikSaranResource extends Resource
                             'dibalas_at' => now(),
                         ]);
 
-                        // Kirim email balasan ke pengirim
-                        Mail::to($record->email)
-                            ->send(new \App\Mail\BalasanKritikSaranMail($record));
+                        try {
+                            Mail::to($record->email)
+                                ->queue(new \App\Mail\BalasanKritikSaranMail($record));
 
-                        \Filament\Notifications\Notification::make()
-                            ->title('Balasan berhasil dikirim')
-                            ->success()
-                            ->send();
+                            \Filament\Notifications\Notification::make()
+                                ->title('Balasan berhasil dikirim')
+                                ->body("Email terkirim ke {$record->email}")
+                                ->success()
+                                ->send();
+
+                        } catch (\Exception $e) {
+                            \Filament\Notifications\Notification::make()
+                                ->title('Gagal mengirim email')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
                     })
                     ->visible(fn ($record) => !$record->dibalas_at),
             ])
@@ -128,6 +164,15 @@ class KritikSaranResource extends Resource
                         'pertanyaan' => 'Pertanyaan',
                         'lainnya'    => 'Lainnya',
                     ]),
+                Tables\Filters\Filter::make('belum_dibalas')
+                    ->label('Belum Dibalas')
+                    ->query(fn ($query) => $query->whereNull('dibalas_at'))
+                    ->toggle(),
+
+                Tables\Filters\Filter::make('sudah_dibalas')
+                    ->label('Sudah Dibalas')
+                    ->query(fn ($query) => $query->whereNotNull('dibalas_at'))
+                    ->toggle(),
             ])
             ->emptyStateHeading('Belum ada pesan masuk')
             ->emptyStateIcon('heroicon-o-chat-bubble-left-right');
@@ -140,12 +185,27 @@ class KritikSaranResource extends Resource
         ];
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = KritikSaran::whereNull('dibalas_at')->count();
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListKritikSarans::route('/'),
-            'create' => Pages\CreateKritikSaran::route('/create'),
-            'edit' => Pages\EditKritikSaran::route('/{record}/edit'),
+            'view'  => Pages\ViewKritikSaran::route('/{record}'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\KritikSaranMail;
 use App\Models\KritikSaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,7 @@ class KontakController extends Controller
 
         // KIRIM EMAIL
         Mail::to('raehanmukti03@gmail.com')
-            ->queue(new \App\Mail\KritikSaranMail($kritikSaran));
+            ->queue(new KritikSaranMail($kritikSaran));
 
         // REDIRECT
         return back()->with('success', 'Pesan berhasil dikirim!');

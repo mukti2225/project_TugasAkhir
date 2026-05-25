@@ -94,26 +94,45 @@
                 const galleryContainer = document.getElementById('galleryContainer');
                 if (!galleryContainer) return;
 
-                // ── Infinite clone ──────────────────────────────────────────
-                const originalItems = Array.from(galleryContainer.querySelectorAll('.item'));
+                // ─────────────────────────────────────────
+                // CONFIG
+                // ─────────────────────────────────────────
+                const isMobile = window.innerWidth <= 768;
+                const originalItems = Array.from(
+                    galleryContainer.querySelectorAll('.item')
+                );
 
-                originalItems.forEach(item => {
-                    const clone = item.cloneNode(true);
-                    clone.setAttribute('aria-hidden', 'true');
-                    galleryContainer.appendChild(clone);
-                });
+                // ─────────────────────────────────────────
+                // INFINITE SCROLL (DESKTOP ONLY)
+                // ─────────────────────────────────────────
+                if (!isMobile) {
+                    originalItems.forEach(item => {
+                        const clone = item.cloneNode(true);
+                        clone.setAttribute('aria-hidden', 'true');
+                        galleryContainer.appendChild(clone);
+                    });
+                }
 
-                // Lebar total konten asli (untuk reset posisi)
+                // ─────────────────────────────────────────
+                // GET ORIGINAL WIDTH
+                // ─────────────────────────────────────────
                 function getOriginalWidth() {
                     return originalItems.reduce((acc, el) => {
                         const style = getComputedStyle(el);
-                        return acc + el.offsetWidth + parseFloat(style.marginLeft) + parseFloat(style
-                            .marginRight);
+                        return (
+                            acc +
+                            el.offsetWidth +
+                            parseFloat(style.marginLeft) +
+                            parseFloat(style.marginRight)
+                        );
                     }, 0);
                 }
 
-                // Saat scroll melewati batas kanan atau kiri → reset agar terasa infinite
+                // ─────────────────────────────────────────
+                // INFINITE RESET
+                // ─────────────────────────────────────────
                 function clampScroll() {
+                    if (isMobile) return;
                     const ow = getOriginalWidth();
                     if (galleryContainer.scrollLeft >= ow) {
                         galleryContainer.scrollLeft -= ow;
@@ -122,75 +141,75 @@
                     }
                 }
 
-                galleryContainer.addEventListener('scroll', clampScroll, {
-                    passive: true
-                });
+                if (!isMobile) {
+                    galleryContainer.addEventListener('scroll', clampScroll, {
+                        passive: true
+                    });
 
-                // Mulai dari tengah (agar bisa drag ke kiri sejak awal)
-                galleryContainer.scrollLeft = getOriginalWidth() / 2;
+                    // Mulai dari tengah
+                    galleryContainer.scrollLeft = getOriginalWidth() / 2;
+                }
 
-                // ── Drag scroll ─────────────────────────────────────────────
+                // ─────────────────────────────────────────
+                // DRAG DESKTOP
+                // ─────────────────────────────────────────
                 let isDown = false;
                 let isDragging = false;
-                let startX, scrollLeft;
 
-                galleryContainer.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    isDragging = false;
-                    startX = e.pageX - galleryContainer.offsetLeft;
-                    scrollLeft = galleryContainer.scrollLeft;
-                    galleryContainer.style.cursor = 'grabbing';
-                });
+                let startX;
+                let scrollLeft;
 
-                galleryContainer.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    galleryContainer.style.cursor = 'grab';
-                });
+                if (!isMobile) {
+                    galleryContainer.addEventListener('mousedown', (e) => {
+                        isDown = true;
+                        isDragging = false;
+                        startX = e.pageX - galleryContainer.offsetLeft;
+                        scrollLeft = galleryContainer.scrollLeft;
+                        galleryContainer.style.cursor = 'grabbing';
+                    });
 
-                galleryContainer.addEventListener('mouseup', () => {
-                    isDown = false;
-                    galleryContainer.style.cursor = 'grab';
-                });
+                    galleryContainer.addEventListener('mouseleave', () => {
+                        isDown = false;
+                        galleryContainer.style.cursor = 'grab';
+                    });
 
-                galleryContainer.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    isDragging = true;
-                    e.preventDefault();
-                    const x = e.pageX - galleryContainer.offsetLeft;
-                    const walk = (x - startX) * 1.5;
-                    galleryContainer.scrollLeft = scrollLeft - walk;
-                });
+                    galleryContainer.addEventListener('mouseup', () => {
+                        isDown = false;
+                        galleryContainer.style.cursor = 'grab';
+                        setTimeout(() => {
+                            isDragging = false;
+                        }, 50);
+                    });
 
-                // Touch support
-                let touchStartX = 0;
-                let touchScrollLeft = 0;
+                    galleryContainer.addEventListener('mousemove', (e) => {
+                        if (!isDown) return;
+                        isDragging = true;
+                        e.preventDefault();
+                        const x = e.pageX - galleryContainer.offsetLeft;
+                        const walk = (x - startX) * 1.5;
+                        galleryContainer.scrollLeft = scrollLeft - walk;
+                    });
+                }
 
-                galleryContainer.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    touchScrollLeft = galleryContainer.scrollLeft;
-                }, {
-                    passive: true
-                });
-
-                galleryContainer.addEventListener('touchmove', (e) => {
-                    const diff = touchStartX - e.touches[0].clientX;
-                    galleryContainer.scrollLeft = touchScrollLeft + diff;
-                }, {
-                    passive: true
-                });
-
-                // ── Hover card effect ────────────────────────────────────────
+                // ─────────────────────────────────────────
+                // HOVER EFFECT
+                // ─────────────────────────────────────────
                 galleryContainer.addEventListener('mouseover', (e) => {
                     const card = e.target.closest('.card-gallery');
-                    if (card) card.classList.add('active');
+                    if (card) {
+                        card.classList.add('active');
+                    }
                 });
-
                 galleryContainer.addEventListener('mouseout', (e) => {
                     const card = e.target.closest('.card-gallery');
-                    if (card) card.classList.remove('active');
+                    if (card) {
+                        card.classList.remove('active');
+                    }
                 });
 
-                // ── Modal logic ──────────────────────────────────────────────
+                // ─────────────────────────────────────────
+                // MODAL
+                // ─────────────────────────────────────────
                 const modal = document.getElementById('galleryModal');
                 const gmImage = document.getElementById('gmImage');
                 const gmTitle = document.getElementById('gmTitle');
@@ -201,6 +220,9 @@
                 const gmNext = document.getElementById('gmNext');
                 const backdrop = modal.querySelector('.gm-backdrop');
 
+                // ─────────────────────────────────────────
+                // ITEMS DATA
+                // ─────────────────────────────────────────
                 const items = originalItems.map(el => {
                     const card = el.querySelector('.card-gallery');
                     return {
@@ -208,9 +230,11 @@
                         title: card.dataset.title
                     };
                 });
-
                 let currentIndex = 0;
 
+                // ─────────────────────────────────────────
+                // SHOW MODAL
+                // ─────────────────────────────────────────
                 function showModal(index) {
                     currentIndex = index;
                     modal.setAttribute('aria-hidden', 'false');
@@ -219,6 +243,9 @@
                     loadImage(index);
                 }
 
+                // ─────────────────────────────────────────
+                // CLOSE MODAL
+                // ─────────────────────────────────────────
                 function closeModal() {
                     modal.classList.remove('gm-open');
                     modal.setAttribute('aria-hidden', 'true');
@@ -226,13 +253,16 @@
                     gmImage.src = '';
                 }
 
+                // ─────────────────────────────────────────
+                // LOAD IMAGE
+                // ─────────────────────────────────────────
                 function loadImage(index) {
                     const item = items[index];
                     gmImage.classList.add('gm-loading');
                     gmLoader.classList.add('gm-show');
                     gmTitle.textContent = item.title;
-                    gmCounter.textContent = `${index + 1} / ${items.length}`;
-
+                    gmCounter.textContent =
+                        `${index + 1} / ${items.length}`;
                     const tempImg = new Image();
                     tempImg.onload = () => {
                         gmImage.src = item.src;
@@ -241,64 +271,108 @@
                         gmLoader.classList.remove('gm-show');
                     };
                     tempImg.src = item.src;
-
-                    gmPrev.style.display = items.length > 1 ? 'flex' : 'none';
-                    gmNext.style.display = items.length > 1 ? 'flex' : 'none';
+                    gmPrev.style.display =
+                        items.length > 1 ? 'flex' : 'none';
+                    gmNext.style.display =
+                        items.length > 1 ? 'flex' : 'none';
                 }
 
+                // ─────────────────────────────────────────
+                // NAVIGATION
+                // ─────────────────────────────────────────
                 function prev() {
-                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                    currentIndex =
+                        (currentIndex - 1 + items.length) % items.length;
                     loadImage(currentIndex);
                 }
 
                 function next() {
-                    currentIndex = (currentIndex + 1) % items.length;
+                    currentIndex =
+                        (currentIndex + 1) % items.length;
                     loadImage(currentIndex);
                 }
 
-                // Klik card — delegasi, bedakan dari drag
+                // ─────────────────────────────────────────
+                // OPEN MODAL
+                // ─────────────────────────────────────────
                 galleryContainer.addEventListener('click', (e) => {
-                    if (isDragging) return;
                     const card = e.target.closest('.card-gallery');
                     if (!card) return;
+
+                    // Desktop: cegah modal saat drag
+                    if (!isMobile && isDragging) {
+                        isDragging = false;
+                        return;
+                    }
                     const allCards = galleryContainer.querySelectorAll(
-                        '.item:not([aria-hidden]) .card-gallery');
-                    const index = Array.from(allCards).indexOf(card);
-                    if (index !== -1) showModal(index);
+                        '.item:not([aria-hidden]) .card-gallery'
+                    );
+                    const index =
+                        Array.from(allCards).indexOf(card);
+                    if (index !== -1) {
+                        showModal(index);
+                    }
                 });
 
+                // ─────────────────────────────────────────
+                // KEYBOARD ACCESSIBILITY
+                // ─────────────────────────────────────────
                 galleryContainer.addEventListener('keydown', (e) => {
                     if (e.key !== 'Enter' && e.key !== ' ') return;
                     const card = e.target.closest('.card-gallery');
                     if (!card) return;
                     e.preventDefault();
                     const allCards = galleryContainer.querySelectorAll(
-                        '.item:not([aria-hidden]) .card-gallery');
-                    const index = Array.from(allCards).indexOf(card);
-                    if (index !== -1) showModal(index);
+                        '.item:not([aria-hidden]) .card-gallery'
+                    );
+                    const index =
+                        Array.from(allCards).indexOf(card);
+                    if (index !== -1) {
+                        showModal(index);
+                    }
                 });
 
+                // ─────────────────────────────────────────
+                // BUTTON EVENTS
+                // ─────────────────────────────────────────
                 gmClose.addEventListener('click', closeModal);
                 backdrop.addEventListener('click', closeModal);
                 gmPrev.addEventListener('click', prev);
                 gmNext.addEventListener('click', next);
 
+                // ─────────────────────────────────────────
+                // KEYBOARD NAVIGATION
+                // ─────────────────────────────────────────
                 document.addEventListener('keydown', (e) => {
                     if (!modal.classList.contains('gm-open')) return;
-                    if (e.key === 'Escape') closeModal();
-                    if (e.key === 'ArrowLeft') prev();
-                    if (e.key === 'ArrowRight') next();
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                    if (e.key === 'ArrowLeft') {
+                        prev();
+                    }
+                    if (e.key === 'ArrowRight') {
+                        next();
+                    }
                 });
 
+                // ─────────────────────────────────────────
+                // MOBILE SWIPE MODAL
+                // ─────────────────────────────────────────
                 let touchModalStartX = 0;
                 modal.addEventListener('touchstart', (e) => {
-                    touchModalStartX = e.touches[0].clientX;
+                    touchModalStartX =
+                        e.touches[0].clientX;
                 }, {
                     passive: true
                 });
                 modal.addEventListener('touchend', (e) => {
-                    const diff = touchModalStartX - e.changedTouches[0].clientX;
-                    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+                    const diff =
+                        touchModalStartX -
+                        e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 50) {
+                        diff > 0 ? next() : prev();
+                    }
                 });
             });
         </script>
