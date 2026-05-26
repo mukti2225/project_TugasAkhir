@@ -9,4 +9,14 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('back')
+                ->label('Kembali')
+                ->color('gray') 
+                ->url(fn() => $this->getResource()::getUrl('index')),
+        ];
+    }
 }

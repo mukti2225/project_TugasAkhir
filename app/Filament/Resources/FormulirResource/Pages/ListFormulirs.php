@@ -26,6 +26,14 @@ class ListFormulirs extends ListRecords
                 ->action(fn () => Excel::download(new FormulirExport, 'formulir_spmb.xlsx')),
                 
             Actions\CreateAction::make(),
+
+            Actions\Action::make('refresh')
+                ->label('Refresh Data')
+                ->icon('heroicon-o-arrow-path')
+                ->color('primary')
+                ->action(function () {
+                    $this->dispatch('$refresh');
+                }),
         ];
     }
 }

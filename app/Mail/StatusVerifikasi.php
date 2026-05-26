@@ -27,8 +27,8 @@ class StatusVerifikasi extends Mailable
     public function envelope(): Envelope
     {
         $subject = match($this->pendaftaran->status_verifikasi) {
-            'diverifikasi' => '✅ Berkas Anda Telah Diverifikasi',
-            'ditolak'      => '❌ Berkas Anda Ditolak - Perlu Upload Ulang',
+            'diverifikasi' => 'Berkas Anda Telah Diverifikasi',
+            'ditolak'      => 'Berkas Anda Ditolak - Perlu Upload Ulang',
             default        => 'Update Status Verifikasi Berkas',
         };
 

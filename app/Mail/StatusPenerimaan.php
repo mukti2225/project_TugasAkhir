@@ -28,9 +28,9 @@ class StatusPenerimaan extends Mailable
     public function envelope(): Envelope
     {
         $subject = match($this->pendaftaran->status_penerimaan) {
-            'Diterima' => '🎉 Selamat! Anda Diterima di SMA ARH',
+            'Diterima' => 'Selamat! Anda telah Diterima di SMA ARH',
             'Ditolak'  => 'Informasi Hasil Pendaftaran SMA ARH',
-            default    => 'Update Status Penerimaan — SMA ARH',
+            default    => 'Update Status Penerimaan SMA ARH',
         };
 
         return new Envelope(subject: $subject);

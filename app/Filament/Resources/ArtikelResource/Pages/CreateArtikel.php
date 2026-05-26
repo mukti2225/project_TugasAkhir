@@ -9,4 +9,14 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateArtikel extends CreateRecord
 {
     protected static string $resource = ArtikelResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('back')
+                ->label('Kembali')
+                ->color('gray') 
+                ->url(fn() => $this->getResource()::getUrl('index')),
+        ];
+    }
 }

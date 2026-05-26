@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
         ]);
+        $middleware->append(\App\Http\Middleware\TrackPageView::class);
         $middleware->web();
     })
     ->withExceptions(function (Exceptions $exceptions): void {

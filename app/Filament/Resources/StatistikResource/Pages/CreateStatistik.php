@@ -19,4 +19,14 @@ class CreateStatistik extends CreateRecord
             $this->getCancelFormAction(),
         ];
     }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('back')
+                ->label('Kembali')
+                ->color('gray') 
+                ->url(fn() => $this->getResource()::getUrl('index')),
+        ];
+    }
 }

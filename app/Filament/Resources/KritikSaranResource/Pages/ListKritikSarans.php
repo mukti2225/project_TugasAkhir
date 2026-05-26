@@ -13,7 +13,13 @@ class ListKritikSarans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\Action::make('refresh')
+                ->label('Refresh Data')
+                ->icon('heroicon-o-arrow-path')
+                ->color('primary')
+                ->action(function () {
+                    $this->dispatch('$refresh');
+                }),
         ];
     }
 }

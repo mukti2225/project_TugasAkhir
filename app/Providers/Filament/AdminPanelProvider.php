@@ -6,6 +6,7 @@ use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugi
 use App\Filament\Resources\FormulirResource\Widgets\PendaftaranChart;
 use App\Filament\Resources\FormulirResource\Widgets\StatusPendaftaran;
 use App\Filament\Widgets\PendaftaranTerbaru;
+use App\Filament\Widgets\PengunjungWebsite;
 use App\Filament\Widgets\ProgramStudiChart;
 use DiogoGPinto\AuthUIEnhancer\AuthUIEnhancerPlugin;
 use Filament\Http\Middleware\Authenticate;
@@ -53,6 +54,7 @@ class AdminPanelProvider extends PanelProvider
                 PendaftaranChart::class,
                 ProgramStudiChart::class,
                 PendaftaranTerbaru::class,
+                PengunjungWebsite::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -72,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 'Home',
                 'Profile',
                 'Berita',
+                'Kesiswaan',
                 
             ])
             ->plugins([
