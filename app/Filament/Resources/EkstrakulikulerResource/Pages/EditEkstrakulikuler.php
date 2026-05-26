@@ -4,7 +4,6 @@ namespace App\Filament\Resources\EkstrakulikulerResource\Pages;
 
 use App\Filament\Resources\EkstrakulikulerResource;
 use Filament\Actions;
-use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 
 class EditEkstrakulikuler extends EditRecord

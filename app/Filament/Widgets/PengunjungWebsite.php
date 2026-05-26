@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class PengunjungWebsite extends ChartWidget
 {
     protected static ?string $heading = 'Pengunjung Website';
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 5;
     protected int | string | array $columnSpan = 'full';
     protected static ?string $pollingInterval = '60s';
 
