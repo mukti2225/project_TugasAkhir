@@ -28,6 +28,27 @@
 </head>
 
 <body>
+    <div id="loading">
+        <div class="loader-center">
+
+            <!-- Logo Mark -->
+            <div class="logo-mark">
+                <img src="{{ asset('img/logo/ARH.png') }}" alt="Logo Sekolah"
+                    style="width:60px;height:60px;object-fit:contain;position:relative;">
+            </div>
+
+            <!-- Nama Sekolah -->
+            <p class="school-name">Sekolah ARH</p>
+
+            <!-- Titik Animasi -->
+            <div class="dots-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
     @include('layouts.navbar')
 
     <div style="overflow-x: hidden;">
@@ -41,6 +62,23 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+    <!-- Loading Page -->
+    <script>
+        window.addEventListener("load", function() {
+            const loading = document.getElementById("loading");
+
+            if (!loading) return;
+
+            loading.classList.add("hidden");
+
+            setTimeout(function() {
+                loading.style.display = "none";
+
+                const main = document.getElementById("main-content");
+                if (main) main.style.display = "block";
+            }, 500);
+        });
     </script>
 
     @stack('js')

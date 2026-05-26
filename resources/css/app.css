@@ -21,3 +21,190 @@
 @import "./pages/kontak.css";
 @import "./pages/spmb.css";
 @import "./pages/kesiswaan.css";
+
+/* =========================
+           FULLSCREEN BACKGROUND
+           ========================= */
+#loading {
+    position: fixed;
+    inset: 0;
+    background: #010f1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+/* Background glow kiri atas */
+#loading::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(3, 129, 128, 0.25) 0%,
+        transparent 70%
+    );
+    top: -60px;
+    left: -60px;
+    animation: driftA 6s ease-in-out infinite alternate;
+}
+
+/* Background glow kanan bawah */
+#loading::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(245, 158, 11, 0.12) 0%,
+        transparent 70%
+    );
+    bottom: -30px;
+    right: -30px;
+    animation: driftB 5s ease-in-out infinite alternate;
+}
+
+/* =========================
+           KONTEN TENGAH
+           ========================= */
+.loader-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+           LOGO MARK
+           ========================= */
+.logo-mark {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.158);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    animation: logoPulse 2.4s ease-in-out infinite;
+}
+
+/* Efek shimmer */
+.logo-mark::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        transparent
+    );
+    animation: shimmer 2.4s ease-in-out infinite;
+}
+
+/* =========================
+           TEKS NAMA SEKOLAH
+           ========================= */
+.school-name {
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+/* =========================
+           TITIK ANIMASI
+           ========================= */
+.dots-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 2px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-secondary-400);
+    animation: dotFade 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* =========================
+           ANIMASI
+           ========================= */
+@keyframes driftA {
+    to {
+        transform: translate(30px, 30px);
+    }
+}
+
+@keyframes driftB {
+    to {
+        transform: translate(-20px, -20px);
+    }
+}
+
+@keyframes logoPulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 200%;
+    }
+}
+
+@keyframes dotFade {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+        background: var(--color-secondary-400);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+        background: var(--color-tertiary-400);
+    }
+}
+
+/* =========================
+    HIDE LOADING (gunakan JS)
+========================= */
+#loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}

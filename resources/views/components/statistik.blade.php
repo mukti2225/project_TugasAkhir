@@ -1,5 +1,5 @@
 @if ($statistik)
-    <div class="container statistik" data-aos="fade-up" data-aos-duration="200">
+    <div class="container statistik" data-aos="fade-up" data-aos-duration="400">
         <div class="row horizontal-card">
 
             <!-- KIRI: SAMBUTAN -->

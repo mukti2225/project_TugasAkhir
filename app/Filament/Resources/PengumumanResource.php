@@ -62,10 +62,10 @@ class PengumumanResource extends Resource
 
                         Forms\Components\Textarea::make('deskripsi')
                             ->label('Deskripsi Pengumuman')
-                            ->required()
                             ->rows(5)
                             ->placeholder('Tuliskan isi pengumuman...')
                             ->autosize()
+                            ->maxLength(255)
                             ->columnSpanFull(),
 
                         Forms\Components\FileUpload::make('file_pdf')

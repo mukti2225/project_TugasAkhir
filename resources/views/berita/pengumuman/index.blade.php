@@ -27,7 +27,7 @@
                         @foreach ($pengumuman as $p)
                             <a href="{{ route('berita.pengumuman.show', $p->slug) }}" class="artikel-card">
                                 <div class="artikel-img-wrapper">
-                                    <img src="{{ asset('img/dump/pengumuman.png') }}" alt="{{ $p->judul }}">
+                                    <img src="{{ asset('img/logo/pengumuman.png') }}" alt="{{ $p->judul }}">
                                 </div>
                                 <div class="artikel-body">
                                     <div class="artikel-meta">
