@@ -57,7 +57,36 @@ class EkstrakulikulerResource extends Resource
                             ->downloadable()
                             ->helperText('Upload foto kegiatan ekstrakurikuler')
                             ->columnSpanFull(),
-                    ]),
+                        Forms\Components\Grid::make(2)
+                        ->schema([
+                            Forms\Components\Select::make('kategori')
+                                ->label('Kategori')
+                                ->options([
+                                    'Olahraga'  => 'Olahraga',
+                                    'Seni'      => 'Seni',
+                                    'Akademik'  => 'Akademik',
+                                    'Pramuka'   => 'Pramuka',
+                                    'Ekskul'    => 'Ekskul',
+                                ])
+                                ->preload()
+                                ->native(false)
+                                ->placeholder('Pilih kategori'),
+
+                            Forms\Components\TextInput::make('jadwal')
+                                ->label('Jadwal')
+                                ->placeholder('Senin & Rabu, 15.00 - 17.00')
+                                ->prefixIcon('heroicon-m-calendar-days')
+                                ->maxLength(255),
+                        ]),
+
+                    Forms\Components\Textarea::make('deskripsi')
+                        ->label('Deskripsi')
+                        ->placeholder('Tuliskan deskripsi singkat kegiatan ekstrakurikuler...')
+                        ->rows(5)
+                        ->columnSpanFull(),
+                ])
+                ->columns(1)
+                ->collapsible(),
             ]);
     }
 
@@ -81,6 +110,28 @@ class EkstrakulikulerResource extends Resource
                         'Ditambahkan ' .
                         $record->created_at?->diffForHumans()
                     ),
+                Tables\Columns\BadgeColumn::make('kategori')
+                    ->label('Kategori')
+                    ->colors([
+                        'success'  => 'Olahraga',
+                        'warning'  => 'Seni',
+                        'info'     => 'Akademik',
+                        'primary'  => 'Pramuka',
+                        'secondary'=> 'Ekskul',
+                    ]),
+
+                Tables\Columns\TextColumn::make('jadwal')
+                    ->label('Jadwal')
+                    ->searchable()
+                    ->icon('heroicon-m-calendar-days')
+                    ->placeholder('-'),
+
+                Tables\Columns\TextColumn::make('deskripsi')
+                    ->label('Deskripsi')
+                    ->limit(50)
+                    ->tooltip(fn ($record) => $record->deskripsi)
+                    ->placeholder('-')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->actions([

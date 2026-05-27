@@ -14,7 +14,7 @@
 
                     {{-- Cover image --}}
                     <div class="pengumuman-cover">
-                        <img src="{{ asset('img/logo/pengumuman.png') }}" alt="{{ $pengumuman->judul }}">
+                        <img src="{{ asset('img/logo/Pengumuman.png') }}" alt="{{ $pengumuman->judul }}">
                     </div>
 
                     {{-- Content card --}}

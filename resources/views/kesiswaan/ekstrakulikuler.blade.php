@@ -21,13 +21,10 @@
                     @foreach ($ekstrakulikuler as $item)
                         <div class="ek-card" data-title="{{ $item->nama }}"
                             data-image="{{ asset('storage/' . $item->foto) }}" data-desc="{{ $item->deskripsi }}"
-                            data-cat="{{ $item->kategori ?? 'Ekskul' }}">
-
+                            data-cat="{{ $item->kategori ?? 'Ekskul' }}" data-jadwal="{{ $item->jadwal ?? '' }}">
                             <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama }}" class="ek-card-img"
                                 loading="lazy">
-
                             <span class="ek-badge">{{ $item->kategori ?? 'Ekskul' }}</span>
-
                             <div class="ek-overlay">
                                 <h3 class="ek-title">{{ $item->nama }}</h3>
                                 <span class="ek-btn">
@@ -76,6 +73,9 @@
                     <h3 id="modalTitle" class="ek-modal-title"></h3>
                     <div class="ek-modal-divider"></div>
                     <div id="modalDesc" class="ek-modal-desc"></div>
+                    <div class="ek-modal-meta" id="modalJadwal" style="display:none;">
+                        <span id="modalJadwalText"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,6 +92,8 @@
             var titleEl = document.getElementById('modalTitle');
             var imgEl = document.getElementById('modalImg');
             var descEl = document.getElementById('modalDesc');
+            var jadwalEl = document.getElementById('modalJadwal');
+            var jadwalText = document.getElementById('modalJadwalText');
             var badgeEl = document.getElementById('modalBadge');
             var catEl = document.getElementById('modalCat');
 
@@ -102,6 +104,13 @@
                 badgeEl.textContent = card.getAttribute('data-cat') || '';
                 catEl.textContent = card.getAttribute('data-cat') || '';
                 descEl.innerHTML = (card.getAttribute('data-desc') || '').replace(/\n/g, '<br>');
+                var jadwal = card.getAttribute('data-jadwal') || '';
+                if (jadwal) {
+                    jadwalText.textContent = jadwal;
+                    jadwalEl.style.display = 'flex';
+                } else {
+                    jadwalEl.style.display = 'none';
+                }
                 modal.classList.add('active');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';

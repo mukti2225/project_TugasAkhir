@@ -80,7 +80,28 @@
             }, 500);
         });
     </script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target) {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'instant'
+                    });
+                    setTimeout(function() {
+                        const navHeight = document.querySelector('nav') ?
+                            document.querySelector('nav').offsetHeight : 0;
+                        const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                        window.scrollTo({
+                            top: top,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+        });
+    </script>
     @stack('js')
 </body>
 

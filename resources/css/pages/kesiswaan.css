@@ -483,6 +483,14 @@
     line-height: 1.82;
 }
 
+.ek-modal-meta {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #4e4e4e;
+    margin-bottom: 12px;
+}
+
 /* Tombol tutup */
 .ek-modal-close {
     position: absolute;
@@ -570,7 +578,7 @@
     /* Modal mobile: vertikal */
     .ek-modal {
         align-items: flex-center;
-        padding: 0;
+        padding: 40px;
     }
 
     .ek-modal-dialog {

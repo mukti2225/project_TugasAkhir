@@ -141,9 +141,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
         const navbar = document.querySelector(".navbar");
         const hero = document.getElementById("hero");
-
         let lastScroll = 0;
 
         window.addEventListener("scroll", function() {
@@ -162,5 +162,14 @@
             lastScroll = currentScroll;
         });
 
+        document.querySelectorAll('#navbarMain .nav-link:not(.dropdown-toggle)').forEach(function(link) {
+            link.addEventListener('click', function() {
+                const navCollapse = document.getElementById('navbarMain');
+                if (navCollapse && navCollapse.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                    if (bsCollapse) bsCollapse.hide();
+                }
+            });
+        });
     });
 </script>

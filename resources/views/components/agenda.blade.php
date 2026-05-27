@@ -11,7 +11,6 @@
 
         {{-- Layout --}}
         <div class="agenda-wrap">
-
             {{-- Kalender --}}
             <div class="agenda-cal-card" data-aos="fade-right" data-aos-duration="500">
                 <div class="cal-nav">
@@ -54,7 +53,6 @@
                 </div>
 
             </div>
-
             {{-- Detail --}}
             <div class="agenda-detail" data-aos="flip-up" data-aos-duration="600">
                 <p class="agenda-detail-label" id="agDetailLabel">
@@ -63,7 +61,6 @@
 
                 <div class="agenda-detail-list" id="agDetailList"></div>
             </div>
-
         </div>
     </div>
 </section>
@@ -76,6 +73,7 @@
             'kat' => $item->kategori,
             'jam' => $item->jam,
             'lokasi' => $item->lokasi,
+            'deskripsi' => $item->deskripsi,
         ];
     });
 @endphp
@@ -124,16 +122,13 @@
             };
 
             const today = new Date();
-
             let viewYear = today.getFullYear();
             let viewMonth = today.getMonth();
-
             let selected = null;
 
             /* =====================================================
                HELPERS
             ===================================================== */
-
             function pad(n) {
                 return String(n).padStart(2, '0');
             }
@@ -155,29 +150,19 @@
             /* =====================================================
                RENDER KALENDER
             ===================================================== */
-
             function renderCal() {
-
                 const grid = document.getElementById('agCalGrid');
                 const label = document.getElementById('agCalMonth');
-
                 label.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
-
                 grid.innerHTML = '';
-
                 /* Header Hari */
                 DAYS.forEach(day => {
-
                     const el = document.createElement('div');
-
                     el.className = 'cal-dow';
                     el.textContent = day;
-
                     grid.appendChild(el);
                 });
-
                 const firstDay = new Date(viewYear, viewMonth, 1).getDay();
-
                 const totalDays = new Date(
                     viewYear,
                     viewMonth + 1,
@@ -192,50 +177,35 @@
 
                 /* Tanggal Bulan Sebelumnya */
                 for (let i = 0; i < firstDay; i++) {
-
                     const el = document.createElement('div');
-
                     el.className = 'cal-cell cal-other';
-
                     el.innerHTML = `
                 <span class="cal-num">
                     ${prevTotal - firstDay + 1 + i}
                 </span>
             `;
-
                     grid.appendChild(el);
                 }
 
                 /* Tanggal Bulan Aktif */
                 for (let d = 1; d <= totalDays; d++) {
-
                     const iso = isoDate(viewYear, viewMonth, d);
-
                     const evs = byDate(iso);
-
                     const isToday =
                         viewYear === today.getFullYear() &&
                         viewMonth === today.getMonth() &&
                         d === today.getDate();
-
                     const isSelected = selected === iso;
-
                     const el = document.createElement('div');
-
                     let cls = 'cal-cell';
-
                     if (isToday) cls += ' cal-today';
-
                     if (isSelected && !isToday) {
                         cls += ' cal-selected';
                     }
-
                     if (evs.length) {
                         cls += ' cal-has-event';
                     }
-
                     el.className = cls;
-
                     /* FIX TAMPILAN ANGKA */
                     el.innerHTML = `
                 <span class="cal-num">${d}</span>
@@ -243,26 +213,16 @@
 
                     /* DOT EVENT */
                     if (evs.length) {
-
                         const dw = document.createElement('div');
-
                         dw.className = 'cal-dots';
-
                         evs.slice(0, 3).forEach(ev => {
-
                             const dot = document.createElement('span');
-
                             dot.className = `cal-dot dot-${ev.kat}`;
-
                             dw.appendChild(dot);
                         });
-
                         el.appendChild(dw);
-
                         el.addEventListener('click', function() {
-
                             selected = iso;
-
                             renderCal();
                             renderDetail(iso);
                         });
@@ -273,15 +233,10 @@
 
                 /* Sisa Grid */
                 const remainder = (firstDay + totalDays) % 7;
-
                 if (remainder) {
-
                     for (let d = 1; d <= 7 - remainder; d++) {
-
                         const el = document.createElement('div');
-
                         el.className = 'cal-cell cal-other';
-
                         el.innerHTML = `
                     <span class="cal-num">${d}</span>
                 `;
@@ -296,30 +251,21 @@
             ===================================================== */
 
             function renderDetail(iso) {
-
                 const list = document.getElementById('agDetailList');
-
                 const lbl = document.getElementById('agDetailLabel');
-
                 const evs = iso ?
                     byDate(iso) :
                     byMonth(viewYear, viewMonth);
-
                 if (iso) {
-
                     const d = new Date(iso + 'T00:00:00');
-
                     lbl.textContent =
                         `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-
                 } else {
-
                     lbl.textContent =
                         `Agenda ${MONTHS[viewMonth]} ${viewYear}`;
                 }
 
                 if (!evs.length) {
-
                     list.innerHTML = `
                 <div class="agenda-empty">
                     <i class="bi bi-calendar-x"></i>
@@ -333,37 +279,47 @@
 
                     return;
                 }
-
                 list.innerHTML = evs.map(ev => `
-            <div class="ev-card">
-                <div class="ev-strip ${ev.kat}"></div>
-                <div class="ev-body">
-                    <p class="ev-title">
-                        ${ev.judul}
-                    </p>
-                    <div class="ev-meta">
+                <div class="ev-card">
+                    <div class="ev-strip ${ev.kat}"></div>
+                    <div class="ev-body">
+                        <p class="ev-title">
+                            ${ev.judul}
+                        </p>
+                        <div class="ev-meta">
 
-                        <span class="ev-meta-item">
-                            <i class="bi bi-clock"></i>
-                            ${ev.jam}
-                        </span>
-                        ${ev.lokasi
-                            ? `
-                                                                                                                                    <span class="ev-meta-item">
-                                                                                                                                        <i class="bi bi-geo-alt"></i>
-                                                                                                                                        ${ev.lokasi}
-                                                                                                                                    </span>
-                                                                                                                                `
+                            ${ev.jam
+                                ? `<span class="ev-meta-item">
+                                                        <i class="bi bi-clock"></i>
+                                                        ${ev.jam}
+                                                    </span>`
+                                : ''
+                            }
+
+                            ${ev.lokasi
+                                ? `<span class="ev-meta-item">
+                                                        <i class="bi bi-geo-alt"></i>
+                                                        ${ev.lokasi}
+                                                    </span>`
+                                : ''
+                            }
+
+                        </div>
+
+                        ${ev.deskripsi
+                            ? `<p class="ev-desc">
+                                                    <i class="bi bi-text-left me-1"></i>
+                                                    ${ev.deskripsi}
+                                            </p>`
                             : ''
                         }
-                    </div>
-                </div>
-                <span class="ev-badge ev-badge-${ev.kat}">
-                    ${LABEL[ev.kat] ?? ev.kat}
-                </span>
 
-            </div>
-        `).join('');
+                    </div>
+                    <span class="ev-badge ev-badge-${ev.kat}">
+                        ${LABEL[ev.kat] ?? ev.kat}
+                    </span>
+                </div>
+            `).join('');
             }
 
             /* =====================================================
@@ -373,16 +329,12 @@
             document
                 .getElementById('agPrevBtn')
                 .addEventListener('click', function() {
-
                     viewMonth--;
-
                     if (viewMonth < 0) {
                         viewMonth = 11;
                         viewYear--;
                     }
-
                     selected = null;
-
                     renderCal();
                     renderDetail(null);
                 });
@@ -390,16 +342,13 @@
             document
                 .getElementById('agNextBtn')
                 .addEventListener('click', function() {
-
                     viewMonth++;
-
                     if (viewMonth > 11) {
                         viewMonth = 0;
                         viewYear++;
                     }
 
                     selected = null;
-
                     renderCal();
                     renderDetail(null);
                 });

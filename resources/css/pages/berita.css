@@ -185,6 +185,9 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
+    .artikel-index .artikel-img-wrapper {
+        height: 100px;
+    }
     .artikel-index .artikel-img-wrapper img {
         height: 100%;
         object-fit: cover;
@@ -598,7 +601,7 @@ PENGUMUMAN
 }
 .pengumuman-cover img {
     width: 100%;
-    height: 280px;
+    height: 320px;
     object-fit: cover;
     display: block;
 }

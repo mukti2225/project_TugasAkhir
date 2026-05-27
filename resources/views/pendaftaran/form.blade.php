@@ -29,7 +29,7 @@
                                 action="{{ isset($pendaftaran)
                                     ? route('pendaftaran.update', $pendaftaran->nomor_pendaftaran)
                                     : route('pendaftaran.store') }}"
-                                method="POST" enctype="multipart/form-data" id="registrationForm">
+                                method="POST" enctype="multipart/form-data" id="registrationForm" novalidate>
                                 @csrf
                                 @if (isset($pendaftaran))
                                     @method('PUT')
@@ -170,40 +170,6 @@
                 updateButtons();
             }
 
-            function validateSection(section) {
-                const sectionElement = document.querySelector(
-                    `[data-section="${section}"]`,
-                );
-                const requiredFields = sectionElement.querySelectorAll("[required]");
-                let isValid = true;
-
-                requiredFields.forEach((field) => {
-                    if (!field.value.trim()) {
-                        field.classList.add("is-invalid");
-                        isValid = false;
-                    } else {
-                        field.classList.remove("is-invalid");
-                    }
-                });
-
-                if (!isValid) {
-                    // Scroll to first invalid field
-                    const firstInvalid = sectionElement.querySelector(".is-invalid");
-                    if (firstInvalid) {
-                        firstInvalid.scrollIntoView({
-                            behavior: "smooth",
-                            block: "center",
-                        });
-                        firstInvalid.focus();
-                    }
-
-                    // Show toast message
-                    showToast("Harap lengkapi semua field yang bertanda *", "error");
-                }
-
-                return isValid;
-            }
-
             function updateButtons() {
                 const prevBtn = document.getElementById("prevBtn");
                 const nextBtn = document.getElementById("nextBtn");
@@ -225,11 +191,7 @@
             }
 
             function showToast(message, type = "info") {
-                // You can implement a toast notification here
-                // For now, we'll use alert
-                if (type === "error") {
-                    alert(message);
-                }
+                alert(message);
             }
 
             //salin alamat
@@ -374,63 +336,122 @@
 
             // Update validateSection function untuk mengecek file upload
             function validateSection(section) {
-                const sectionElement = document.querySelector(
-                    `[data-section="${section}"]`,
-                );
+                const sectionElement = document.querySelector(`[data-section="${section}"]`);
+                if (!sectionElement) return true;
 
-                // Untuk section 5 (upload), validasi file
-                if (section == 5) {
+                let isValid = true;
+                const fields = sectionElement.querySelectorAll("input, select, textarea");
+
+                // 1. VALIDASI INPUT TEKS & ATRIBUT BIASA (Menggunakan for...of agar bisa dihentikan jika error)
+                for (const field of fields) {
+                    field.classList.remove("is-invalid");
+                    const value = field.value.trim();
+
+                    // Lewati pengecekan field file di sini karena punya validasi khusus di bawah
+                    if (field.type === "file") continue;
+
+                    // REQUIRED CHECK
+                    if (field.hasAttribute("required") && value === "") {
+                        field.classList.add("is-invalid");
+                        isValid = false;
+                        break; // Berhenti mengecek field lain, urus yang kosong ini dulu
+                    }
+
+                    // NIK
+                    if (field.name === "nik" && value !== "") {
+                        const nikPattern = /^\d{16}$/;
+                        if (!nikPattern.test(value)) {
+                            field.classList.add("is-invalid");
+                            showToast("NIK harus 16 digit angka", "error");
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    // EMAIL
+                    if (field.type === "email" && value !== "") {
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(value)) {
+                            field.classList.add("is-invalid");
+                            showToast("Format email tidak valid", "error");
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    // NISN
+                    if (field.name === "nisn" && value !== "") {
+                        const nisnPattern = /^\d{10}$/;
+                        if (!nisnPattern.test(value)) {
+                            field.classList.add("is-invalid");
+                            showToast("NISN harus 10 digit angka", "error");
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+
+                // 2. VALIDASI FILE SECTION 5 (Hanya berjalan jika input teks di atas SUDAH VALID SEMUA)
+                if (isValid && section == 5) {
                     const ijazahFile = document.getElementById("ijazah_file");
                     const kkFile = document.getElementById("kk_file");
                     const aktaFile = document.getElementById("akta_file");
 
-                    let isValid = true;
+                    let fileErrors = [];
 
                     if (!ijazahFile || !ijazahFile.files || ijazahFile.files.length === 0) {
-                        showToast("Harap upload file Ijazah/SKL", "error");
+                        if (ijazahFile) ijazahFile.classList.add("is-invalid");
+                        fileErrors.push("- Berkas Ijazah / SKL");
                         isValid = false;
                     }
 
                     if (!kkFile || !kkFile.files || kkFile.files.length === 0) {
-                        showToast("Harap upload file Kartu Keluarga (KK)", "error");
+                        if (kkFile) kkFile.classList.add("is-invalid");
+                        fileErrors.push("- Berkas Kartu Keluarga (KK)");
                         isValid = false;
                     }
 
                     if (!aktaFile || !aktaFile.files || aktaFile.files.length === 0) {
-                        showToast("Harap upload file Akta Kelahiran", "error");
+                        if (aktaFile) aktaFile.classList.add("is-invalid");
+                        fileErrors.push("- Berkas Akta Kelahiran");
                         isValid = false;
                     }
 
-                    return isValid;
+                    if (fileErrors.length > 0) {
+                        showToast(
+                            "Pendaftaran gagal dikirim!\nHarap unggah dokumen wajib berikut:\n\n" +
+                            fileErrors.join("\n"),
+                            "error"
+                        );
+                    }
                 }
 
-                // Validasi biasa untuk section lain
-                const requiredFields = sectionElement.querySelectorAll("[required]");
-                let isValid = true;
-
-                requiredFields.forEach((field) => {
-                    if (!field.value.trim()) {
-                        field.classList.add("is-invalid");
-                        isValid = false;
-                    } else {
-                        field.classList.remove("is-invalid");
-                    }
-                });
-
+                // 3. FOCUS & SCROLL TO ERROR
                 if (!isValid) {
                     const firstInvalid = sectionElement.querySelector(".is-invalid");
                     if (firstInvalid) {
                         firstInvalid.scrollIntoView({
                             behavior: "smooth",
                             block: "center",
+                            rows: "nearest"
                         });
-                        firstInvalid.focus();
+                        setTimeout(() => firstInvalid.focus(), 300);
                     }
-                    showToast("Harap lengkapi semua field yang bertanda *", "error");
                 }
-
                 return isValid;
             }
+            document.addEventListener("DOMContentLoaded", function() {
+                const form = document.getElementById("registrationForm");
+                if (form) {
+                    form.addEventListener("submit", function(e) {
+                        e.preventDefault();
+                        if (!validateSection(currentStep)) {
+                            return;
+                        }
+                        form.submit();
+                    });
+                }
+            });
         </script>
     @endpush
 @endsection

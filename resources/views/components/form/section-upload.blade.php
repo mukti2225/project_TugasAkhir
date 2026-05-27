@@ -37,7 +37,7 @@
                     <div class="col-md-7 col-lg-8">
                         <div class="upload-wrapper">
                             <input type="file" name="ijazah_file" id="ijazah_file" class="upload-input"
-                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;" required>
+                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
                             <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
                                 <button type="button" class="btn btn-primary upload-btn px-4 py-2"
                                     onclick="document.getElementById('ijazah_file').click()">
@@ -94,7 +94,7 @@
                     <div class="col-md-7 col-lg-8">
                         <div class="upload-wrapper">
                             <input type="file" name="kk_file" id="kk_file" class="upload-input"
-                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;" required>
+                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
                             <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
                                 <button type="button" class="btn btn-primary upload-btn px-4 py-2"
                                     onclick="document.getElementById('kk_file').click()">
@@ -151,7 +151,7 @@
                     <div class="col-md-7 col-lg-8">
                         <div class="upload-wrapper">
                             <input type="file" name="akta_file" id="akta_file" class="upload-input"
-                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;" required>
+                                accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
                             <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
                                 <button type="button" class="btn btn-primary upload-btn px-4 py-2"
                                     onclick="document.getElementById('akta_file').click()">

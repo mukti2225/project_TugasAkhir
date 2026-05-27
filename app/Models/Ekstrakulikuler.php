@@ -11,5 +11,8 @@ class Ekstrakulikuler extends Model
     protected $fillable = [
         'nama',
         'foto',
+        'kategori',
+        'deskripsi',
+        'jadwal'
     ];
 }
