@@ -882,10 +882,8 @@ PTN SECTION
 .ptn .overlay img {
     top: 8px;
     left: 8px;
-    height: 35px;
     width: 35px;
     object-fit: fill;
-
     position: relative;
     z-index: 2;
 }
@@ -926,7 +924,6 @@ PTN SECTION
 
 @media (max-width: 768px) {
     .ptn .overlay img {
-        height: 20px;
         width: 20px;
     }
     .ptn .overlay::before {
