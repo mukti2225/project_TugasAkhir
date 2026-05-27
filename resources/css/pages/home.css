@@ -879,11 +879,12 @@ PTN SECTION
     pointer-events: auto;
 }
 
-.ptn .overlay img {
+.ptn .card-ptn .overlay img {
     top: 8px;
     left: 8px;
-    width: 35px;
-    object-fit: fill;
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
     position: relative;
     z-index: 2;
 }
@@ -897,9 +898,9 @@ PTN SECTION
     width: 65px;
     height: 65px;
 
-    background: #fff;
+    background: rgba(255, 255, 255, 0.95);
     border-bottom-right-radius: 100%;
-    border-top-left-radius: 10%;
+    border-top-left-radius: 0%;
 
     z-index: 1;
 }
@@ -924,7 +925,10 @@ PTN SECTION
 
 @media (max-width: 768px) {
     .ptn .overlay img {
-        width: 20px;
+        top: 5px !important;
+        left: 5px !important;
+        width: 24px !important;
+        height: 24px !important;
     }
     .ptn .overlay::before {
         width: 45px;
