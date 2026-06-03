@@ -12,7 +12,7 @@
             <div class="container">
 
                 <div class="artikel-toolbar">
-                    <div></div>{{-- spacer agar search tetap ke kanan --}}
+                    <div></div>
 
                     <form class="search-form" action="{{ route('berita.pengumuman.search') }}" method="GET">
                         <input type="search" name="keyword" placeholder="Cari pengumuman...">
@@ -27,7 +27,7 @@
                         @foreach ($pengumuman as $p)
                             <a href="{{ route('berita.pengumuman.show', $p->slug) }}" class="artikel-card">
                                 <div class="artikel-img-wrapper">
-                                    <img src="{{ asset('img/logo/Pengumuman.png') }}" alt="{{ $p->judul }}">
+                                    <img src="{{ asset('img/logo/pengumuman.png') }}" alt="{{ $p->judul }}">
                                 </div>
                                 <div class="artikel-body">
                                     <div class="artikel-meta">
