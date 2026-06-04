@@ -9,7 +9,7 @@
             <div class="about-badge-float">
                 <i class="bi bi-award-fill text-warning fs-4"></i>
                 <div>
-                    <div class="about-badge-num">Sejak 1997</div>
+                    <div class="about-badge-num">Sejak 1995</div>
                     <div class="about-badge-lbl">Berdiri & Berkembang</div>
                 </div>
             </div>
@@ -24,19 +24,15 @@
             <div class="about-divider"></div>
 
             <p class="about-text">
-                SMA Arif Rahman Hakim adalah sekolah yang berkarakter, berakhlak,
-                dan berilmu. Telah mendapat status PK (Pusat Keunggulan) dan
-                status BLUD (Badan Layanan Umum Daerah).
-            </p>
-            <p class="about-text">
-                Pada awalnya terdiri dari 2 program studi, kini telah berkembang
-                menjadi 3 program studi unggulan yang siap mencetak generasi berkualitas.
+                SMA Arif Rahman Hakim merupakan sekolah berakreditasi A. Mengusung suasana pembelajaran yang profesional
+                dan berorientasi masa depan, dengan fasilitas yang mendukung serta bertujuan mencetak lulusan siap
+                menghadapi tantangan global.
             </p>
 
             <!-- Stats -->
             <div class="about-stats">
                 <div class="about-stat">
-                    <span class="about-stat-num">3+</span>
+                    <span class="about-stat-num">3</span>
                     <span class="about-stat-lbl">Program Studi</span>
                 </div>
                 <div class="about-stat">

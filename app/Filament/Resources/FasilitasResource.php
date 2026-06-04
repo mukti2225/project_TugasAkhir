@@ -47,10 +47,18 @@ class FasilitasResource extends Resource
                         Forms\Components\FileUpload::make('foto')
                             ->label('Foto Fasilitas')
                             ->image()
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                                'image/heic',
+                                'image/heif',
+                            ])
                             ->required()
                             ->disk('public')
                             ->directory('fasilitas')
                             ->panelLayout('compact')
+                            ->imageEditor()
                             ->removeUploadedFileButtonPosition('right')
                             ->uploadButtonPosition('left')
                             ->maxSize(2048)

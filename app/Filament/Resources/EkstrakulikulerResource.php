@@ -98,6 +98,7 @@ class EkstrakulikulerResource extends Resource
                     ->label('')
                     ->square()
                     ->size(100)
+                    ->imageEditor()
                     ->defaultImageUrl(url('/images/no-image.png')),
 
                 Tables\Columns\TextColumn::make('nama')

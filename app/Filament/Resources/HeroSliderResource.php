@@ -65,8 +65,16 @@ class HeroSliderResource extends Resource
                     Forms\Components\FileUpload::make('image')
                         ->label('Gambar Banner')
                         ->image()
+                        ->acceptedFileTypes([
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                            'image/heic',
+                            'image/heif',
+                        ])
                         ->required()
                         ->disk('public')
+                        ->imageEditor()
                         ->directory('hero-slider')
                         ->panelLayout('integrated')
                         ->removeUploadedFileButtonPosition('right')

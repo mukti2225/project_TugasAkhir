@@ -66,9 +66,17 @@ class PtnResource extends Resource
                                 Forms\Components\FileUpload::make('foto')
                                     ->label('Foto Siswa')
                                     ->image()
+                                    ->acceptedFileTypes([
+                                        'image/jpeg',
+                                        'image/png',
+                                        'image/webp',
+                                        'image/heic',
+                                        'image/heif',
+                                    ])
                                     ->disk('public')
                                     ->directory('ptn/siswa')
                                     ->panelLayout('compact')
+                                    ->imageEditor()
                                     ->maxSize(2048)
                                     ->helperText('Upload foto siswa')
                                     ->openable()

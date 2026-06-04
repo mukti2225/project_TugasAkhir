@@ -36,7 +36,15 @@ class GalleryResource extends Resource
                     Forms\Components\FileUpload::make('image')
                         ->label('Foto Galeri')
                         ->image()
+                        ->acceptedFileTypes([
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                            'image/heic',
+                            'image/heif',
+                        ])
                         ->required()
+                        ->imageEditor()
                         ->disk('public')
                         ->directory('gallery')
                         ->panelLayout('compact')
