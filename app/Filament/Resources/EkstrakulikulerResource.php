@@ -44,6 +44,7 @@ class EkstrakulikulerResource extends Resource
                         Forms\Components\FileUpload::make('foto')
                             ->label('Foto Ekstrakurikuler')
                             ->image()
+                            ->imageEditor()
                             ->required()
                             ->disk('public')
                             ->directory('ekstrakulikuler-fotos')
@@ -98,7 +99,6 @@ class EkstrakulikulerResource extends Resource
                     ->label('')
                     ->square()
                     ->size(100)
-                    ->imageEditor()
                     ->defaultImageUrl(url('/images/no-image.png')),
 
                 Tables\Columns\TextColumn::make('nama')

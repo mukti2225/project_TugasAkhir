@@ -139,26 +139,25 @@
 
                 <div class="faq-item active">
                     <button class="faq-question" aria-expanded="true">
-                        <span>Apa itu SMA ARH?</span>
+                        <span>Apa itu SMA Arif Rahman Hakim?</span>
                         <span class="faq-chevron">&#9650;</span>
                     </button>
                     <div class="faq-answer">
-                        <p>SMA ARH Tangsel adalah Sekolah Menengah Atas Swasta yang berkomitmen untuk mencetak lulusan yang
-                            tidak hanya memiliki pengetahuan dan keterampilan teknis yang kuat, tetapi juga memiliki soft
-                            skills yang dibutuhkan di dunia kerja. Dengan empat kompetensi keahlian yang relevan dengan
-                            industri, kami memberikan kesempatan bagi siswa untuk memilih program studi yang sesuai dengan
-                            minat dan bakatnya.</p>
+                        <p>SMA Arif Rahman Hakim adalah sekolah menengah atas swasta berakreditasi A yang berkomitmen
+                            memberikan pendidikan berkualitas, didukung tenaga pendidik profesional dan fasilitas yang
+                            memadai untuk membentuk generasi unggul dan siap menghadapi masa depan.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
-                        <span>Program apa yang ditawarkan SMA ARH?</span>
+                        <span>Program apa yang ditawarkan SMA Arif Rahman Hakim?</span>
                         <span class="faq-chevron">&#9660;</span>
                     </button>
                     <div class="faq-answer">
-                        <p>SMA ARH menawarkan beberapa program keahlian di bidang teknologi informasi dan komunikasi yang
-                            relevan dengan kebutuhan industri saat ini.</p>
+                        <p>SMA Arif Rahman Hakim menawarkan program peminatan IPA, IPS, dan Bahasa yang dirancang untuk
+                            mengembangkan potensi akademik siswa sesuai dengan minat, bakat, dan rencana pendidikan mereka
+                            di masa depan.</p>
                     </div>
                 </div>
 
@@ -168,9 +167,10 @@
                         <span class="faq-chevron">&#9660;</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Pendaftaran dapat dilakukan secara online melalui website resmi sekolah atau datang langsung ke
-                            kantor penerimaan siswa baru. Ikuti petunjuk yang tersedia dan lengkapi semua dokumen yang
-                            dibutuhkan.</p>
+                        <p>Pendaftaran siswa baru dapat dilakukan secara online melalui website <a
+                                href="https://www.vynapseos.com/pendaftaran" target="_blank" rel="noopener noreferrer">
+                                SPMB SMA Arif Rahman Hakim
+                            </a>atau langsung di sekolah sesuai jadwal yang telah ditetapkan.</p>
                     </div>
                 </div>
 
@@ -180,8 +180,8 @@
                         <span class="faq-chevron">&#9660;</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Persyaratan umum meliputi fotokopi ijazah/SKHUN SMP, fotokopi KK dan KTP orang tua, pas foto
-                            terbaru, dan dokumen pendukung lainnya sesuai ketentuan sekolah.</p>
+                        <p>Persyaratan pendaftaran meliputi fotokopi Kartu Keluarga (KK), Ijazah atau Surat Keterangan Lulus
+                            (SKL), serta Akta Kelahiran calon siswa.</p>
                     </div>
                 </div>
 
@@ -193,17 +193,6 @@
                     <div class="faq-answer">
                         <p>Informasi biaya pendaftaran dapat diperoleh dengan menghubungi pihak sekolah secara langsung atau
                             melalui halaman kontak di website ini.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>Kapan masa pendaftaran ke SMA ARH dibuka?</span>
-                        <span class="faq-chevron">&#9660;</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Masa pendaftaran biasanya dibuka setiap tahun ajaran baru. Pantau terus website dan media sosial
-                            resmi sekolah untuk informasi jadwal penerimaan siswa baru terkini.</p>
                     </div>
                 </div>
 
