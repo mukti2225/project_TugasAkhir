@@ -156,6 +156,11 @@ class KritikSaranResource extends Resource
                     })
                     ->visible(fn ($record) => !$record->dibalas_at),
             ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ])
             ->filters([
                 Tables\Filters\SelectFilter::make('subjek')
                     ->options([
