@@ -290,17 +290,17 @@
 
                             ${ev.jam
                                 ? `<span class="ev-meta-item">
-                                                        <i class="bi bi-clock"></i>
-                                                        ${ev.jam}
-                                                    </span>`
+                                                            <i class="bi bi-clock"></i>
+                                                            ${ev.jam}
+                                                        </span>`
                                 : ''
                             }
 
                             ${ev.lokasi
                                 ? `<span class="ev-meta-item">
-                                                        <i class="bi bi-geo-alt"></i>
-                                                        ${ev.lokasi}
-                                                    </span>`
+                                                            <i class="bi bi-geo-alt"></i>
+                                                            ${ev.lokasi}
+                                                        </span>`
                                 : ''
                             }
 
@@ -308,9 +308,9 @@
 
                         ${ev.deskripsi
                             ? `<p class="ev-desc">
-                                                    <i class="bi bi-text-left me-1"></i>
-                                                    ${ev.deskripsi}
-                                            </p>`
+                                                        <i class="bi bi-text-left me-1"></i>
+                                                        ${ev.deskripsi}
+                                                </p>`
                             : ''
                         }
 

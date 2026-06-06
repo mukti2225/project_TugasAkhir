@@ -36,12 +36,12 @@
                     <span class="about-stat-lbl">Program Studi</span>
                 </div>
                 <div class="about-stat">
-                    <span class="about-stat-num">PK</span>
-                    <span class="about-stat-lbl">Pusat Keunggulan</span>
+                    <span class="about-stat-num">Leadership</span>
+                    <span class="about-stat-lbl">Program Unggulan</span>
                 </div>
                 <div class="about-stat">
-                    <span class="about-stat-num">BLUD</span>
-                    <span class="about-stat-lbl">Status Sekolah</span>
+                    <span class="about-stat-num">Beasiswa</span>
+                    <span class="about-stat-lbl">Dukungan Siswa</span>
                 </div>
                 <div class="about-stat">
                     <span class="about-stat-num">A</span>
