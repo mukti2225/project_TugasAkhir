@@ -116,8 +116,8 @@
                         <span class="ks-info-icon">🕐</span>
                         <div>
                             <p class="ks-info-title">Jam Operasional</p>
-                            <p class="ks-info-text">Senin - Jumat: 06.30 - 15.00</p>
-                            <p class="ks-info-text">Sabtu - Minggu: Tutup</p>
+                            <p class="ks-info-text">Senin - Sabtu: 06.30 - 15.00</p>
+                            <p class="ks-info-text">Minggu & Hari libur: Tutup</p>
                         </div>
                     </div>
                 </div>
