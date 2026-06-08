@@ -360,7 +360,7 @@ class FormulirResource extends Resource
                                 'image/jpeg',
                                 'image/png',
                             ])
-                            ->maxSize(2048)
+                            ->maxSize(5120)
                             ->downloadable()
                             ->openable()
                             ->previewable()
@@ -375,7 +375,7 @@ class FormulirResource extends Resource
                                 'image/jpeg',
                                 'image/png',
                             ])
-                            ->maxSize(2048)
+                            ->maxSize(5120)
                             ->downloadable()
                             ->openable()
                             ->previewable()
@@ -390,7 +390,7 @@ class FormulirResource extends Resource
                                 'image/jpeg',
                                 'image/png',
                             ])
-                            ->maxSize(2048)
+                            ->maxSize(5120)
                             ->downloadable()
                             ->openable()
                             ->previewable()

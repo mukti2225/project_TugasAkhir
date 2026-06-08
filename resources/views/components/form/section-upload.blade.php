@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-text mt-2">
                                 <i class="bi bi-info-circle me-1"></i>
-                                Format: PDF, JPG, PNG (Maks. 2MB)
+                                Format: PDF, JPG, PNG (Maks. 5MB)
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                             </div>
                             <div class="form-text mt-2">
                                 <i class="bi bi-info-circle me-1"></i>
-                                Format: PDF, JPG, PNG (Maks. 2MB)
+                                Format: PDF, JPG, PNG (Maks. 5MB)
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                             </div>
                             <div class="form-text mt-2">
                                 <i class="bi bi-info-circle me-1"></i>
-                                Format: PDF, JPG, PNG (Maks. 2MB)
+                                Format: PDF, JPG, PNG (Maks. 5MB)
                             </div>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                 <strong class="d-block mb-1">Catatan Penting:</strong>
                 <ul class="mb-0 small ps-3">
                     <li>Pastikan file yang diupload jelas dan terbaca</li>
-                    <li>File maksimal berukuran 2MB per dokumen</li>
+                    <li>File maksimal berukuran 5MB per dokumen</li>
                     <li>Format file yang diperbolehkan: PDF, JPG, JPEG, PNG</li>
                     <li>Nama file disarankan menggunakan format: [JenisDokumen]_[NamaLengkap] (contoh:
                         Ijazah_BudiSantoso.pdf)</li>
