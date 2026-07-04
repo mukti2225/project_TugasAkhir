@@ -102,9 +102,9 @@ class PendaftaranController extends Controller
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
 
-            'ijazah_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'kk_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'akta_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'ijazah_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'kk_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'akta_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ], [
             'nik.unique' => 'Maaf, NIK ini sudah pernah didaftarkan.',
             'nik.digits' => 'Format NIK tidak valid. Harus berjumlah 16 digit angka.',
@@ -117,9 +117,7 @@ class PendaftaranController extends Controller
         // ================== IJAZAH ==================
         if ($request->hasFile('ijazah_file')) {
             $file = $request->file('ijazah_file');
-
             $path = $file->store('berkas/ijazah', 'public');
-
             $data['ijazah_file_path'] = $path;
             $data['ijazah_file_name'] = $file->getClientOriginalName();
         }
@@ -127,9 +125,7 @@ class PendaftaranController extends Controller
         // ================== KK ==================
         if ($request->hasFile('kk_file')) {
             $file = $request->file('kk_file');
-
             $path = $file->store('berkas/kk', 'public');
-
             $data['kk_file_path'] = $path;
             $data['kk_file_name'] = $file->getClientOriginalName();
         }
@@ -137,19 +133,13 @@ class PendaftaranController extends Controller
         // ================== AKTA ==================
         if ($request->hasFile('akta_file')) {
             $file = $request->file('akta_file');
-
             $path = $file->store('berkas/akta', 'public');
-
             $data['akta_file_path'] = $path;
             $data['akta_file_name'] = $file->getClientOriginalName();
         }
-        // user_id required in database
-        $data['user_id'] = auth()->id() ?? 1;
-        
-        // SIMPAN
-        $pendaftaran = Pendaftaran::create($data);
 
-        // Beri otorisasi untuk bisa masuk ke halaman success
+        $data['user_id'] = auth()->id() ?? 1;
+        $pendaftaran = Pendaftaran::create($data);
         session(['nomor_pendaftaran' => $pendaftaran->id]);
 
         return redirect()->route('pendaftaran.success', ['id' => $pendaftaran->id]);
@@ -157,13 +147,11 @@ class PendaftaranController extends Controller
 
     public function success($id)
     {
-        // Pastikan hanya bisa akses halaman sukses jika baru saja mendaftar
         if (session('nomor_pendaftaran') != $id) {
             return redirect()->route('pendaftaran');
         }
 
         $pendaftaran = Pendaftaran::findOrFail($id);
-
         return view('pendaftaran.success', compact('pendaftaran'));
     }
 
@@ -179,15 +167,12 @@ class PendaftaranController extends Controller
         ], [
             'nomor_pendaftaran.required' => 'Nomor Pendaftaran wajib diisi.',
         ]);
-
         $pendaftaran = Pendaftaran::where('nomor_pendaftaran', $request->nomor_pendaftaran)->first();
-
         if (!$pendaftaran) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['nomor_pendaftaran' => 'Nomor Pendaftaran tidak ditemukan. Anda belum melakukan pendaftaran atau nomor salah.']);
         }
-
         return view('pendaftaran.cek', compact('pendaftaran'));
     }
 

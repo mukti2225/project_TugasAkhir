@@ -60,14 +60,3 @@ Route::get('/ekstrakulikuler',[KesiswaanController::class,'ekstrakulikuler'])->n
 //Kontak
 Route::post('/kritik-saran', [KontakController::class, 'store'])
     ->name('kritik-saran.store');
-
-// PREVIEW — hapus setelah selesai testing
-Route::get('/preview-email/kritik-saran', function () {
-    $kritikSaran = \App\Models\KritikSaran::latest()->first();
-    return new \App\Mail\KritikSaranMail($kritikSaran);
-});
-
-Route::get('/preview-email/balasan-kritik-saran', function () {
-    $kritikSaran = \App\Models\KritikSaran::whereNotNull('balasan')->latest()->first();
-    return new \App\Mail\BalasanKritikSaranMail($kritikSaran);
-});

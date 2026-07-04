@@ -242,9 +242,7 @@ class FormulirExport implements FromCollection, WithHeadings, WithMapping, Shoul
                  * ZEBRA STRIPE
                  */
                 for ($i = 2; $i <= $highestRow; $i++) {
-
                     if ($i % 2 == 0) {
-
                         $sheet->getStyle("A{$i}:{$highestColumn}{$i}")
                             ->applyFromArray([
                                 'fill' => [
@@ -259,5 +257,4 @@ class FormulirExport implements FromCollection, WithHeadings, WithMapping, Shoul
             },
         ];
     }
-
 }

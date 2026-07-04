@@ -75,7 +75,6 @@ class AdminPanelProvider extends PanelProvider
                 'Profile',
                 'Berita',
                 'Kesiswaan',
-                
             ])
             ->plugins([
                 AuthUIEnhancerPlugin::make()

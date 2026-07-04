@@ -14,21 +14,14 @@ class ValidateBerkasJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     */
     public function __construct(public Model $model)
     {
         //
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle(OcrValidationService $ocr): void
     {
         $results = [];
-
         if ($this->model->ijazah_file_path) {
             $results['ijazah'] = $ocr->validateIjazah(
                 $this->model->ijazah_file_path
@@ -47,11 +40,8 @@ class ValidateBerkasJob implements ShouldQueue
             );
         }
 
-        // Pastikan $allValid didefinisikan sebelum dipakai
         $allValid = !empty($results) && collect($results)->every(fn($r) => $r['valid']);
-
         $statusVerifikasi = $allValid ? 'diverifikasi' : 'ditolak';
-
         $this->model->update([
             'ocr_results'       => $results,
             'ocr_status'        => $allValid ? 'passed' : 'failed',

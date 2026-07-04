@@ -40,14 +40,7 @@ class FormulirResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-                        ->schema([
-
-                /*
-                |--------------------------------------------------------------------------
-                | DATA DIRI SISWA
-                |--------------------------------------------------------------------------
-                */
-
+                ->schema([
                 Section::make('Data Diri Siswa')
                     ->description('Isi data siswa dengan lengkap dan benar.')
                     ->icon('heroicon-o-user')
