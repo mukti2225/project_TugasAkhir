@@ -25,8 +25,9 @@
                                     class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-center p-4">
                                     <span class="text-overlay">{{ $item->title }}</span>
                                 </div>
-                                <img src="{{ asset('storage/' . $item->image) }}"
-                                    class="img w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
+                                    class="img w-100 h-100 object-fit-cover position-absolute top-0 start-0"
+                                    loading="lazy">
                             </div>
                         </div>
                     @endforeach

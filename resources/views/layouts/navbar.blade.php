@@ -2,7 +2,7 @@
     <div class="container">
 
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="/img/logo/ARH.png" height="40" class="logo-img me-2">
+            <img src="/img/logo/ARH.png" height="40" alt="Logo SMA Arif Rahman Hakim" class="logo-img me-2">
 
             <div class="brand-text">
                 <span class="title">SMA Arif Rahman Hakim</span>

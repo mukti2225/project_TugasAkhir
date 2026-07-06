@@ -21,9 +21,11 @@
                     @foreach ($ptn as $ptn)
                         <div class="item">
                             <div class="card-ptn" data-aos="flip-right">
-                                <img src="{{ asset('storage/' . $ptn->foto) }}">
+                                <img src="{{ asset('storage/' . $ptn->foto) }}" alt="{{ $ptn->nama }}"
+                                    loading="lazy">
                                 <div class="overlay">
-                                    <img src="{{ asset('storage/' . $ptn->logo) }}">
+                                    <img src="{{ asset('storage/' . $ptn->logo) }}" alt="{{ $ptn->universitas }}"
+                                        loading="lazy">
                                     <div class="text">
                                         <h2>{{ $ptn->nama }}</h2>
                                         <h5>{{ $ptn->universitas }}</h5>
